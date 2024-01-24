@@ -60,7 +60,7 @@ routerUser.post('/register', async (req, res) => {
     }
 })
 
-// active account
+// activate account
 // const link = `http:localhost:3000/api/v1/users/confirm/${token.token}`;
 routerUser.get('/confirm/:token', async (req, res) => {
     try {

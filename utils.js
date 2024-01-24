@@ -13,14 +13,3 @@ export const generateLogToken = (user) => {
 };
 
 
-
-    // try {
-    //     const token = await Token.findOne({ token: req.params.token });
-    //     console.log(token)
-    //     await User.updateOne({ _id: token.userId }, { $set: { verified: true } });
-    //     await Token.findByIdAndDelete(token._id)
-    //     console.log('email verified bro')
-    //     res.json({ msg: "email verified" })
-    // } catch (error) {
-    //     res.status(400).json({ msg: 'Error while verifying' })
-    // }
