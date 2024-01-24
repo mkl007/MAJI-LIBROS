@@ -25,12 +25,9 @@ routerUser.post('/register', async (req, res) => {
         const tok = tokenBytes.toString('hex')
         const token = new Token({ userId: newUser._id, token: tok });
         // // send mail
-        // const link = `http:localhost:3000/api/v1/confirm/${token.token}`;
         const link = `http://localhost:3000/api/v1/confirm/${token.token}`;
         const transporter = nodemailer.createTransport({
-            // host: 'smtp.gmail.com',
             service: "gmail",
-
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
@@ -147,7 +144,6 @@ routerUser.post('/reset_password', async (req, res) => {
                 //  await newUser.save()
                 await token.save()
                 return res.json({ message: "Password reset requested. Please check your email " });
-                // ME QUEDE AQUI, TRATANDO DE VERIFICAR SI EL EMAIL PARA RESETEAR LA PASSWORD FUNCIOA
             }
         });
 
@@ -175,7 +171,7 @@ routerUser.put('/password_reset/:token', async (req, res) => {
         await User.updateOne({ _id: token.userId }, { $set: { password: passwordToSave } });
         await Token.findByIdAndDelete(token._id)
         console.log('Password successfully reset')
-        res.json({ msg: "Your password has been changed. Log into your account"})
+        res.json({ msg: "Your password has been changed. Log into your account" })
     } catch (error) {
         console.log(error)
         res.status(400).json({ msg: 'Error while verifying', error })
@@ -195,4 +191,3 @@ routerUser.get('/testing', verifyToken, async (req, res, next) => {
 
     }
 })
-
