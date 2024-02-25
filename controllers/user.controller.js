@@ -5,12 +5,14 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import User from "../models/user.model.js";
 import Token from "../models/token.model.js";
+import { sendConfirmationEmail } from "../utils/email.utils.js";
+
 
 export const registerUser = async (req, res) => {
   try {
     const verifyEmail = await User.findOne({ email: req.body.email });
     if (verifyEmail)
-      return res.json({ msg: "Email already exist. Do you want to login?" });
+      return res.status(201).json({ msg: "Email already exist. Do you want to login?" });
     const newUser = new User({
       fullname: req.body.fullname,
       email: req.body.email,
@@ -23,52 +25,20 @@ export const registerUser = async (req, res) => {
     const token = new Token({ userId: newUser._id, token: tok });
 
     const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}`;
+    // Sending confirmation email
+    const emailResult = await sendConfirmationEmail(newUser, verificationLink);
+    if (emailResult.success) {
+      await newUser.save();
+      await token.save();
+      return res.status(200).json({
+        status: 'SUCCESSFULL',
+        message: "Email successfully registered. Please check your mailbox to validate your account",
+        newUser,
+      });
+    } else {
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      port: 587,
-      secure: false,
-    });
-
-    // confirm registration
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: newUser.email,
-      subject: "MAJI BOOKS ",
-      html: `<div>
-        <p>Welcome, ${newUser.fullname}! 🎉</p>
-        <p>We are thrilled to have you as a new member of our community. 🌟</p>
-        <p>Your journey with our app is about to begin, and we can't wait to share exciting experiences together. 🚀</p>
-        <p>To get started, please confirm your email address by clicking the link below:</p>
-        <a href="${verificationLink}">Confirm your account here</a>
-        <p>If you have any questions or need assistance, feel free to reach out to our support team. 🤝</p>
-        <p>Thank you for choosing our app! 🙌</p>
-        <p>Best regards, 🌈</p>
-        <p>The Your App Team 🚀</p>
-      </div>`,
-    };
-
-    transporter.sendMail(mailOptions, async function (error, info) {
-      if (error) {
-        console.log(error);
-        return res.status(500).json({
-          status: "FAILED",
-          message: "Error :( Email not found. Please check the email provided",
-        });
-      } else {
-        await newUser.save();
-        await token.save();
-        return res.json({
-          message: "Please check your mail box to validate your account",
-          token,
-          newUser,
-        });
-      }
-    });
+      return res.status(500).json({ message: "Error sending confirmation email" });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internet Error. Please refresh the page and try again" })
@@ -186,3 +156,4 @@ export const passwordResetHandler = async (req, res) => {
   }
 
 }
+

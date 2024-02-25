@@ -45,3 +45,4 @@ EMAIL_PASS=<Replace with yor email's password or use password apps>
    ```
  
  If succesfull an email confirmatio should be sent to your email. In case it doesnt work check the console error and solve the port issue. 
+         

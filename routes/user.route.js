@@ -19,7 +19,16 @@ routerUser.put('/password_reset/:token', passwordResetHandler)
 
 
 // For testing propusess
-routerUser.get('/testing', verifyToken, async (req, res, next) => {
+routerUser.post('/testing', async(req, res) => {
+    try {
+        return res.status(200).json({msg: 'Went through it '})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send('Error, not went thru')
+    }
+})
+
+routerUser.get('/testing2', verifyToken, async (req, res, next) => {
     try {
         const cukies = req.userId
         const user = await User.findById(req.userId)

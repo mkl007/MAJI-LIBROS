@@ -1,0 +1,17 @@
+me quede :
+
+an all test suites.
+
+Jest has detected the following 1 open handle potentially keeping Jest from exiting:
+
+  ●  TCPWRAP
+
+      16 |
+      17 | const db = async () => {
+    > 18 |     await mongoose.connect(process.env.MONGO_URI)
+         |                    ^
+      19 |         .then(() => {
+      20 |             // console.log('Connected to DB')
+      21 |         })
+
+Nos falta implementar el test para los endpoint del usuario.
