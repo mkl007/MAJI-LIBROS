@@ -178,7 +178,7 @@ export const testingData = async (req, res) => {
     let email = await User.findOne({ email: req.body.email })
     email = email.email;
     if (email) {
-      return res.status(200).json({ msg: 'success', emai1l })
+      return res.status(200).json({ msg: 'success', email })
     } else {
       return res.status(404).json({ msg: 'failure from 404', email })
     }
