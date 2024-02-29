@@ -157,3 +157,33 @@ export const passwordResetHandler = async (req, res) => {
 
 }
 
+// // for testing data user
+// export const testingData = async (req, res) => {
+//   try {
+
+//     const name = req.body.name
+//     const email = req.body.email
+//     //Testing with DBs
+//     const findUser = User.findOne(email)
+//     if(findUser) return 
+//     return res.status(200).json({msg: 'success', email, name})
+//   } catch (error) {
+//     return res.status(504).json({error, msg: 'failure'})
+//   }
+// }
+
+// for testing DBs data
+export const testingData = async (req, res) => {
+  try {
+    let email = await User.findOne({ email: req.body.email })
+    email = email.email;
+    if (email) {
+      return res.status(200).json({ msg: 'success', emai1l })
+    } else {
+      return res.status(404).json({ msg: 'failure from 404', email })
+    }
+
+  } catch (error) {
+    return res.status(500).json({ error, msg: 'failure' })
+  }
+}
