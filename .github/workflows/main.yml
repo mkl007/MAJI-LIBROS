@@ -2,7 +2,7 @@ name: Node.js Package
 
 on:
   push:
-    branches: main
+    branches: addingUnitsTest
 jobs:
   build:
     runs-on: ubuntu-latest
