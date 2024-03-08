@@ -8,11 +8,20 @@ import Token from "../models/token.model.js";
 import { sendConfirmationEmail } from "../utils/email.utils.js";
 
 
+export const testingNow = async (req, re) => {
+  try {
+    const email = req.body.email
+    return res.status(200).json({ email })
+  } catch (error) {
+    return res.status(500).json({ error, msg: 'no working' })
+  }
+}
+
 export const registerUser = async (req, res) => {
   try {
     const verifyEmail = await User.findOne({ email: req.body.email });
     if (verifyEmail)
-      return res.status(201).json({ msg: "Email already exist. Do you want to login?" });
+      return res.status(409).json({ msg: "Email already exist. Do you mean to login?" });
     const newUser = new User({
       fullname: req.body.fullname,
       email: req.body.email,
@@ -36,12 +45,10 @@ export const registerUser = async (req, res) => {
         newUser,
       });
     } else {
-
-      return res.status(500).json({ message: "Error sending confirmation email" });
+      return res.status(404).json({ message: "Error sending confirmation email. Email no found, double check email address" });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internet Error. Please refresh the page and try again" })
+    res.status(500).json({ message: "Internal Error. Please refresh the page and try again" })
   }
 };
 
@@ -50,10 +57,10 @@ export const emailTokenConfimation = async (req, res) => {
     const token = await Token.findOne({ token: req.params.token });
     await User.updateOne({ _id: token.userId }, { $set: { verified: true } });
     await Token.findByIdAndDelete(token._id)
-    res.json({ msg: "email verified" })
+    res.status(200).json({ message: "email verified" })
   } catch (error) {
-    console.log(error)
-    res.status(400).json({ msg: 'Error while verifying', Token })
+    // console.log(error)
+    res.status(502).json({ message: 'Error while verifying or email already verified' })
   }
 }
 
@@ -62,22 +69,22 @@ export const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email })
     if (!user) {
-      return res.json({ msg: 'User no found with email provided. Please review the email.' })
+      return res.status(404).json({ message: 'User no found with email provided, please review the email or register your email' })
     } else if (user && user.verified) {
       const paswrdDeshash = bcrypt.compareSync(password, user.password)
-      if (!paswrdDeshash) return res.json({ msg: "Wrong password" })
+      if (!paswrdDeshash) return res.statu(502).json({ message: "Wrong password" })
       const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: '1800s' })
       res.cookie('token', token, {
         httpOnly: false,
         sameSite: 'none',
         secure: true
       })
-      res.json({ msg: "Logged in", user })
+      res.status(200).json({ message: "Logged in", user })
     } else {
-      res.json({ msg: "Email not verified. Please check your Mail box or register your account" })
+      res.status(400).json({ message: "Email not verified. Please check your Mail box to verify your email or register your account" })
     }
   } catch (error) {
-    console.log(error)
+    return res.status(404).json({message: 'error', error})
   }
 }
 
@@ -88,8 +95,8 @@ export const logout = async (req, res) => {
     })
     return res.status(200).json({ msg: 'Loggin out...' })
   } catch (error) {
-    console.log("Error", error)
-    return res.status(500).send("Internal Error")
+    //console.log("Error", error)
+    return res.status(500).json({message: "Internal Error"})
   }
 }
 
@@ -158,32 +165,34 @@ export const passwordResetHandler = async (req, res) => {
 }
 
 // // for testing data user
-// export const testingData = async (req, res) => {
-//   try {
-
-//     const name = req.body.name
-//     const email = req.body.email
-//     //Testing with DBs
-//     const findUser = User.findOne(email)
-//     if(findUser) return 
-//     return res.status(200).json({msg: 'success', email, name})
-//   } catch (error) {
-//     return res.status(504).json({error, msg: 'failure'})
-//   }
-// }
-
-// for testing DBs data
 export const testingData = async (req, res) => {
   try {
-    let email = await User.findOne({ email: req.body.email })
-    email = email.email;
-    if (email) {
-      return res.status(200).json({ msg: 'success', email })
-    } else {
-      return res.status(404).json({ msg: 'failure from 404', email })
-    }
 
+    const name = req.body.name
+    // const email = 'mk1ultra1eb@gmail.com'
+    let email = await User.findOne({ email: req.body.email })
+    if (email) {
+      email = email.email;
+      return res.status(200).json({ msg: 'success', email })
+    }
+    return res.status(404).json({ msg: 'failure', email })
   } catch (error) {
-    return res.status(500).json({ error, msg: 'failure' })
+    return res.status(504).json({ error, msg: 'failure' })
   }
 }
+
+// for testing DBs data
+// export const testingData = async (req, res) => {
+//   try {
+//     let email = await User.findOne({ email: req.body.email })
+//     email = email.email;
+//     if (email) {
+//       return res.status(200).json({ msg: 'success', email })
+//     } else {
+//       return res.status(404).json({ msg: 'failure from 404' })
+//     }
+
+//   } catch (error) {
+//     return res.status(500).json({ error, msg: 'failure' })
+//   }
+// }

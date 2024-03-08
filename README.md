@@ -43,6 +43,12 @@ EMAIL_PASS=<Replace with yor email's password or use password apps>
     "password": "name"
     }
    ```
- 
- If succesfull an email confirmatio should be sent to your email. In case it doesnt work check the console error and solve the port issue. 
+ # Adding Faker js, a js library for testing that provides with random information
+
+```shell 
+   npm install @faker-js/faker --save-dev
+```
+
+[Faker guide](https://fakerjs.dev/guide/)
+
          
