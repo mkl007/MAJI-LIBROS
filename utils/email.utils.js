@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export async function sendConfirmationEmail(newUser, verificationLink) {
   try {
     // const verificationLink = `${process.env.BACKEND_URI}/confirm/${newUser.token}`;
-    
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -13,7 +13,7 @@ export async function sendConfirmationEmail(newUser, verificationLink) {
       port: 587,
       secure: false,
     });
-    
+
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: newUser.email,
@@ -30,11 +30,10 @@ export async function sendConfirmationEmail(newUser, verificationLink) {
         <p>MajiBooks 🚀</p>
       </div>`,
     };
-    
+
     await transporter.sendMail(mailOptions);
     return { success: true };
   } catch (error) {
-    console.error(error);
     return { success: false, error: "Email sending failed" };
   }
 }
