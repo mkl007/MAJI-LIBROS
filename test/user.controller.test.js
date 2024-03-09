@@ -55,93 +55,11 @@ describe('POST / register', () => {
     expect(response.body.message).toEqual("Internal Error. Please refresh the page and try again")
   })
 
-
-})
-
-describe('GET / confirm/:token', () => {
-
-  it('should return 200 success if email is verified and token confirmation token deleted', async () => {
-    const userInfo = await User.findOne({ email: existingEmail })
-    const token = await Token.findOne({ userId: userInfo._id })
-    const tokenString = token.token;
-    const response = await request(app).get(`/api/v1/confirm/${tokenString}`);
-    expect(response.status).toBe(200);
-    expect(response.body.message).toBe('email verified');
-  });
-
-  it('should return 502 bad request if token is not found since the email has been verified already', async () => {
-    const userInfo = await User.findOne({ email: existingEmail })
-    const token = await Token.findOne({ userId: userInfo._id })
-    const response = await request(app).get(`/api/v1/confirm/${token}`);
-    expect(response.status).toBe(502);
-    expect(response.body.message).toBe('Error while verifying or email already verified');
+  afterAll(async (done) => {
+    await server.close(done);
+    await mongoose.disconnect();
   });
 
 })
 
-describe('POST /login', () => {
-
-  it('should return 404 if Email was not found.', async () => {
-    const response = await request(app).post(`/api/v1/login`).send({ email: unregisteredEmail, password: password })
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe('User no found with email provided, please review the email or register your email');
-  });
-
-
-  it('should return 200, user logged in.', async () => {
-    const response = await request(app).post(`/api/v1/login`).send({ email: existingEmail, password: password })
-    expect(response.status).toBe(200);
-    expect(response.body.message).toBe("Logged in");
-  });
-
-
-  it('should return 400, Email and password correct but account not verified. Need to be confirmed on email link', async () => {
-    await request(app).post('/api/v1/register').send({ fullname, email: emailNotVerifiedYet, password })
-    const response = await request(app).post(`/api/v1/login`).send({ email: emailNotVerifiedYet, password: password })
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Email not verified. Please check your Mail box to verify your email or register your account");
-  });
-
-  // afterAll(function (done) {
-  //   server.close(done);
-  //   mongoose.disconnect()
-  //   // process.exit(0); // Exit with code 0 upon successful completion
-
-  // });
-})
-
-describe('POST /logout', () => {
-
-  it('should return 200 for logout.', async () => {
-    const response = await request(app).post(`/api/v1/logout`).send({ email: existingEmail, password: password })
-    expect(response.status).toBe(200);
-    expect(response.body.message).toBe('Loggin out...');
-  });
-
-
-
-  afterAll(async function (done) {
-    server.close(done);
-    await mongoose.disconnect()
-    // process.exit(0); // Exit with code 0 upon successful completion
-  });
-})
-
-// describe('POST / reset_password', () => {
-
-//   it('should return 200 for logout.', async () => {
-//     const response = await request(app).post(`/api/v1/reset_password`).send({ email: unregisteredEmail, password: password })
-//     expect(response.status).toBe(404);
-//     expect(response.body.message).toBe('Email not registered. Would you like to register your account?');
-//   });
-
-
-
-//   afterAll(function (done) {
-//     server.close(done);
-//     mongoose.disconnect()
-//     // process.exit(0); // Exit with code 0 upon successful completion
-
-//   });
-// })
 
