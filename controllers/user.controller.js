@@ -93,7 +93,7 @@ export const logout = async (req, res) => {
     res.cookie('token', null, {
       expires: new Date(0)
     })
-    return res.status(200).json({ msg: 'Loggin out...' })
+    return res.status(200).json({ message: 'Loggin out...' })
   } catch (error) {
     //console.log("Error", error)
     return res.status(500).json({message: "Internal Error"})
@@ -104,7 +104,7 @@ export const passwordReset = async (req, res) => {
   try {
     // verify the email
     const verifyEmail = await User.findOne({ email: req.body.email })
-    if (!verifyEmail) return res.json({ msg: 'Email not registered. Would you like to register your account?' })
+    if (!verifyEmail) return res.status(404).json({ message: 'Email not registered. Would you like to register your account?' })
     const tokenBytes = randomFillSync(Buffer.alloc(16))
     const tok = tokenBytes.toString('hex')
 
@@ -132,13 +132,14 @@ export const passwordReset = async (req, res) => {
       } else {
         //  await newUser.save()
         await token.save()
-        return res.json({ message: "Password reset requested. Please check your email " });
+        return res.status(200).json({ message: "Password reset requested. Please check your email " });
       }
     });
 
 
   } catch (error) {
     console.log('error while resetting the password! ', error)
+    res.status(500).json({message: 'error while resetting the password!'})
   }
 }
 
