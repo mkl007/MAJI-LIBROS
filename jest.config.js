@@ -1,5 +1,8 @@
+// jest.config.js
+
 export default {
-    preset: 'jest',
-    testTimeout: 15000 // 15 seconds
+    // Project-specific Jest configurations
+    testMatch: ['**/test/*.test.js'], // Update the pattern to match your test file
+    testTimeout: 15000, // Set test timeout
   };
   
