@@ -121,7 +121,7 @@ describe('POST /login', () => {
   afterAll(function (done) {
     server.close(done);
     mongoose.disconnect()
-    process.exit(0); // Exit with code 0 upon successful completion
+    // process.exit(0); // Exit with code 0 upon successful completion
 
   });
 })
