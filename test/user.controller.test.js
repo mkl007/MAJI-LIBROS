@@ -58,10 +58,10 @@ describe('POST / register', () => {
 })
 
 describe('GET / confirm/:token', () => {
-  beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
+  // beforeAll(async () => {
+  //   await mongoose.connect(process.env.MONGO_URI);
 
-  });
+  // });
 
   it('should return 200 success if email is verified and token confirmation token deleted', async () => {
     const userInfo = await User.findOne({ email: existingEmail })
@@ -87,10 +87,10 @@ describe('GET / confirm/:token', () => {
 })
 
 describe('POST /login', () => {
-  beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
+  // beforeAll(async () => {
+  //   await mongoose.connect(process.env.MONGO_URI);
 
-  });
+  // });
 
   it('should return 404 if Email was not found.', async () => {
     const response = await request(app).post(`/api/v1/login`).send({ email: unregisteredEmail, password: password })
