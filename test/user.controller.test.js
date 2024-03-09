@@ -120,9 +120,9 @@ describe('POST /logout', () => {
 
 
 
-  afterAll(function (done) {
+  afterAll(async function (done) {
     server.close(done);
-    mongoose.disconnect()
+    await mongoose.disconnect()
     // process.exit(0); // Exit with code 0 upon successful completion
   });
 })
