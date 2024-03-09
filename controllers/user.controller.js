@@ -138,7 +138,7 @@ export const passwordReset = async (req, res) => {
 
 
   } catch (error) {
-    console.log('error while resetting the password! ', error)
+    // console.log('error while resetting the password! ', error)
     res.status(500).json({message: 'error while resetting the password!'})
   }
 }

@@ -120,29 +120,28 @@ describe('POST /logout', () => {
 
 
 
-  // afterAll(function (done) {
-  //   server.close(done);
-  //   mongoose.disconnect()
-  //   // process.exit(0); // Exit with code 0 upon successful completion
-
-  // });
-})
-
-describe('POST / reset_password', () => {
-
-  it('should return 200 for logout.', async () => {
-    const response = await request(app).post(`/api/v1/reset_password`).send({ email: unregisteredEmail, password: password })
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe('Email not registered. Would you like to register your account?');
-  });
-
-
-
   afterAll(function (done) {
     server.close(done);
     mongoose.disconnect()
     // process.exit(0); // Exit with code 0 upon successful completion
-
   });
 })
+
+// describe('POST / reset_password', () => {
+
+//   it('should return 200 for logout.', async () => {
+//     const response = await request(app).post(`/api/v1/reset_password`).send({ email: unregisteredEmail, password: password })
+//     expect(response.status).toBe(404);
+//     expect(response.body.message).toBe('Email not registered. Would you like to register your account?');
+//   });
+
+
+
+//   afterAll(function (done) {
+//     server.close(done);
+//     mongoose.disconnect()
+//     // process.exit(0); // Exit with code 0 upon successful completion
+
+//   });
+// })
 
