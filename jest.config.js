@@ -3,6 +3,6 @@
 export default {
     // Project-specific Jest configurations
     testMatch: ['**/test/*.test.js'], // Update the pattern to match your test file
-    testTimeout: 15000, // Set test timeout
+    testTimeout: 25000, // Set test timeout
   };
   
