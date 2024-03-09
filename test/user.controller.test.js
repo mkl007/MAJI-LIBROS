@@ -8,10 +8,10 @@ import Token from '../models/token.model.js';
 
 const fullname = faker.person.fullName()
 const unregisteredEmail = "mk1ultra1eb@gmail.com"
-const existingEmail = "fay.lebsack@ethereal.email"
+const existingEmail = "xofopeb186@bizatop.com"
 const password = faker.internet.password()
 const wrongPassword = 'wrongPassword'
-const emailNotVerifiedYet = "fifoto2648@artgulin.com"
+const emailNotVerifiedYet = "hulda.stracke@ethereal.email"
 const invalidEmail = faker.internet.email()
 
 
