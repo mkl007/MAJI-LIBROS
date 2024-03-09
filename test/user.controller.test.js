@@ -55,7 +55,7 @@ describe('POST / register', () => {
     expect(response.body.message).toEqual("Internal Error. Please refresh the page and try again")
   })
 
-  afterAll(async (done) => {
+  afterAll(async function(done) {
     await server.close(done);
     await mongoose.disconnect();
   });
