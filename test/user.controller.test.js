@@ -89,7 +89,7 @@ describe('GET / confirm/:token', () => {
 describe('POST /login', () => {
   // beforeAll(async () => {
   //   await mongoose.connect(process.env.MONGO_URI);
-// 
+  // 
   // });
 
   it('should return 404 if Email was not found.', async () => {
@@ -121,5 +121,7 @@ describe('POST /login', () => {
   afterAll(function (done) {
     server.close(done);
     mongoose.disconnect()
+    process.exit(0); // Exit with code 0 upon successful completion
+
   });
 })
