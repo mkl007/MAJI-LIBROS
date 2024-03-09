@@ -20,7 +20,8 @@ describe('POST / register', () => {
   let response;
   beforeAll(async () => {
     await mongoose.connection.dropDatabase();
-    await mongoose.connect(process.env.MONGO_URI);
+    // await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect('mongodb://127.0.0.1:27017/simpleAuth');
   });
 
   test('Should return 200 since the new user is now successfully registered, the email was sent. Only waiting for email verification at end of user', async () => {
