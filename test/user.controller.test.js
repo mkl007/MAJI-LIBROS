@@ -8,7 +8,7 @@ import Token from '../models/token.model.js';
 
 const fullname = faker.person.fullName()
 const unregisteredEmail = "mk1ultra1eb@gmail.com"
-const existingEmail = "xofopeb186@bizatop.com"
+const existingEmail = "hulda.stracke@ethereal.email"
 const password = faker.internet.password()
 const wrongPassword = 'wrongPassword'
 const emailNotVerifiedYet = "hulda.stracke@ethereal.email"
@@ -16,11 +16,12 @@ const invalidEmail = faker.internet.email()
 
 
 describe('POST / register', () => {
+  // let uri = "mongodb+srv://Nakama007:Nakama007@cluster0.m73fahy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
   let response;
   beforeAll(async () => {
     try {
-      await mongoose.connection.dropDatabase();
+      // await mongoose.connection.dropDatabase();
       await mongoose.connect(process.env.MONGO_URI);
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
@@ -55,8 +56,8 @@ describe('POST / register', () => {
     expect(response.body.message).toEqual("Internal Error. Please refresh the page and try again")
   })
 
-  afterAll(async function(done) {
-    await server.close(done);
+  afterAll(async function () {
+    await server.close();
     await mongoose.disconnect();
   });
 

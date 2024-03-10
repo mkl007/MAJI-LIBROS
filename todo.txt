@@ -1,2 +1,5 @@
 Issue: create emailConfirmationToken link that expires within 24 hours. 
 If email is not verified after that time, user credentials will be deleted from DB 
+
+
+anadir nodemon 
