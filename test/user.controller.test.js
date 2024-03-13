@@ -16,13 +16,14 @@ const invalidEmail = faker.internet.email()
 
 
 describe('POST / register', () => {
-  // let uri = "mongodb+srv://Nakama007:Nakama007@cluster0.m73fahy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  let uri = "mongodb+srv://Nakama007:Nakama007@cluster0.m73fahy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
   let response;
   beforeAll(async () => {
     try {
       // await mongoose.connection.dropDatabase();
-      await mongoose.connect(process.env.MONGO_URI);
+      await mongoose.connect(uri);
+      // await mongoose.connect(process.env.MONGO_URI);
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
     }
