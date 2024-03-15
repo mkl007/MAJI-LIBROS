@@ -148,19 +148,19 @@ export const passwordResetHandler = async (req, res) => {
     const { password, passwordConfimation } = req.body
     const token = await Token.findOne({ token: req.params.token });
     const findUser = await User.findOne({ _id: token.userId })
-    if (!findUser) return res.json({ msg: "user/email no exists" })
+    if (!findUser) return res.status(404).json({ message: "user/email no exists" })
     const paswrdDeshash = bcrypt.compareSync(password, findUser.password)
-    if (paswrdDeshash) return res.json({ msg: 'This password has been used before. Try different password.' })
+    if (paswrdDeshash) return res.status(400).json({ message: 'This password has been used before. Try different password.' })
     // 2. verify if the password confirmation is the same 
-    if (password !== passwordConfimation) return res.json({ msg: 'Password no match, please enter the same password' })
+    if (password !== passwordConfimation) return res.status(400).json({ message: 'Password no match, please enter the same password' })
     const passwordToSave = await bcrypt.hash(password, 10)
     await User.updateOne({ _id: token.userId }, { $set: { password: passwordToSave } });
     await Token.findByIdAndDelete(token._id)
     console.log('Password successfully reset')
-    res.json({ msg: "Your password has been changed. Log into your account" })
+    res.status(200).json({ msg: "Your password has been changed. Log into your account" })
   } catch (error) {
     console.log(error)
-    res.status(400).json({ msg: 'Error while verifying', error })
+    res.status(500).json({ msg: 'Error while verifying', error })
   }
 
 }
