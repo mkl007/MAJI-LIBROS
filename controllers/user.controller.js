@@ -157,10 +157,10 @@ export const passwordResetHandler = async (req, res) => {
     await User.updateOne({ _id: token.userId }, { $set: { password: passwordToSave } });
     await Token.findByIdAndDelete(token._id)
     console.log('Password successfully reset')
-    res.status(200).json({ msg: "Your password has been changed. Log into your account" })
+    res.status(200).json({ message: "Your password has been changed. Log into your account" })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ msg: 'Error while verifying', error })
+    res.status(500).json({ message: 'Error while verifying', error })
   }
 
 }

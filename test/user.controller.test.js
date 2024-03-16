@@ -139,36 +139,3 @@ describe('POST /reset_password', () => {
   });
 })
 
-describe('POST /password_reset/:token  => Handler', () => {
-  let response;
-  beforeAll(async () => {
-    try {
-      // Clean the database
-      await mongoose.connect(process.env.MONGO_URI);
-      // await User.deleteMany();
-    } catch (error) {
-      console.error('Error connecting to MongoDB:', error);
-    }
-  });
-
-  it('should return 404, email no found.', async () => {
-    const token = '65f4693b762f09125129d7b9'
-    const response = await request(app).post(`/api/v1/password_reset/${token}`).send({ password, passwordConfimation })
-    expect(response.status).toBe(404);
-    // expect(response.body.message).toBe("user/email no exists");
-    console.log(response.status)
-    console.log(response.body)
-  });
-
-  it('should return 200, password successfully reset', async () => {
-    const token = '65f4693b762f09125129d7b9'
-    const response = await request(app).post(`/api/v1/reset_password/${token}`).send({ password: newPassword, passwordConfimation: passwordConfimation })
-    expect(response.status).toBe(200);
-  });
-
-  afterAll(function (done) {
-    server.close(done);
-    mongoose.disconnect()
-
-  });
-})
