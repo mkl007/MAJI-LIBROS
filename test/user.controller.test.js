@@ -7,7 +7,6 @@ import User from '../models/user.model.js';
 import Token from '../models/token.model.js';
 
 const fullname = faker.person.fullName()
-const ldf = ''
 const unregisteredEmail = "mk1ultra1eb@gmail.com"
 const existingEmail = "fipef83364@cmheia.com"
 const password = faker.internet.password()
