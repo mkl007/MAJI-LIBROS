@@ -8,14 +8,6 @@ import Token from "../models/token.model.js";
 import { sendConfirmationEmail } from "../utils/email.utils.js";
 
 
-export const testingNow = async (req, re) => {
-  try {
-    const email = req.body.email
-    return res.status(200).json({ email })
-  } catch (error) {
-    return res.status(500).json({ error, msg: 'no working' })
-  }
-}
 
 export const registerUser = async (req, res) => {
   try {
@@ -165,35 +157,4 @@ export const passwordResetHandler = async (req, res) => {
 
 }
 
-// // for testing data user
-export const testingData = async (req, res) => {
-  try {
 
-    const name = req.body.name
-    // const email = 'mk1ultra1eb@gmail.com'
-    let email = await User.findOne({ email: req.body.email })
-    if (email) {
-      email = email.email;
-      return res.status(200).json({ msg: 'success', email })
-    }
-    return res.status(404).json({ msg: 'failure', email })
-  } catch (error) {
-    return res.status(504).json({ error, msg: 'failure' })
-  }
-}
-
-// for testing DBs data
-// export const testingData = async (req, res) => {
-//   try {
-//     let email = await User.findOne({ email: req.body.email })
-//     email = email.email;
-//     if (email) {
-//       return res.status(200).json({ msg: 'success', email })
-//     } else {
-//       return res.status(404).json({ msg: 'failure from 404' })
-//     }
-
-//   } catch (error) {
-//     return res.status(500).json({ error, msg: 'failure' })
-//   }
-// }
