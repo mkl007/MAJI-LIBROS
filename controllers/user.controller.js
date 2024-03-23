@@ -71,7 +71,7 @@ export const userLogin = async (req, res) => {
         sameSite: 'none',
         secure: true
       })
-      res.status(200).json({ message: "Logged in", user })
+      res.status(200).json({ message: "Logged in" })
     } else {
       res.status(400).json({ message: "Email not verified. Please check your Mail box to verify your email or register your account" })
     }
