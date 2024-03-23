@@ -29,6 +29,7 @@ jobs:
           echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
           echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "JWT_PASS=${{ secrets.JWT_PASS }}" >> .env
 
       - name: Run Test
         run: npm test
