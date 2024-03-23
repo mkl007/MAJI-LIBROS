@@ -23,6 +23,7 @@ describe('POST / register', () => {
       // Clean the database
       await mongoose.connect(process.env.MONGO_URI);
       await User.deleteMany();
+      await Token.deleteMany();
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
     }
