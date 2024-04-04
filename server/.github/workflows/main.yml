@@ -2,7 +2,7 @@ name: Testing units test
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
     types: [opened, synchronize]
 
 jobs:
