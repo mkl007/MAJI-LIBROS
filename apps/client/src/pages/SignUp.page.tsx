@@ -1,15 +1,10 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../interfaces/User.interface';
 import { signUpRequest } from '../api/auth';
 
 
-
-
 const SignUpPage = () => {
-
-
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [fullName, setFullName] = useState<string>()
@@ -37,11 +32,11 @@ const SignUpPage = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           className="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
+          src="https://tailwindui.com/img/logos/mark.svg?colordark&shade=300"
+          alt="Maji Book"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          {status ? status : 'Sign in to your account'}
+          {status ? status : 'Sign un to your account'}
         </h2>
       </div>
 
@@ -111,9 +106,9 @@ const SignUpPage = () => {
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Not a member?{' '}
+          Already have an accoun?{' '}
           <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-            Sign up here
+            Log in
           </Link>
         </p>
       </div>

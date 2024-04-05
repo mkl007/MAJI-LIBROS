@@ -1,15 +1,15 @@
 {
-  "name": "simpleauth",
-  "type": "module",
+  "name": "@majibooks/server",
   "version": "1.0.0",
   "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles",
-    "start": "nodemon"
+    "dev": "nodemon",
+    "test": "jest --detectOpenHandles"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "2.4.3",
     "cors": "2.8.5",
