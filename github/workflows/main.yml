@@ -1,0 +1,35 @@
+name: Testing units test
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+            node-version: 18
+            
+      - name: Install Dependencies
+        run: npm run client:npm-i
+
+      - name: Set up environment variables
+        run: |
+          echo "BACKEND_URI=${{ secrets.BACKEND_URI }}" >> .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
+          echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "JWT_PASS=${{ secrets.JWT_PASS }}" >> .env
+
+      - name: Run Test
+        run: npm run server:test
