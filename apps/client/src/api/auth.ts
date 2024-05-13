@@ -1,12 +1,16 @@
 import instanceAxios from "./axiosSetup";
-import { AxiosResponse, AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { ApiResponse, User } from "../interfaces/User.interface";
 
-export const signUpRequest = async (user: User): Promise<AxiosResponse<ApiResponse> | AxiosResponse<unknown>> => {
+export const signUpRequest = async (user: User): Promise<ApiResponse> => {
   try {
     const response = await instanceAxios.post("/register", user);
-    // console.log("Response data:", response.data);
-    return response;
+    // console.log("Response data:", response);
+    const res: ApiResponse = {
+      data: response.data.message,
+      status: response.status
+    }
+    return res;
   } catch (error: unknown) {
     const axiosError = error as AxiosError;
     if (axiosError.response && axiosError.response.status === 409) {
@@ -19,4 +23,3 @@ export const signUpRequest = async (user: User): Promise<AxiosResponse<ApiRespon
     }
   }
 };
-

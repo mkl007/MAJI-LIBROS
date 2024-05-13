@@ -11,6 +11,8 @@ import { sendConfirmationEmail } from "../utils/email.utils.js";
 
 export const registerUser = async (req, res) => {
   try {
+    await User.deleteMany();
+    await Token.deleteMany();
     const verifyEmail = await User.findOne({ email: req.body.email });
     if (verifyEmail)
       return res.status(409).json({ message: "Email already exist. Do you mean to login?" });
@@ -32,9 +34,7 @@ export const registerUser = async (req, res) => {
       await newUser.save();
       await token.save();
       return res.status(200).json({
-        status: 'SUCCESSFULL',
         message: "Email successfully registered. Please check your mailbox to validate your account",
-        newUser,
       });
     } else {
       return res.status(404).json({ message: "Error sending confirmation email. Email no found, double check email address" });
@@ -71,13 +71,13 @@ export const userLogin = async (req, res) => {
         sameSite: 'none',
         secure: true
       })
-      res.status(200).json({ message: "Logged in"})
+      res.status(200).json({ message: "Logged in" })
     } else {
       res.status(400).json({ message: "Email not verified. Please check your Mail box to verify your email or register your account" })
     }
   } catch (error) {
     console.log(error)
-    return res.status(404).json({message: 'error', error})
+    return res.status(404).json({ message: 'error', error })
   }
 }
 
@@ -89,7 +89,7 @@ export const logout = async (req, res) => {
     return res.status(200).json({ message: 'Loggin out...' })
   } catch (error) {
     //console.log("Error", error)
-    return res.status(500).json({message: "Internal Error"})
+    return res.status(500).json({ message: "Internal Error" })
   }
 }
 
@@ -132,7 +132,7 @@ export const passwordReset = async (req, res) => {
 
   } catch (error) {
     // console.log('error while resetting the password! ', error)
-    res.status(500).json({message: 'error while resetting the password!'})
+    res.status(500).json({ message: 'error while resetting the password!' })
   }
 }
 

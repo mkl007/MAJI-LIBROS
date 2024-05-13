@@ -2,13 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../interfaces/User.interface';
 import { signUpRequest } from '../api/auth';
+import Modal from '../components/ModalForSignAndSigup';
+
+
 
 
 const SignUpPage = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [fullName, setFullName] = useState<string>()
-  const [status, setStatus] = useState<string >('')
+  const [message, setMessage] = useState<string|unknown>()
+  const [status, setStatus] = useState<number >()
 
 
 
@@ -19,12 +23,13 @@ const SignUpPage = () => {
       email,
       password
     }
+
     try {
-      const response = signUpRequest(newUser)
-      setStatus((await response).data.message)
-      console.log('Respose Status', (await response).data.message)
+      const response = await signUpRequest(newUser); 
+      setStatus(response.status);
+      setMessage(response.data);
     } catch (error) {
-      console.log('Error registering', error)
+      console.log('Error registering', error);
     }
   }
   return (
@@ -36,7 +41,7 @@ const SignUpPage = () => {
           alt="Maji Book"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          {status ? status : 'Sign un to your account'}
+          {status ? <Modal fullname={fullName} email={email} message={message} /> : 'Sign un to your account'}
         </h2>
       </div>
 
