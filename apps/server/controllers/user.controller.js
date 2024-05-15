@@ -49,7 +49,13 @@ export const emailTokenConfimation = async (req, res) => {
     const token = await Token.findOne({ token: req.params.token });
     await User.updateOne({ _id: token.userId }, { $set: { verified: true } });
     await Token.findByIdAndDelete(token._id)
-    res.status(200).json({ message: "email verified" })
+    const jwtVar = jwt.sign({ id: token.userId }, process.env.JWT_PASS, { expiresIn: '1800s' })
+    res.cookie('token', jwtVar, {
+      httpOnly: false,
+      sameSite: 'none',
+      secure: true
+    })
+    res.redirect('http://localhost:5173/profile')
   } catch (error) {
     // console.log(error)
     res.status(502).json({ message: 'Error while verifying or email already verified' })
