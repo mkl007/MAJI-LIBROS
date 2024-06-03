@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from './Modal.login.component';
+import { AuthContext } from '../context/Auth.context';
+import { useAuth } from '../hooks/useAuth';
 
 interface Book {
   id: number;
@@ -105,13 +107,17 @@ interface FeedItemProps {
 }
 
 const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(null)
+  const {isLoggedIn, setIsLoggedIn} = useAuth()
+  console.log(isLoggedIn)
+  console.log('///////////////////////////////')
+  setIsLoggedIn(true)
+  console.log(isLoggedIn)
 
   return (
     <div className="flex border-3 border-red-500 h-80 p-4">
       <div className="flex flex-col justify-between">
         {
-          isLoggedIn ? (
+          isLoggedIn===true ? (
             <Link to={`/books/${id}`}>
               <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
               <img
@@ -119,21 +125,19 @@ const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) =>
                 className=""
                 alt="image desc"
               />
-
-
               <p>{authors}</p>
             </Link>
           ) : (
-            <ModalLogin  message='Login first to access content'/>
-            // <Link to={'/login'}>
-            //   <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
-            //   <img
-            //     src={image}
-            //     className=""
-            //     alt="image desc"
-            //   />
-            //   <p>{authors}</p>
-            // </Link>
+            // <ModalLogin message='Login first to access content' />
+            <Link onClick={() => console.log('hi')} to={'#'}>
+              <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
+              <img
+                src={image}
+                className=""
+                alt="image desc"
+              />
+              <p>{authors}</p>
+            </Link>
           )
         }
       </div>
