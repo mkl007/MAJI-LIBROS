@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from './Modal.login.component';
-import { AuthContext } from '../context/Auth.context';
 import { useAuth } from '../hooks/useAuth';
 
 interface Book {
@@ -108,10 +107,6 @@ interface FeedItemProps {
 
 const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) => {
   const {isLoggedIn, setIsLoggedIn} = useAuth()
-  console.log(isLoggedIn)
-  console.log('///////////////////////////////')
-  setIsLoggedIn(true)
-  console.log(isLoggedIn)
 
   return (
     <div className="flex border-3 border-red-500 h-80 p-4">
