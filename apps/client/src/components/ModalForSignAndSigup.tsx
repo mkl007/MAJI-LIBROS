@@ -34,3 +34,5 @@ const Modal: React.FC<ModalProps> = ({ fullname, email, message }) => {
 };
 
 export default Modal;
+
+
