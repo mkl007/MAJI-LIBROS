@@ -80,19 +80,27 @@ const myApi: Book[] = [
 ];
 
 export const Feeds = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth()
+
   return (
     <div className="container mx-auto border-3 border-red-500 p-4">
       <h1 className="text-xl font-bold mb-4">Feeds</h1>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        {myApi.map(book => (
-          <FeedItem
-            key={book.id}
-            id={book.id}
-            authors={book.authors}
-            bookTitle={book.bookTitle}
-            image={book.image}
-          />
-        ))}
+
+        {
+          (
+            myApi.map(book => (
+              <FeedItem
+                key={book.id}
+                id={book.id}
+                authors={book.authors}
+                bookTitle={book.bookTitle}
+                image={book.image}
+              />
+            ))
+          ) 
+
+        }
       </div>
     </div>
   );
@@ -106,13 +114,14 @@ interface FeedItemProps {
 }
 
 const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) => {
-  const {isLoggedIn, setIsLoggedIn} = useAuth()
+  const { isLoggedIn, setIsLoggedIn } = useAuth()
 
   return (
     <div className="flex border-3 border-red-500 h-80 p-4">
       <div className="flex flex-col justify-between">
+
         {
-          isLoggedIn===true ? (
+          isLoggedIn === true ? (
             <Link to={`/books/${id}`}>
               <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
               <img
@@ -123,16 +132,17 @@ const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) =>
               <p>{authors}</p>
             </Link>
           ) : (
-            // <ModalLogin message='Login first to access content' />
-            <Link onClick={() => console.log('hi')} to={'#'}>
-              <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
-              <img
-                src={image}
-                className=""
-                alt="image desc"
-              />
-              <p>{authors}</p>
-            </Link>
+            <div>
+              <Link to={'/login'}>
+                <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
+                <img
+                  src={image}
+                  className=""
+                  alt="image desc"
+                />
+                <p>{authors}</p>
+              </Link>
+            </div>
           )
         }
       </div>
