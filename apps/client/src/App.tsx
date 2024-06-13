@@ -7,8 +7,7 @@ import { Navbar } from './components/NavBar.component'
 import { Products } from './pages/Products.page'
 import { Settings } from './pages/Settings.page'
 import { AuthContextProvider } from './context/AuthProvider.context'
-
-
+import {Userverificationsuccess} from './pages/Userverificationsuccess'
 
 export default function App() {
   return (
@@ -22,6 +21,7 @@ export default function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/products' element={<Products />} />
           <Route path='/settings' element={<Settings />} />
+          <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
 
         </Routes>
       </Router>

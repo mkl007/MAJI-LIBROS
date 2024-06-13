@@ -1,8 +1,6 @@
 import { createContext } from "react";
+import { UserContextInterface } from "../interfaces/User.interface";
 
-export interface AuthContextInterface {
-    isLoggedIn: boolean | null,
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
-}
 
-export const AuthContext = createContext<AuthContextInterface | null>(null)
+
+export const AuthContext = createContext<UserContextInterface | null>(null)

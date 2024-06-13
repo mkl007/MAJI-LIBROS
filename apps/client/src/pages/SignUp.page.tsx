@@ -1,34 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../interfaces/User.interface';
-import { signUpRequest } from '../api/auth';
+// import { signUpRequest } from '../api/auth';
 import Modal from '../components/ModalForSignAndSigup';
+import { useAuth } from '../hooks/useAuth';
+
+
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [fullName, setFullName] = useState<string>()
-  const [message, setMessage] = useState<string|unknown>()
-  const [status, setStatus] = useState<number >()
+  const [user, setUser] = useState<User>({ fullname: '', email: '', password: '' });
 
-
+  const { data, signUpFunction, isLoading, setIsLoading } = useAuth()
 
   async function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();
-    const newUser: User = {
-      fullname: fullName,
-      email,
-      password
-    }
+    await signUpFunction(user);
 
-    try {
-      const response = await signUpRequest(newUser); 
-      setStatus(response.status);
-      setMessage(response.data);
-    } catch (error) {
-      console.log('Error registering', error);
-    }
   }
+
+  console.log(data)
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -38,7 +28,7 @@ const SignUpPage = () => {
           alt="Maji Book"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          {status ? <Modal fullname={fullName} email={email} message={message} /> : 'Sign un to your account'}
+          {/* {status ? <Modal fullname={fullame} email={email} /> : 'Sign un to your account'} */}
         </h2>
       </div>
 
@@ -55,7 +45,8 @@ const SignUpPage = () => {
                 type="fullname"
                 autoComplete="fullname"
                 required
-                onChange={(e) => { setFullName(e.target.value) }}
+                onChange={(e) => setUser({ ...user, fullname: e.target.value })}
+
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -71,7 +62,8 @@ const SignUpPage = () => {
                 type="email"
                 autoComplete="email"
                 required
-                onChange={(e) => { setEmail(e.target.value) }}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -90,7 +82,8 @@ const SignUpPage = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                onChange={(e) => { setPassword(e.target.value) }}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -108,7 +101,7 @@ const SignUpPage = () => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Already have an accoun?{' '}
-          <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+          <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
             Log in
           </Link>
         </p>

@@ -1,26 +1,28 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserToLogin } from '../interfaces/User.interface';
+import { useAuth } from '../hooks/useAuth';
 
 
-interface User {
-  email: string | undefined;
-  password: string | undefined
-}
+
 const LoginPage = () => {
+  const { loginFunction, data } = useAuth()
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const navegate = useNavigate()
 
-
-
-
-  function handleSubmit(event) {
+  function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();
-    const newUser: User = {
+    const newUser: UserToLogin = {
       email,
       password
     }
-    console.log(newUser)
+    loginFunction(newUser)
   }
+  useEffect(() => {
+    if (data?.message === 'Logged in') navegate('/profile')
+
+  }, [data, navegate])
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -30,7 +32,7 @@ const LoginPage = () => {
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Sign in to your account {JSON.stringify(data?.message)}
         </h2>
       </div>
 

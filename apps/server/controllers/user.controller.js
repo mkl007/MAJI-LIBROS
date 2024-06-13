@@ -27,7 +27,10 @@ export const registerUser = async (req, res) => {
     const tok = tokenBytes.toString("hex");
     const token = new Token({ userId: newUser._id, token: tok });
 
-    const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}`;
+    // const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}`;
+    // const verificationLink = `http://localhost:3000/confirm/${token}&redirectUrl=${encodeURIComponent('http://localhost:5173/register')}`;
+
+    const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}?redirectUrl=${encodeURIComponent('http://localhost:5173/signup')}`
     // Sending confirmation email
     const emailResult = await sendConfirmationEmail(newUser, verificationLink);
     if (emailResult.success) {
@@ -49,13 +52,15 @@ export const emailTokenConfimation = async (req, res) => {
     const token = await Token.findOne({ token: req.params.token });
     await User.updateOne({ _id: token.userId }, { $set: { verified: true } });
     await Token.findByIdAndDelete(token._id)
-    const jwtVar = jwt.sign({ id: token.userId }, process.env.JWT_PASS, { expiresIn: '1800s' })
-    res.cookie('token', jwtVar, {
-      httpOnly: false,
-      sameSite: 'none',
-      secure: true
-    })
-    res.redirect('http://localhost:5173/profile')
+    // const jwtVar = jwt.sign({ id: token.userId }, process.env.JWT_PASS, { expiresIn: 24 * 60 * 60 * 1000 })
+    // res.cookie('token', jwtVar, {
+    //   httpOnly: false,
+    //   sameSite: 'none',
+    //   secure: true
+    // })
+    res.redirect('http://localhost:5173/userverificationsuccess')
+    // res.redirect(`http://localhost:5173/transition?redirectUrl=${encodeURIComponent(redirectUrl)}`);
+
   } catch (error) {
     // console.log(error)
     res.status(502).json({ message: 'Error while verifying or email already verified' })
@@ -65,19 +70,20 @@ export const emailTokenConfimation = async (req, res) => {
 export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).select('-password')
+    const user = await User.findOne({ email })
     if (!user) {
       return res.status(404).json({ message: 'User no found with email provided, please review the email or register your email' })
     } else if (user && user.verified) {
+
       const paswrdDeshash = bcrypt.compareSync(password, user.password)
-      if (!paswrdDeshash) return res.statu(502).json({ message: "Wrong password" })
-      const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: '1800s' })
+      if (!paswrdDeshash) return res.status(502).json({ message: "Wrong password" })
+      const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: 24 * 60 * 60 * 1000 })
       res.cookie('token', token, {
         httpOnly: false,
         sameSite: 'none',
         secure: true
       })
-      res.status(200).json({ message: "Logged in" })
+      res.json({message: 'Logged in', token})
     } else {
       res.status(400).json({ message: "Email not verified. Please check your Mail box to verify your email or register your account" })
     }
@@ -174,8 +180,24 @@ export const verifyTokenRoute = async (req, res) => {
     if (userInfo) return res.json({ userInfo })
     return res.json({ message: 'No user found' })
   } catch (error) {
-    if (error.name === 'TokenExpiredError') return res.json({errorMessage: 'Token for the verification expired. Please signup in the app!'})
+    if (error.name === 'TokenExpiredError') return res.json({ errorMessage: 'Token for the verification expired. Please signup in the app!' })
     console.log(error.name)
-    res.json({  error })
+    res.json({ error })
   }
 }
+
+export const userDataTest = async (req, res) => {
+  try {
+    const userTest = {
+      fullname: 'Maikel Emeterio Berbi',
+      email: 'maikel.emeteriooberbi@gmail.com',
+      password: 'maikel'
+    }
+    return res.json({ message: 'There is data for you maifren' })
+    // return res.json({ userTest })
+  } catch (error) {
+    console.log(error.name)
+    res.json({ error })
+  }
+}
+
