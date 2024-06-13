@@ -9,14 +9,16 @@ export const Profile = () => {
 
   useEffect(() => {
     if (token != null) {
-      setIsLoading(true); 
+      setIsLoading(true);
 
       getUserInfo(token).then(() => {
-        setIsLoading(false); 
+        setIsLoading(false);
       });
     }
-  }, [token]); 
-
+  }, [token]);
+  if(data?.userInfo?.accountID) {
+    console.log(data.userInfo.accountID)
+  }
   return (
     <div>
       {isLoading ? <p>Loading...</p> : <p>User Info: {JSON.stringify(data)}</p>}

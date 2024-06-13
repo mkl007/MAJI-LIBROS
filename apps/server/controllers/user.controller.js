@@ -9,6 +9,7 @@ import { sendConfirmationEmail } from "../utils/email.utils.js";
 
 
 
+
 export const registerUser = async (req, res) => {
   try {
     await User.deleteMany();

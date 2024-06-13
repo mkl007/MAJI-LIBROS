@@ -1,21 +1,41 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const realSchema = mongoose.Schema;
-const userSchema = new realSchema({
-    fullname: {
-        type: String, required: true,
-    },
-    email: {
-        type: String, required: true, unique: true,
-    },
-    password: {
-        type: String, required: true,
-    },
-    verified: {
-        type: Boolean, 
-        default:  false,
-    }
-})
 
-const User = mongoose.model('user', userSchema);
+const userSchema = new realSchema({
+  fullname: {
+    type: String,
+  },
+  email: {
+    type: String,
+    unique: true,
+    sparse: true, // Allows the field to be unique, but also to have multiple null values
+  },
+  password: {
+    type: String,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  accountID: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
+  username: {
+    type: String,
+  },
+  displayName: {
+    type: String,
+  },
+  provider: {
+    type: String,
+  },
+  userAvatar: {
+    type: String,
+  },
+}, { timestamps: true }); // Add timestamps to track creation and update times
+
+const User = mongoose.model('User', userSchema);
 export default User;

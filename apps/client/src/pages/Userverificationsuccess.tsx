@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-interface LoginModalProps {
-  message: string
-}
+// interface LoginModalProps {
+//   message: string
+// }
 
 
 const ModalPromptingToLogin2 = () => {

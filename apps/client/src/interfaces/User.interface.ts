@@ -1,11 +1,11 @@
 export interface ApiResponse {
   token: string;
   message: string;
-  userInfo: UserInfo;
+  userInfo: UserInfo & UserInfoGithubCredential;
 }
 
 export interface UserContextInterface {
-  data: ApiResponse  | null;
+  data: ApiResponse | null;
   signUpFunction: (user: UserToSignUp) => Promise<void>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,4 +29,17 @@ interface UserInfo {
   fullname: string;
   virified: boolean;
   id: string;
+}
+
+interface UserInfoGithubCredential {
+  accountID: string;
+  createdAt: string;
+  displayName: string;
+  email: string;
+  fullname: string;
+  provider: string;
+  updatedAt: string;
+  userAvatar: string;
+  verified: boolean;
+  _id: string;
 }
