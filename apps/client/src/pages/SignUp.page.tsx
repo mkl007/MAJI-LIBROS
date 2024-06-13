@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from '../interfaces/User.interface';
+import { UserToSignUp } from '../interfaces/User.interface';
 // import { signUpRequest } from '../api/auth';
-import Modal from '../components/ModalForSignAndSigup';
 import { useAuth } from '../hooks/useAuth';
+import { GithubButton } from '../components/GithubButton.component';
 
 
 
 const SignUpPage = () => {
-  const [user, setUser] = useState<User>({ fullname: '', email: '', password: '' });
+  const [user, setUser] = useState<UserToSignUp>({ fullname: '', email: '', password: '' });
 
-  const { data, signUpFunction, isLoading, setIsLoading } = useAuth()
+  const { data, signUpFunction } = useAuth()
 
   async function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();
@@ -96,6 +96,13 @@ const SignUpPage = () => {
             >
               Sign in
             </button>
+
+            <div
+              className="flex w-full justify-center rounded-md bg-zinc-950 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              <GithubButton />
+            </div>
+
           </div>
         </form>
 
