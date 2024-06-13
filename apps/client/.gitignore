@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 components/Characters.tsx
+pages/Test.page.tsx
+hooks/useUser.tsx

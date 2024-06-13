@@ -1,7 +1,6 @@
 import { useGetToken } from '../hooks/useGetToken'
 import { useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth';
-// Definir la interfaz fuera del componente
 
 
 export const Profile = () => {
@@ -10,11 +9,10 @@ export const Profile = () => {
 
   useEffect(() => {
     if (token != null) {
-      setIsLoading(true); // Establecer isLoading a true al inicio del efecto
+      setIsLoading(true); 
 
-      // Obtener la información del usuario
       getUserInfo(token).then(() => {
-        setIsLoading(false); // Establecer isLoading a false una vez que la solicitud se completa
+        setIsLoading(false); 
       });
     }
   }, [token]); 

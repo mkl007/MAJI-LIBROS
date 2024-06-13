@@ -22,16 +22,12 @@ export const registerUser = async (req, res) => {
       password: await bcrypt.hash(req.body.password, 10),
     });
 
-    // // send mail
     const tokenBytes = randomFillSync(Buffer.alloc(16));
     const tok = tokenBytes.toString("hex");
     const token = new Token({ userId: newUser._id, token: tok });
 
-    // const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}`;
-    // const verificationLink = `http://localhost:3000/confirm/${token}&redirectUrl=${encodeURIComponent('http://localhost:5173/register')}`;
-
     const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}?redirectUrl=${encodeURIComponent('http://localhost:5173/signup')}`
-    // Sending confirmation email
+
     const emailResult = await sendConfirmationEmail(newUser, verificationLink);
     if (emailResult.success) {
       await newUser.save();
@@ -52,17 +48,8 @@ export const emailTokenConfimation = async (req, res) => {
     const token = await Token.findOne({ token: req.params.token });
     await User.updateOne({ _id: token.userId }, { $set: { verified: true } });
     await Token.findByIdAndDelete(token._id)
-    // const jwtVar = jwt.sign({ id: token.userId }, process.env.JWT_PASS, { expiresIn: 24 * 60 * 60 * 1000 })
-    // res.cookie('token', jwtVar, {
-    //   httpOnly: false,
-    //   sameSite: 'none',
-    //   secure: true
-    // })
     res.redirect('http://localhost:5173/userverificationsuccess')
-    // res.redirect(`http://localhost:5173/transition?redirectUrl=${encodeURIComponent(redirectUrl)}`);
-
   } catch (error) {
-    // console.log(error)
     res.status(502).json({ message: 'Error while verifying or email already verified' })
   }
 }
@@ -83,7 +70,7 @@ export const userLogin = async (req, res) => {
         sameSite: 'none',
         secure: true
       })
-      res.json({message: 'Logged in', token})
+      res.json({ message: 'Logged in', token })
     } else {
       res.status(400).json({ message: "Email not verified. Please check your Mail box to verify your email or register your account" })
     }
@@ -194,7 +181,6 @@ export const userDataTest = async (req, res) => {
       password: 'maikel'
     }
     return res.json({ message: 'There is data for you maifren' })
-    // return res.json({ userTest })
   } catch (error) {
     console.log(error.name)
     res.json({ error })

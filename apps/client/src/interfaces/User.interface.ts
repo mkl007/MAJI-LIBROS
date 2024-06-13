@@ -1,5 +1,3 @@
-///////////////////////// new structure:
-
 export interface ApiResponse {
   token: string;
   message: string;
@@ -25,14 +23,6 @@ export interface UserToLogin {
   email: string | undefined;
   password: string | undefined;
 }
-
-// export interface GetuserInfoInterface {
-//   data: {
-//     fullname: string;
-//     email: string;
-//     id: string;
-//   };
-// }
 
 interface UserInfo {
   email: string;

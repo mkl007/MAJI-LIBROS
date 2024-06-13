@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { UserContext, UserContextType } from "../pages/Test.page";
 
-// Hook personalizado para usar el contexto
 export const useUser = (): UserContextType => {
     const context = useContext(UserContext);
     if (!context) {
