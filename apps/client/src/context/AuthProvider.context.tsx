@@ -1,9 +1,8 @@
 import { ReactNode, useState } from "react"
 import { AuthContext } from "./Auth.context"
 import { ApiResponse, UserToLogin, UserToSignUp } from "../interfaces/User.interface"
-import { AxiosResponse } from "axios"
+import axios, { AxiosResponse } from "axios"
 import instanceAxios from "../api/axiosSetup"
-import { useNavigate } from "react-router-dom"
 
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -28,7 +27,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             setData(response.data);
             setIsLoading(true)
             if (response?.data?.message === 'Logged in') {
-                document.cookie = `token=${response.data.token}; SameSite=None; Secure`;                
+                document.cookie = `token=${response.data.token}; SameSite=None; Secure`;
             }
         } catch (error) {
             console.error('Error Logging into the account:', error);
@@ -36,9 +35,21 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     };
 
+    const getUserInfo = async (token: string) => {
+        try {
+            const response: AxiosResponse<ApiResponse> = await axios.get<ApiResponse>(`http://localhost:3000/api/v1/userData/${token}`);
+            if (response.data) {
+                setData(response.data);
+            } else {
+                console.error('Error fetching user information');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
-        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction }}>
+        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, getUserInfo }}>
             {children}
         </AuthContext.Provider>
     )
