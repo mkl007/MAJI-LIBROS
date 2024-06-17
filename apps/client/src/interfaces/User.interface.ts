@@ -44,3 +44,24 @@ interface UserInfoGithubCredential {
   verified: boolean;
   _id: string;
 }
+
+
+export interface Book {
+  id: number;
+  bookTitle: string;
+  authors: string;
+  description?: {
+    publishedYear: number;
+  };
+  gender?: string;
+  image: string;
+  availabilityStatus?: string;
+  precio?: number;
+}
+
+export interface FeedItemProps {
+  id: number;
+  bookTitle: string;
+  authors: string;
+  image: string
+}
