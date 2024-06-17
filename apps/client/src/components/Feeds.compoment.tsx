@@ -1,4 +1,3 @@
-import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from './Modal.login.component';
 import { useAuth } from '../hooks/useAuth';
@@ -80,7 +79,6 @@ const myApi: Book[] = [
 ];
 
 export const Feeds = () => {
-  const { isLoggedIn, setIsLoggedIn } = useAuth()
 
   return (
     <div className="container mx-auto border-3 border-red-500 p-4">
@@ -114,7 +112,7 @@ interface FeedItemProps {
 }
 
 const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) => {
-  const { isLoggedIn, setIsLoggedIn } = useAuth()
+  const { isLoggedIn } = useAuth()
 
   return (
     <div className="flex border-3 border-red-500 h-80 p-4">

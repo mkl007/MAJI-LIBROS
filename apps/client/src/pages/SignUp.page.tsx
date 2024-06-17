@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserToSignUp } from '../interfaces/User.interface';
 // import { signUpRequest } from '../api/auth';
@@ -7,7 +7,7 @@ import { GithubButton } from '../components/GithubButton.component';
 
 
 
-const SignUpPage = () => {
+const FormLoginComponent = () => {
   const [user, setUser] = useState<UserToSignUp>({ fullname: '', email: '', password: '' });
 
   const { data, signUpFunction } = useAuth()
@@ -20,24 +20,28 @@ const SignUpPage = () => {
 
   console.log(data)
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          className="mx-auto h-10 w-auto "
-          src="/apps/client/src/assets/logo.jpeg"
-          alt="Maji Book"
-        />
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          {/* {status ? <Modal fullname={fullame} email={email} /> : 'Sign un to your account'} */}
-        </h2>
-      </div>
+    // <div className="container bg-midnight bg-stone-300">
+    <div className=" container mb-3.5 bg-midnight bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md border-0 border-neutral-800 shadow-2xl">
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      {/* <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 container border-3 border-fuchsia-800"> */}
+      {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            className=""
+            src="../../public/logo-no-bg.png"
+            alt="Maji Book"
+          />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          </h2>
+        //// this is section is commited because the form is not needed in this component.
+        </div>  */}
+
+
+      {/* <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-1 border-neutral-800 shadow-2xl"> */}
+      <div className="container">
+        <div><h1>Signup</h1></div>
         <form onSubmit={handleSubmit} className="space-y-6" >
           <div>
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-              Full name
-            </label>
+
             <div className="mt-2">
               <input
                 id="fullname"
@@ -45,16 +49,16 @@ const SignUpPage = () => {
                 type="fullname"
                 autoComplete="fullname"
                 required
+                placeholder='Fullname'
                 onChange={(e) => setUser({ ...user, fullname: e.target.value })}
+                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus: border-sky-400  sm:text-sm sm:leading-6"
               />
             </div>
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-              Email address
-            </label>
+
             <div className="mt-2">
               <input
                 id="email"
@@ -62,19 +66,17 @@ const SignUpPage = () => {
                 type="email"
                 autoComplete="email"
                 required
+                placeholder='Email'
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
+                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
 
           <div>
-            <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                Password
-              </label>
-            </div>
+
             <div className="mt-2">
               <input
                 id="password"
@@ -82,9 +84,11 @@ const SignUpPage = () => {
                 type="password"
                 autoComplete="current-password"
                 required
+                placeholder='Password'
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
+                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -115,6 +119,17 @@ const SignUpPage = () => {
       </div>
     </div>
   );
+};
+
+const SignUpPage = () => {
+  return (
+    <div className='w-full h-screen bg-midnight bg-cyan-700 border-3 border-fuchsia-800'>
+      <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+        <h1 className='text-xl text-cyan-50'>MAJIBOOKS</h1>
+      </div>
+      <FormLoginComponent />
+    </div>
+  )
 };
 
 export default SignUpPage;

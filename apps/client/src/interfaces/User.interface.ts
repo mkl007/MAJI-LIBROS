@@ -11,6 +11,7 @@ export interface UserContextInterface {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loginFunction: (user: UserToLogin) => Promise<void>;
   getUserInfo: (token: string) => Promise<void>;
+  isLoggedIn: boolean
 }
 
 export interface UserToSignUp {
