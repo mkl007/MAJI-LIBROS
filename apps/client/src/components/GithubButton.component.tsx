@@ -1,4 +1,3 @@
-// import instanceAxios from "../api/axiosSetup";
 
 import { FaGithub, FaGoogle } from "react-icons/fa";
 
@@ -6,9 +5,7 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 export const GithubButton = () => {
 
     const handleLogin = () => {
-        // window.location.href = 'http://localhost:3000/auth/github';
         window.location.href = `http://localhost:3000/api/v1/auth/github/`
-        // window.location.href = `${instanceAxios}/auth/github/callback`
 
     };
     return (

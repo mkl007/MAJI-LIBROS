@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useGetToken } from '../hooks/useGetToken';
 
-// Definir la interfaz fuera del componente
 
 export const GetUserInfo = () => {
     interface UserInfo {
@@ -17,7 +16,6 @@ export const GetUserInfo = () => {
     const token = useGetToken();
 
     useEffect(() => {
-        // Función para obtener la información del usuario
         async function getUserInfo() {
             try {
                 const response = await axios.get(`http://localhost:3000/api/v1/userData/${token}`);
@@ -49,7 +47,6 @@ export const GetUserInfo = () => {
     console.log("User info: ", userInfo);
     console.log(GetUserInfo())
 
-    // Aquí iría el renderizado de tu componente
     return (
         <div>
             {loading ? <p>Loading...</p> : <p>User Info: {JSON.stringify(userInfo)}</p>}
