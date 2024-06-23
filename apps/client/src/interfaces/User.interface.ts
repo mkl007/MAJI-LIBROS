@@ -55,7 +55,7 @@ export interface Book {
   };
   gender?: string;
   image: string;
-  availabilityStatus?: string;
+  availabilityStatus: string;
   precio?: number;
 }
 

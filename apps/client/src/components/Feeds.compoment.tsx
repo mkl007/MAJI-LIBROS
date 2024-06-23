@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ModalLogin from './Modal.login.component';
+// import ModalLogin from './Modal.login.component';
 import { useAuth } from '../hooks/useAuth';
 import { Book, FeedItemProps } from '../interfaces/User.interface';
 
@@ -14,7 +14,7 @@ const myApi: Book[] = [
     gender: 'Poesia',
     image: "https://picsum.photos/300/300?random=1",
     availabilityStatus: 'Available',
-    precio: 200
+    precio: 200,
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=2",
     availabilityStatus: 'Available',
-    precio: 350
+    precio: 350,
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=3",
     availabilityStatus: 'Out of Stock',
-    precio: 500
+    precio: 500,
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const myApi: Book[] = [
     gender: 'Ficción',
     image: "https://picsum.photos/300/300?random=4",
     availabilityStatus: 'Available',
-    precio: 250
+    precio: 250,
   },
   {
     id: 5,
@@ -54,7 +54,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=5",
     availabilityStatus: 'Available',
-    precio: 300
+    precio: 300,
   },
   {
     id: 6,
@@ -64,7 +64,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=6",
     availabilityStatus: 'Out of Stock',
-    precio: 280
+    precio: 280,
   },
   {
     id: 7,
@@ -74,7 +74,7 @@ const myApi: Book[] = [
     gender: 'Ficción',
     image: "https://picsum.photos/300/300?random=7",
     availabilityStatus: 'Available',
-    precio: 220
+    precio: 220,
   },
   {
     id: 8,
@@ -84,7 +84,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=8",
     availabilityStatus: 'Available',
-    precio: 180
+    precio: 180,
   },
   {
     id: 9,
@@ -94,7 +94,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=9",
     availabilityStatus: 'Out of Stock',
-    precio: 260
+    precio: 260,
   },
   {
     id: 10,
@@ -104,7 +104,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=10",
     availabilityStatus: 'Available',
-    precio: 190
+    precio: 190,
   },
   {
     id: 11,
@@ -114,7 +114,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=11",
     availabilityStatus: 'Available',
-    precio: 210
+    precio: 210,
   },
   {
     id: 12,
@@ -124,7 +124,7 @@ const myApi: Book[] = [
     gender: 'Poesia',
     image: "https://picsum.photos/300/300?random=12",
     availabilityStatus: 'Out of Stock',
-    precio: 230
+    precio: 230,
   },
   {
     id: 13,
@@ -134,7 +134,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=13",
     availabilityStatus: 'Available',
-    precio: 320
+    precio: 320,
   },
   {
     id: 14,
@@ -144,7 +144,7 @@ const myApi: Book[] = [
     gender: 'Cuento',
     image: "https://picsum.photos/300/300?random=14",
     availabilityStatus: 'Available',
-    precio: 240
+    precio: 240,
   },
   {
     id: 15,
@@ -154,7 +154,7 @@ const myApi: Book[] = [
     gender: 'Novela',
     image: "https://picsum.photos/300/300?random=15",
     availabilityStatus: 'Out of Stock',
-    precio: 290
+    precio: 290,
   }
 ];
 
@@ -163,9 +163,9 @@ const myApi: Book[] = [
 export const Feeds = () => {
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-xl font-bold mb-4">Feeds</h1>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+    <div className="container mx-auto ">
+      <h1 className="text-xl font-bold mb-4 ">Feeds</h1>
+      <div className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 xl:grid-cols-5 xl:gap-0'>
 
         {
           (
@@ -189,17 +189,19 @@ export const Feeds = () => {
 
 const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) => {
   const { isLoggedIn } = useAuth()
+  console.log(isLoggedIn)
 
   return (
     <div className="flex shadow-lg  shadow-cyan-500/50 h-80 p-1">
-      <div className="flex flex-col justify-center  p-2">
+      <div className="flex flex-col justify-center p-2">
 
- {/* Working on adding the conditinoal to show book information */}
+        {/* Working on adding the conditinoal to show book information */}
         <Link to={`/books/${id}`}>
           <img
             src={image}
-            className=""
+            className=" xl:h-48 2xl:h-48 sm:h-89"
             alt="image desc"
+            
           />
           <h2 className="text-base font-semibold mb-1">{bookTitle}</h2>
         </Link>
@@ -219,31 +221,8 @@ const FeedItem: React.FC<FeedItemProps> = ({ bookTitle, authors, image, id }) =>
             </span>
           </div>
         </div>
-        {/* {
-          isLoggedIn === true ? (
-            <Link to={`/books/${id}`}>
-              <img
-                src={image}
-                className=""
-                alt="image desc"
-              />
-              <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
-              <p>{authors}</p>
-            </Link>
-          ) : (
-            <div>
-              <Link to={'/login'}>
-                <h2 className="text-lg font-semibold mb-2">{bookTitle}</h2>
-                <img
-                  src={image}
-                  className=""
-                  alt="image desc"
-                />
-                <p>{authors}</p>
-              </Link>
-            </div>
-          )
-        } */}
+
+
       </div>
     </div>
   );
