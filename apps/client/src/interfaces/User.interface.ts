@@ -12,6 +12,7 @@ export interface UserContextInterface {
   loginFunction: (user: UserToLogin) => Promise<void>;
   getUserInfo: (token: string) => Promise<void>;
   isLoggedIn: boolean
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface UserToSignUp {
@@ -56,7 +57,7 @@ export interface Book {
   gender?: string;
   image: string;
   availabilityStatus: string;
-  precio?: number;
+  price?: number;
 }
 
 export interface FeedItemProps {
@@ -64,4 +65,5 @@ export interface FeedItemProps {
   bookTitle: string;
   authors: string;
   image: string
+  availabilityStatus: string
 }

@@ -40,7 +40,8 @@ export const registerUser = async (req, res) => {
       return res.status(404).json({ message: "Error sending confirmation email. Email no found, double check email address" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal Error. Please refresh the page and try again" })
+    console.log(error)
+    // res.status(500).json({ message: "Internal Error. Please refresh the page and try again" })
   }
 };
 
