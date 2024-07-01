@@ -9,7 +9,7 @@ import { Settings } from './pages/Settings.page';
 import { AuthContextProvider } from './context/AuthProvider.context';
 import { Userverificationsuccess } from './pages/Userverificationsuccess';
 import { Footer } from './components/Footer.component';
-// import { ProtectedRoutes } from './components/ProtectedRoutes.component';
+import { ProtectedRoutes } from './components/ProtectedRoutes.component';
 
 const AppContent = () => {
   const location = useLocation();
@@ -27,14 +27,14 @@ const AppContent = () => {
       <Routes>
         <Route path='/' element={<HomePage />} />
 
-        {/* <Route element={<ProtectedRoutes />}> */}
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/products' element={<Products />} />
-        <Route path='/settings' element={<Settings />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/settings' element={<Settings />} />
+        </Route>
         <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
-        {/* </Route> */}
       </Routes>
       {!noFooterRoutes.includes(location.pathname) && <Footer />}
 

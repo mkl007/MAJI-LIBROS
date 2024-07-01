@@ -7,6 +7,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import { SearchInput } from './SearchInput.component'
 import { useAuth } from '../hooks/useAuth'
+import { useGetToken } from '../hooks/useGetToken'
+import { useEffect } from 'react'
 // import { FaIcons } from 'react-icons/fa'
 
 const navigation = [
@@ -20,8 +22,25 @@ function classNames(...classes: string[]) {
 }
 
 export const Navbar = () => {
-    const { isLoggedIn, data } = useAuth();
+    const { data, getUserInfo, isLoading, setIsLoading, isLoggedIn } = useAuth()
+    const token = useGetToken();
     const name = data?.userInfo?.fullname;
+
+    useEffect(() => {
+        if (token != null) {
+            setIsLoading(true);
+
+
+            getUserInfo(token).then(() => {
+                setIsLoading(false);
+            });
+        }
+    }, [token]);
+
+    useEffect(() => {
+        if (isLoggedIn) console.log('from Navbar', isLoggedIn)
+
+    })
 
     return (
         <div>

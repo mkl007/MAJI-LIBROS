@@ -2,13 +2,16 @@ import { FormLoginComponent } from "../components/SignUpForm";
 import { VerifyEmailModalComponent } from "../components/VerifyEmailModal.component";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
+import { LoadingSpinner } from "../utils/LoadingSnipper";
 
 const SignUpPage = () => {
   const { data, isLoading } = useAuth();
   const [showModal, setShowModal] = useState(true);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>
+      <LoadingSpinner/>
+    </div>;
   }
 
   const handleModalClose = () => {
@@ -30,3 +33,10 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+
+
+
+
+
+//////////////
+
