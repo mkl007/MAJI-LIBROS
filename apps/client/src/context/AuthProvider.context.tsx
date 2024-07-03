@@ -21,6 +21,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         } catch (error) {
             console.error('Error while creating user:', error);
             setData(null);
+        }finally{
+            setIsLoading(false)
         }
     };
 
@@ -54,13 +56,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }
 
-    useEffect(() => {
-        if (isLoggedIn) {
-            console.log('Here from authProvider', isLoggedIn)
-                // < Navigate to={} />
 
-        }
-    })
 
     return (
         <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, getUserInfo, isLoggedIn, setIsLoggedIn }}>

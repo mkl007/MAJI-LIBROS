@@ -12,8 +12,8 @@ import { sendConfirmationEmail } from "../utils/email.utils.js";
 
 export const registerUser = async (req, res) => {
   try {
-    await User.deleteMany();
-    await Token.deleteMany();
+    // await User.deleteMany();
+    // await Token.deleteMany();
     const verifyEmail = await User.findOne({ email: req.body.email });
     if (verifyEmail)
       return res.status(409).json({ message: "Email already exist. Do you mean to login?" });
@@ -40,8 +40,8 @@ export const registerUser = async (req, res) => {
       return res.status(404).json({ message: "Error sending confirmation email. Email no found, double check email address" });
     }
   } catch (error) {
-    console.log(error)
-    // res.status(500).json({ message: "Internal Error. Please refresh the page and try again" })
+    // console.log(error)
+    res.status(500).json({ message: "Internal Error. Please refresh the page and try again" })
   }
 };
 

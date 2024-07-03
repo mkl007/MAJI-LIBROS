@@ -22,7 +22,7 @@ function classNames(...classes: string[]) {
 }
 
 export const Navbar = () => {
-    const { data, getUserInfo, isLoading, setIsLoading, isLoggedIn } = useAuth()
+    const { data, getUserInfo, setIsLoading, isLoggedIn } = useAuth()
     const token = useGetToken();
     const name = data?.userInfo?.fullname;
 
@@ -45,7 +45,7 @@ export const Navbar = () => {
     return (
         <div>
             {isLoggedIn ? (
-                <Disclosure as="nav" className="fixed  w-full bg-gray-800 z-50  border-2 border-red-500">
+                <Disclosure as="nav" className="fixed  w-full bg-gray-800 z-50 ">
                     {({ open }) => (
                         <>
                             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -62,11 +62,11 @@ export const Navbar = () => {
                                     </div>
                                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                         <div className="flex flex-shrink-0 items-center">
-                                            <img
+                                            {/* <img
                                                 className="h-8 w-auto"
                                                 src='/logoMaji.webp'
                                                 alt="MajiBooks"
-                                            />
+                                            /> */}
                                         </div>
                                         <div className="hidden sm:ml-6 sm:block">
                                             <div className="flex space-x-4">
@@ -85,7 +85,9 @@ export const Navbar = () => {
                                                 ))}
                                             </div>
                                         </div>
-                                        <SearchInput />
+                                        <div className=''>
+                                            <SearchInput />
+                                        </div>
                                         <div className="hidden sm:ml-6 sm:block text-white">
                                             <div className="flex space-x-4">
                                                 <p>{name}</p>
@@ -106,7 +108,7 @@ export const Navbar = () => {
                                                     <span className="sr-only">Open user menu</span>
                                                     <img
                                                         className="h-8 w-8 rounded-full"
-                                                        src=""
+                                                        src="/logo.jpeg"
                                                         alt="UserLogo"
                                                     />
                                                 </Menu.Button>
@@ -197,7 +199,7 @@ export const Navbar = () => {
                                         <div className="flex flex-shrink-0 items-center">
                                             <img
                                                 className="h-8 w-auto"
-                                                src='../../public/logoMaji.webp'
+                                                src='/logoMaji.webp'
                                                 alt="Your Company"
                                             />
                                         </div>
@@ -234,7 +236,7 @@ export const Navbar = () => {
                                                     <span className="sr-only">Open user menu</span>
                                                     <img
                                                         className="h-8 w-8 rounded-full"
-                                                        src="/apps/client/src/assets/logo.jpeg"
+                                                        src="/logo.jpeg"
                                                         alt=""
                                                     />
                                                 </Menu.Button>

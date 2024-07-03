@@ -52,7 +52,7 @@ import { } from "react-router-dom";
 
 
 export const Products = () => {
-  const { data, getUserInfo, isLoading, setIsLoading, isLoggedIn } = useAuth()
+  const {  getUserInfo, setIsLoading, isLoggedIn } = useAuth()
   const token = useGetToken();
   
   useEffect(() => {

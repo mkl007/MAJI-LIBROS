@@ -4,8 +4,10 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 
 export const GithubButton = () => {
 
-    const handleLogin = () => {
+    const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
         window.location.href = `http://localhost:3000/api/v1/auth/github/`
+        // window.location.href = `https://ms419220-3000.use2.devtunnels.ms/`
 
     };
     return (

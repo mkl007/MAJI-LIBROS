@@ -38,16 +38,8 @@ routerUser.get('/auth/github/callback', passport.authenticate('github', { sessio
     res.redirect(`http://localhost:5173/profile`); 
 });
 
-routerUser.get('/dashboard', (req, res) => {
-    const userToShow = {
-        username: 'maikel',
-    }
-    res.json({ userToShow });
-});
-
 
 routerUser.get('/logout', function (req, res) {
-    res.clearCookie('jwt');
+    res.clearCookie('token');
     res.redirect('http://localhost:5173/')
-
 });
