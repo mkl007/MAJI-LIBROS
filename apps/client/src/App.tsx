@@ -14,24 +14,22 @@ import { ProtectedRoutes } from './components/ProtectedRoutes.component';
 const AppContent = () => {
   const location = useLocation();
 
-  // List of routes where the Navbar should not be displayed
   const noNavbarRoutes = ['/signup', '/login'];
   const noFooterRoutes = ['/signup', '/login'];
 
   return (
     <>
-      {/* Conditionally render Navbar */}
-      {/* {!noNavbarRoutes.includes(location.pathname) && <Navbar />} */}
       {!noNavbarRoutes.includes(location.pathname) && !noFooterRoutes.includes(location.pathname) && <Navbar />}
 
       <Routes>
         <Route path='/' element={<HomePage />} />
-
         <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/products' element={<Products />} />
+
         <Route element={<ProtectedRoutes />}>
+          <Route path='/login' element={<LoginPage />} />
+
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/products' element={<Products />} />
           <Route path='/settings' element={<Settings />} />
         </Route>
         <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />

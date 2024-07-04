@@ -1,37 +1,18 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useEffect } from 'react';
-import { HomePage } from '../pages/Home.page';
-import { useGetToken } from '../hooks/useGetToken';
 
-export const ProtectedRoutes: React.FC = () => {
 
-  const { data, getUserInfo, isLoading, setIsLoading, isLoggedIn } = useAuth()
-  const token = useGetToken();
+export const ProtectedRoutes = () => {
+  const { isLoading, isLoggedIn } = useAuth();
+  const navigate = useNavigate()
+
   useEffect(() => {
-    if (token != null) {
-
-      setIsLoading(true);
-
-
-      getUserInfo(token).then(() => {
-        setIsLoading(false);
-      });
+    if (isLoading) return console.log('Loading..')
+    else if (!isLoggedIn && !isLoading) {
+      console.log('Hi, is not loggedin and not isloading')
+      return navigate('/login')
     }
-  }, [token]);
-
-  useEffect(() => {
-    if (isLoggedIn) console.log('from ProtectedRouter', isLoggedIn)    
-  })
-
-
-  
-// useEffect(() => {
-//   setTimeout(() => {
-    return isLoggedIn ? <Outlet /> : <Navigate to={'/login'}/>;
-    
-//   }, 1000);
-
-// },)
-
-};
+  }, [isLoggedIn])
+  return <Outlet />;
+}

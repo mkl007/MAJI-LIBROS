@@ -7,10 +7,14 @@ import { GithubButton } from './GithubButton.component';
 
 
 const LogInFormComponent = () => {
-    const { loginFunction, data } = useAuth()
-    const [user, setUser] = useState<UserToLogin>({  email: '', password: '' });
+    const { loginFunction, data, isLoggedIn } = useAuth()
+    const [user, setUser] = useState<UserToLogin>({ email: '', password: '' });
 
     const navegate = useNavigate()
+
+    useEffect(() => {
+        if (isLoggedIn) navegate('/')
+    })
 
     function handleSubmit(event: { preventDefault: () => void; }) {
         event.preventDefault();
@@ -83,7 +87,7 @@ const LogInFormComponent = () => {
                 </form>
 
                 <p className="mt-10 text-center text-sm text-gray-500">
-                    You don't have account? 
+                    You don't have account?
                     <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                         Sign Up
                     </Link>
