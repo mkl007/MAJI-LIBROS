@@ -1,18 +1,13 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 
-export const ProtectedRoutes = () => {
-  const { isLoading, isLoggedIn } = useAuth();
-  const navigate = useNavigate()
+export const ProtectedRoutes: React.FC<{ children: JSX.Element }> = ({ children }) => {
 
-  useEffect(() => {
-    if (isLoading) return console.log('Loading..')
-    else if (!isLoggedIn && !isLoading) {
-      console.log('Hi, is not loggedin and not isloading')
-      return navigate('/login')
-    }
-  }, [isLoggedIn])
-  return <Outlet />;
+  const { isLoggedIn } = useAuth()
+  const location = useLocation();
+  console.log(isLoggedIn)
+
+  return !isLoggedIn ? (<Navigate to={'/login'} state={{ from: location }} replace />) : (children);
 }

@@ -11,6 +11,7 @@ import { Userverificationsuccess } from './pages/Userverificationsuccess';
 import { Footer } from './components/Footer.component';
 import { ProtectedRoutes } from './components/ProtectedRoutes.component';
 
+
 const AppContent = () => {
   const location = useLocation();
 
@@ -24,14 +25,15 @@ const AppContent = () => {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/login' element={<LoginPage />} />
 
-        <Route element={<ProtectedRoutes />}>
-          <Route path='/login' element={<LoginPage />} />
 
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/products' element={<Products />} />
-          <Route path='/settings' element={<Settings />} />
-        </Route>
+        {/* Protected Routes */}
+
+        <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+        <Route path='/products' element={<ProtectedRoutes><Products /></ProtectedRoutes>} />
+        <Route path='/settings' element={<ProtectedRoutes><Settings /></ProtectedRoutes>} />
+
         <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
       </Routes>
       {!noFooterRoutes.includes(location.pathname) && <Footer />}
