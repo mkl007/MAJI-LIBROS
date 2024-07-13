@@ -1,23 +1,20 @@
 
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import { useAuth } from "../hooks/useAuth";
 
 
 export const GithubButton = () => {
+    const { setIsLoading } = useAuth()
 
     const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
+        setIsLoading(true)
         window.location.href = `http://localhost:3000/api/v1/auth/github/`
-        // window.location.href = `https://ms419220-3000.use2.devtunnels.ms/`
-
     };
     return (
         <div>
 
-            <div className="flex items-center justify-between my-1">
-                <span className="border-b border-gray-300 w-full"></span>
-                <span className="px-4 text-gray-500">or</span>
-                <span className="border-b border-gray-300 w-full"></span>
-            </div>
+
             <div className="flex flex-col space-y-4">
                 <button className="flex  items-center w-full mt-3 justify-center rounded-md px-3 py-2 text-sm font-semibold leading-6  shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 bg-red-600 text-white  hover:bg-red-700 transition duration-200">
                     <FaGoogle className="mr-2" />

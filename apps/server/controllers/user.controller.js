@@ -12,8 +12,9 @@ import { sendConfirmationEmail } from "../utils/email.utils.js";
 
 export const registerUser = async (req, res) => {
   try {
-    // await User.deleteMany();
-    // await Token.deleteMany();
+    // for Dev enviroment only
+    await User.deleteMany();
+    await Token.deleteMany();
     const verifyEmail = await User.findOne({ email: req.body.email });
     if (verifyEmail)
       return res.status(409).json({ message: "Email already exist. Do you mean to login?" });
@@ -27,7 +28,7 @@ export const registerUser = async (req, res) => {
     const tok = tokenBytes.toString("hex");
     const token = new Token({ userId: newUser._id, token: tok });
 
-    const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}?redirectUrl=${encodeURIComponent('http://localhost:5173/signup')}`
+    const verificationLink = `${process.env.BACKEND_URI}/confirm/${token.token}?redirectUrl=${encodeURIComponent(`${process.env.FRONTEND_URI}/signup`)}`
 
     const emailResult = await sendConfirmationEmail(newUser, verificationLink);
     if (emailResult.success) {
@@ -50,7 +51,7 @@ export const emailTokenConfimation = async (req, res) => {
     const token = await Token.findOne({ token: req.params.token });
     await User.updateOne({ _id: token.userId }, { $set: { verified: true } });
     await Token.findByIdAndDelete(token._id)
-    res.redirect('http://localhost:5173/userverificationsuccess')
+    res.redirect(`${process.env.FRONTEND_URI}/userverificationsuccess`)
   } catch (error) {
     res.status(502).json({ message: 'Error while verifying or email already verified' })
   }
@@ -87,6 +88,7 @@ export const logout = async (req, res) => {
     res.cookie('token', null, {
       expires: new Date(0)
     })
+
     return res.status(200).json({ message: 'Loggin out...' })
   } catch (error) {
     //console.log("Error", error)
@@ -175,17 +177,4 @@ export const verifyTokenRoute = async (req, res) => {
   }
 }
 
-export const userDataTest = async (req, res) => {
-  try {
-    const userTest = {
-      fullname: 'Maikel Emeterio Berbi',
-      email: 'maikel.emeteriooberbi@gmail.com',
-      password: 'maikel'
-    }
-    return res.json({ message: 'There is data for you maifren' })
-  } catch (error) {
-    console.log(error.name)
-    res.json({ error })
-  }
-}
 

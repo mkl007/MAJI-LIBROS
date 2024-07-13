@@ -4,7 +4,6 @@ import { ApiResponse, UserToLogin, UserToSignUp } from "../interfaces/User.inter
 import axios, { AxiosResponse } from "axios"
 import instanceAxios from "../api/axiosSetup"
 import { useGetToken } from "../hooks/useGetToken"
-import { LoadingSpinner } from "../utils/LoadingSnipper"
 
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -45,8 +44,6 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     };
 
-
-
     const getUserInfo = useCallback(async (token: string) => {
         try {
             const response: AxiosResponse<ApiResponse> = await axios.get<ApiResponse>(`http://localhost:3000/api/v1/userData/${token}`);
@@ -77,12 +74,11 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, [token, getUserInfo]);
 
-    if (isLoading) return <LoadingSpinner />;
 
-
-
-
-
+    useEffect(() => {
+     if(isLoading) console.log('is loading')
+    }, [isLoading])
+    
 
     return (
         <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, getUserInfo, isLoggedIn, setIsLoggedIn }}>

@@ -1,18 +1,11 @@
-import { FormLoginComponent } from "../components/SignUpForm";
+import { FormSigninComponent } from "../components/SignUpForm";
 import { VerifyEmailModalComponent } from "../components/VerifyEmailModal.component";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
-import { LoadingSpinner } from "../utils/LoadingSnipper";
 
 const SignUpPage = () => {
-  const { data, isLoading } = useAuth();
+  const { data } = useAuth();
   const [showModal, setShowModal] = useState(true);
-
-  if (isLoading) {
-    return <div>
-      <LoadingSpinner/>
-    </div>;
-  }
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -25,7 +18,7 @@ const SignUpPage = () => {
       ) : (
         <div className="sm:mx-auto sm:w-full sm:max-w-sm rounded-md">
           <h1 className="text-xl text-cyan-900">MAJIBOOKS</h1>
-          <FormLoginComponent />
+          <FormSigninComponent />
         </div>
       )}
     </div>
@@ -34,9 +27,4 @@ const SignUpPage = () => {
 
 export default SignUpPage;
 
-
-
-
-
-//////////////
 

@@ -1,22 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserToSignUp } from '../interfaces/User.interface';
-// import { signUpRequest } from '../api/auth';
 import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from '../components/GithubButton.component';
+import { LoadingSpinner } from '../utils/LoadingSnipper';
 
-export const LoadingSnipper = () => {
-  return (
-    <div>
-      loading
-    </div>
-  )
-}
+export const notDisabledInputStyle = "block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
+export const disabledInputStyle = "block w-full rounded-md bg-gray-300 border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6 "
+export const notDisabledButtonStyle = 'flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 
-export const FormLoginComponent = () => {
+export const FormSigninComponent = () => {
   const [user, setUser] = useState<UserToSignUp>({ fullname: '', email: '', password: '' });
-
-  const { signUpFunction, setIsLoading } = useAuth()
+  const { signUpFunction, setIsLoading, isLoading } = useAuth()
 
   async function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();
@@ -36,8 +31,8 @@ export const FormLoginComponent = () => {
 
       <div className="container">
         <form onSubmit={handleSubmit} className="space-y-6" >
+         {isLoading ? <LoadingSpinner/> : ''}
           <div>
-
             <div className="mt-2">
               <input
                 id="fullname"
@@ -47,7 +42,8 @@ export const FormLoginComponent = () => {
                 required
                 placeholder='Fullname'
                 onChange={(e) => setUser({ ...user, fullname: e.target.value })}
-                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
+                disabled={isLoading}
+                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
               />
             </div>
           </div>
@@ -61,8 +57,9 @@ export const FormLoginComponent = () => {
                 autoComplete="email"
                 required
                 placeholder='Email'
+                disabled={isLoading}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
-                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
+                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
               />
             </div>
           </div>
@@ -78,7 +75,8 @@ export const FormLoginComponent = () => {
                 required
                 placeholder='Password'
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
-                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
+                disabled={isLoading}
+                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
               />
             </div>
           </div>
@@ -86,12 +84,18 @@ export const FormLoginComponent = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              disabled={isLoading}
+              className={`${notDisabledButtonStyle}`}
             >
               Sign in
             </button>
-            <div
-            >
+            <div className="flex items-center justify-between my-1">
+              <span className="border-b border-gray-300 w-full"></span>
+              <span className="px-4 text-gray-500">or</span>
+              <span className="border-b border-gray-300 w-full"></span>
+            </div>
+
+            <div className=''>
               <GithubButton />
             </div>
 
@@ -100,7 +104,7 @@ export const FormLoginComponent = () => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Already have an accoun?
-          <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+          <Link to="/login" className="pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
             Log in
           </Link>
         </p>

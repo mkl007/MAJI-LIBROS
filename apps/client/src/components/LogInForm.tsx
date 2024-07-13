@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserToLogin } from '../interfaces/User.interface';
 import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from './GithubButton.component';
+import { LoadingSpinner } from '../utils/LoadingSnipper';
+import { disabledInputStyle, notDisabledInputStyle } from './SignUpForm';
 
 
 
 const LogInFormComponent = () => {
-    const { loginFunction, data, isLoggedIn } = useAuth()
+    const { loginFunction, data, isLoggedIn, isLoading } = useAuth()
     const [user, setUser] = useState<UserToLogin>({ email: '', password: '' });
 
     const navegate = useNavigate()
@@ -40,6 +42,8 @@ const LogInFormComponent = () => {
 
             <div className="container">
                 <form onSubmit={handleSubmit} className="space-y-6" >
+                    {isLoading ? <LoadingSpinner /> : ''}
+
                     <div>
                         <div className="mt-2">
                             <input
@@ -50,7 +54,8 @@ const LogInFormComponent = () => {
                                 required
                                 placeholder='Email'
                                 onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
+                                disabled={isLoading}
+                                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
                             />
                         </div>
                     </div>
@@ -78,8 +83,12 @@ const LogInFormComponent = () => {
                         >
                             Sign in
                         </button>
-                        <div
-                        >
+                        <div className="flex items-center justify-between my-1">
+                            <span className="border-b border-gray-300 w-full"></span>
+                            <span className="px-4 text-gray-500">or</span>
+                            <span className="border-b border-gray-300 w-full"></span>
+                        </div>
+                        <div>
                             <GithubButton />
                         </div>
 
@@ -88,7 +97,7 @@ const LogInFormComponent = () => {
 
                 <p className="mt-10 text-center text-sm text-gray-500">
                     You don't have account?
-                    <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    <Link to="/signup" className=" pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                         Sign Up
                     </Link>
                 </p>
