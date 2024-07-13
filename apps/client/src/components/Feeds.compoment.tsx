@@ -4,6 +4,7 @@ import { myApi } from '../api/MyApiBooks';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';
+import { ViewContentLoginSuggest } from './popups/ViewContentLoginPrompt';
 
 
 export const Feeds = () => {
@@ -16,7 +17,7 @@ export const Feeds = () => {
   useEffect(() => {
     if (isLoggedIn) {
       setBooks(myApi);
-  
+
     } else {
       setBooks(myApi.slice(0, limit));
 
@@ -44,10 +45,33 @@ export const Feeds = () => {
 
 const FeedItem: React.FC<FeedItemProps> = React.memo(
   ({ bookTitle, authors, image, id, availabilityStatus }) => {
+    const {  isLoggedIn } = useAuth()
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+    const handleLinkClick = (event: React.MouseEvent) => {
+      if (!isLoggedIn) {
+        event.preventDefault();
+        setShowLoginModal(true);
+      }
+    };
+
+    useEffect(() => {
+      if (showLoginModal) {
+        const timer = setTimeout(() => {
+          setShowLoginModal(false);
+        }, 3000); // Puedes ajustar el tiempo según sea necesario
+
+        return () => clearTimeout(timer);
+      }
+    }, [showLoginModal]);
     return (
       <div className="bg-slate-100 shadow-md rounded-lg">
         <div className="flex flex-col justify-center p-2">
-          <Link to={`/books/${id}`}>
+          <Link
+            to={`/books/${id}`}
+            onClick={handleLinkClick}
+          >
+
             <img
               src={image}
               className="w-full h-48 object-cover rounded-t-lg"
@@ -69,6 +93,9 @@ const FeedItem: React.FC<FeedItemProps> = React.memo(
             </div>
           </div>
         </div>
+        {showLoginModal && (
+          <ViewContentLoginSuggest />
+        )}
       </div>
     );
   }
