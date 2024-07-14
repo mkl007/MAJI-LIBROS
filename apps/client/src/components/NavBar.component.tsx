@@ -35,7 +35,8 @@ export const Navbar = () => {
     return (
         <div>
             {isLoggedIn ? (
-                <Disclosure as="nav" className="fixed w-full bg-gray-800 z-50 ">
+                <Disclosure as="nav" className=" w-full bg-gray-800 z-50 ">
+                {/* //  <Disclosure as="nav" className="fixed w-full bg-gray-800 z-50 ">  */}
                     {({ open }) => (
                         <>
                             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -79,7 +80,7 @@ export const Navbar = () => {
                                             <SearchInput />
                                         </div>
                                     </div>
-                                    <div className="absolute   border-2 border-red-700 inset-y-0 right-0 flex space-x-4 items-center  sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                                    <div className="absolute mr-4 inset-y-0 right-0 flex space-x-4 items-center  sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                         {/* <div className="absolute inset-y-0 right-0 flex space-x-4 items-center  sm:static sm:inset-auto sm:ml-6 sm:pr-0"> */}
 
                                         <div>
@@ -91,7 +92,7 @@ export const Navbar = () => {
                                                 <BellIcon className="h-6 w-6" aria-hidden="true" />
                                             </button>
                                         </div>
-                                        <Menu as="div" className="ml-3 border-2 border-green-600 absolute inset-y-0 right-0 flex space-x-4 items-center  sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                                        <Menu as="div" className="ml-3 absolute inset-y-0 right-0 flex space-x-4 items-center  sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                             <div>
                                                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                     <span className="sr-only">Open user menu</span>
@@ -114,7 +115,7 @@ export const Navbar = () => {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <Link
-                                                                to="#"
+                                                                to="/profile"
                                                                 className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                             >
                                                                 My Profile
