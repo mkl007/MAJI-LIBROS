@@ -1,9 +1,6 @@
 import express from 'express'
-import User from '../models/user.model.js';
-// import { verifyToken } from '../middlewares/isLogged.middleware.js';
 import { emailTokenConfimation, logout, passwordReset, passwordResetHandler, registerUser, userLogin, verifyTokenRoute } from '../controllers/user.controller.js';
 import passport from 'passport';
-import { Strategy as GitHubStrategy } from 'passport-github2';
 import jwt from "jsonwebtoken";
 
 

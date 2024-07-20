@@ -11,7 +11,7 @@ export interface UserContextInterface {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loginFunction: (user: UserToLogin) => Promise<void>;
   getUserInfo: (token: string) => Promise<void>;
-  isLoggedIn: boolean
+  isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -31,6 +31,7 @@ interface UserInfo {
   fullname: string;
   virified: boolean;
   id: string;
+  // userAvatar?: string;
 }
 
 interface UserInfoGithubCredential {
@@ -46,9 +47,21 @@ interface UserInfoGithubCredential {
   _id: string;
 }
 
-
 export interface Book {
   id: number;
+  bookTitle: string;
+  authors: string;
+  description?: {
+    publishedYear: number;
+  };
+  gender?: string;
+  image: string;
+  availabilityStatus: string;
+  price?: number;
+}
+
+export interface BookReal {
+  id?: number;
   bookTitle: string;
   authors: string;
   description?: {
@@ -64,6 +77,6 @@ export interface FeedItemProps {
   id: number;
   bookTitle: string;
   authors: string;
-  image: string
-  availabilityStatus: string
+  image: string;
+  availabilityStatus: string;
 }
