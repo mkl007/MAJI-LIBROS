@@ -2,6 +2,7 @@ import axios from "axios";
 import { BookReal } from "../interfaces/User.interface";
 import { useAuth } from "../hooks/useAuth";
 import { FaEdit, FaPlus } from "react-icons/fa";
+import { Link, Navigate } from "react-router-dom";
 
 
 
@@ -13,7 +14,7 @@ export const Profile = () => {
       <h1>Profile</h1>
       <div className="flex">
 
-        <MyDescription imageUrl={data?.userInfo.userAvatar} />
+        <MyDescription />
         <MyBooksProfileComponent />
         <TradedBooks />
 
@@ -27,7 +28,7 @@ export const Profile = () => {
 export const MyDescription = () => {
   return (
     <div className=" w-1/3 container">
-      <ImageEditCircle imageUrl={'https://picsum.photos/seed/picsum/200/300'} />
+      <ImageEditCircle imageUrl={'https://picsum.photos/200/300'} />
       <h1>My Description</h1>
 
     </div>
@@ -72,19 +73,20 @@ export const MyBooksProfileComponent = () => {
 export const AddCard = () => {
   // export const AddCard = ({ onAdd }: { onAdd: MouseEventHandler<HTMLButtonElement> }) => {
   const onAdd = () => {
-    console.log('onAdd clicked')
+    console.log('Add clicked')
   }
   return (
-    <div
-      className="flex justify-center items-center w-24 h-40 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
-    >
-      <button
-        onClick={onAdd}
+    <Link to={"/addNewBook"}>
+      <div
+        className="flex justify-center items-center w-24 h-40 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
       >
-
-        <FaPlus className="text-gray-500 text-2xl" />
-      </button>
-    </div>
+        <button
+          onClick={onAdd}
+        >
+          <FaPlus className="text-gray-500 text-2xl" />
+        </button>
+      </div>
+    </Link>
   );
 };
 
