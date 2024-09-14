@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { genres } from '../utils/contsToExport.util';
 
-interface BookFormProps {
+export interface BookFormProps {
     onSubmit: (data: BookFormData) => void;
 }
 
-interface BookFormData {
+export interface BookFormData {
     title: string;
     author: string;
     description?: string;
@@ -14,13 +15,13 @@ interface BookFormData {
     backCoverImage: File | null;
     availability: 'exchange' | 'sell' | 'both';
     price?: number;
-    descriptionFile?: File | null;
-    uploadDescriptionAsPdf: boolean;
+    descriptionFile?: string | null;
+    uploadDescriptionAsPdf: File | null;
 }
 
-const genres = ['Fiction', 'Non-Fiction', 'Fantasy', 'Science Fiction', 'Mystery', 'Biography', 'Romance'];
 
 export const AddNewBookForm: React.FC<BookFormProps> = () => {
+    // const () = 
     const [formData, setFormData] = useState<BookFormData>({
         title: '',
         author: '',
@@ -49,8 +50,8 @@ export const AddNewBookForm: React.FC<BookFormProps> = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // onSubmit(formData);
-        console.log('hi from here addnewbookform')
+        // onSubmitBookForm(formData);
+        console.log(formData)
     };
 
     return (
@@ -210,7 +211,12 @@ export const AddNewBookForm: React.FC<BookFormProps> = () => {
                 </div>
 
                 <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm">Publish</button>
+                <button type="submit" className="mt-4 ml-4 px-4 py-2 bg-red-500 text-white rounded-md shadow-sm">Save as draft</button>
+                
+                
+
             </form>
         </div>
     );
 };
+

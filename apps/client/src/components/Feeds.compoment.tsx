@@ -25,7 +25,7 @@ export const Feeds = () => {
   }, [isLoggedIn, limit]);
 
   return (
-    <div className="container mx-auto mb-7 pb-2">
+    <div className="container mx-auto mb-7 pb-2 ">
       <h1 className="text-xl font-bold mb-4">Feeds: Last published Books</h1>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
         {books.map((book) => (
@@ -65,11 +65,12 @@ const FeedItem: React.FC<FeedItemProps> = React.memo(
       }
     }, [showLoginModal]);
     return (
-      <div className="bg-slate-100 shadow-md rounded-lg">
+      <div className="bg-slate-100 shadow-md rounded-lg hover:border-2 border-red-500">
         <div className="flex flex-col justify-center p-2">
           <Link
             to={`/books/${id}`}
             onClick={handleLinkClick}
+            className=''
           >
 
             <img

@@ -4,6 +4,7 @@ import { ApiResponse, UserToLogin, UserToSignUp } from "../interfaces/User.inter
 import axios, { AxiosResponse } from "axios"
 import instanceAxios from "../api/axiosSetup"
 import { useGetToken } from "../hooks/useGetToken"
+import { LoadingSpinner } from "../utils/LoadingSnipper"
 
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -76,8 +77,17 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
 
     useEffect(() => {
-     if(isLoading) console.log('is loading')
+     if(isLoading) {
+        console.log('Isloading: ', isLoading)
+        // return <LoadingSpinner/>
+     }
     }, [isLoading])
+
+    useEffect(() => {
+        if(isLoggedIn) {
+           console.log('Is logged in: ', isLoggedIn)
+        }
+       }, [isLoggedIn])
     
 
     return (
