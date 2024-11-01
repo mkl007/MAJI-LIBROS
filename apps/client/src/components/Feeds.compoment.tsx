@@ -5,14 +5,15 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';
 import { ViewContentLoginSuggest } from './popups/ViewContentLoginPrompt';
+import { BookFormData } from './AddNewBookForm'
+import { HiOutlineShoppingCart } from "react-icons/hi";
+
 
 
 export const Feeds = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [limit, setLimit] = useState<number>(20);
   const { isLoggedIn } = useAuth();
-
-
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -24,6 +25,8 @@ export const Feeds = () => {
     }
   }, [isLoggedIn, limit]);
 
+
+
   return (
     <div className="container mx-auto mb-7 pb-2 ">
       <h1 className="text-xl font-bold mb-4">Feeds: Last published Books</h1>
@@ -32,10 +35,11 @@ export const Feeds = () => {
           <FeedItem
             key={book.id}
             id={book.id}
-            authors={book.authors}
+            author={book.author}
             bookTitle={book.bookTitle}
-            image={book.image}
+            coverImage={book.coverImage}
             availabilityStatus={book.availabilityStatus}
+            price={book.price}
           />
         ))}
       </div>
@@ -43,9 +47,9 @@ export const Feeds = () => {
   );
 };
 
-const FeedItem: React.FC<FeedItemProps> = React.memo(
-  ({ bookTitle, authors, image, id, availabilityStatus }) => {
-    const {  isLoggedIn } = useAuth()
+export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
+  ({ bookTitle, author, coverImage, id, availabilityStatus, price }) => {
+    const { isLoggedIn } = useAuth()
     const [showLoginModal, setShowLoginModal] = useState(false);
 
     const handleLinkClick = (event: React.MouseEvent) => {
@@ -59,7 +63,7 @@ const FeedItem: React.FC<FeedItemProps> = React.memo(
       if (showLoginModal) {
         const timer = setTimeout(() => {
           setShowLoginModal(false);
-        }, 3000); // Puedes ajustar el tiempo según sea necesario
+        }, 3000);
 
         return () => clearTimeout(timer);
       }
@@ -74,22 +78,23 @@ const FeedItem: React.FC<FeedItemProps> = React.memo(
           >
 
             <img
-              src={image}
+              src={coverImage}
               className="w-full h-48 object-cover rounded-t-lg"
-              alt="image desc"
+              alt="coverImage desc"
             />
-            <h2 className="text-base font-semibold mb-1">{bookTitle}</h2>
           </Link>
+          <p className="text-base mb-1 mt-1"><b>Title:</b> {bookTitle}</p>
           <div className="flex justify-between">
             <div>
-              <p>{authors}</p>
-              <p>Price: </p>
-              <p>Rate:</p>
-              <p>Available for: <b>{availabilityStatus}</b></p>
+              <p><b>Author:</b> {author}</p>
+              <p><b>Price:</b> ${price} </p>
+              <p><b>Rate:</b></p>
+              <p><b>Available for:</b> <b>{availabilityStatus}</b></p>
             </div>
-            <div>
-              <span>
-                <button type="button">Carrito</button>
+            <div className='mr-3'>
+              <span className='hover:text-red-500' about='Shopping Car'>
+                <button type="button" className='text-xl'><HiOutlineShoppingCart />
+                </button>
               </span>
             </div>
           </div>

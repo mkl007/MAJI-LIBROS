@@ -50,12 +50,12 @@ interface UserInfoGithubCredential {
 export interface Book {
   id: number;
   bookTitle: string;
-  authors: string;
+  author: string;
   description?: {
     publishedYear: number;
   };
   gender?: string;
-  image: string;
+  coverImage: string | null ;
   availabilityStatus: string;
   price?: number;
 }
@@ -63,20 +63,22 @@ export interface Book {
 export interface BookReal {
   id?: number;
   bookTitle: string;
-  authors: string;
+  author: string;
   description?: {
     publishedYear: number;
   };
   gender?: string;
-  image: string;
+  coverImage: string | null ;
   availabilityStatus: string;
   price?: number;
 }
 
 export interface FeedItemProps {
-  id: number;
-  bookTitle: string;
-  authors: string;
-  image: string;
+  id?: number;
+  bookTitle: string ;
+  author: string;
+  coverImage: string | null ;
   availabilityStatus: string;
+  price?: number;
 }
+
