@@ -79,7 +79,7 @@ export const AddNewBookForm: React.FC = () => {
                 <form className="bg-slate-300 shadow-md rounded p-6" onSubmit={onSubmit}>
                     <div className="flex mb-4">
                         <div className="w-full md:w-1/2 pr-2">
-                            <label htmlFor="bookTitle" className="block text-sm font-medium text-gray-700">Book Title</label>
+                            <label htmlFor="bookTitle" className="block text-sm font-medium text-gray-700">Book Title <span className='text-red-700'>*</span></label>
                             <input
                                 type="text"
                                 id="bookTitle"
@@ -92,7 +92,7 @@ export const AddNewBookForm: React.FC = () => {
                             />
                         </div>
                         <div className="w-full md:w-1/2 pl-2">
-                            <label htmlFor="author" className="block text-sm font-medium text-gray-700">Author</label>
+                            <label htmlFor="author" className="block text-sm font-medium text-gray-700">Author <span className='text-red-700'>*</span></label>
                             <input
                                 type="text"
                                 id="author"
@@ -101,7 +101,7 @@ export const AddNewBookForm: React.FC = () => {
                                 value={formData.author}
                                 onChange={handleChange}
                                 required
-                                placeholder='   Author (i.e: if I am the author enter my name)'
+                                placeholder='  Name'
                             />
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export const AddNewBookForm: React.FC = () => {
 
                     <div className="flex mb-4">
                         <div className="w-full md:w-1/2 pr-2">
-                            <label htmlFor="uploadDescriptionAsPdf" className="block text-sm font-medium text-gray-700">Upload Content as PDF</label>
+                            <label htmlFor="uploadDescriptionAsPdf" className="block text-sm font-medium text-gray-700">Upload Content as PDF <span className='text-red-700'>*</span></label>
                             <div className="mt-1 flex items-center">
                                 <input
                                     type="file"
@@ -135,7 +135,7 @@ export const AddNewBookForm: React.FC = () => {
                         </div>
 
                         <div className="w-full md:w-1/2 pl-2">
-                            <label htmlFor="genre" className="block text-sm font-medium text-gray-700">Genre</label>
+                            <label htmlFor="genre" className="block text-sm font-medium text-gray-700">Gender <span className='text-red-700'>*</span></label>
                             <select
                                 id="genre"
                                 name="genre"
@@ -144,7 +144,7 @@ export const AddNewBookForm: React.FC = () => {
                                 onChange={handleChange}
                                 required
                             >
-                                <option value="">Select a genre</option>
+                                <option value="">Select a Gender</option>
                                 {genres.map((genre) => (
                                     <option key={genre} value={genre}>{genre}</option>
                                 ))}
@@ -154,7 +154,7 @@ export const AddNewBookForm: React.FC = () => {
 
                     <div className="flex mb-4">
                         <div className="w-full md:w-1/2 pr-2">
-                            <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700">Cover Image</label>
+                            <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700">Cover Image <span className='text-red-700'>*</span></label>
                             <input
                                 type="file"
                                 id="coverImage"
@@ -178,7 +178,7 @@ export const AddNewBookForm: React.FC = () => {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">Availability Status</label>
+                        <label className="block text-sm font-medium text-gray-700">Availability Status <span className='text-red-700'>*</span></label>
                         <div className="mt-1">
                             <label className="inline-flex items-center">
                                 <input
