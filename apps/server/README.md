@@ -15,7 +15,7 @@ This is web application that allows the users read, upload and download books. T
 
 ```javascript
 PORT=3000
-MONGO_URI=mongodb://127.0.0.1:27017/MajiDB
+MONGO_URI=MyMongoDB
 JWT_PASS=mysecretpass
 EMAIL_USER=<Replace with your email address>
 EMAIL_PASS=<Replace with yor email's password or use password apps>
