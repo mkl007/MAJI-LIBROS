@@ -9,13 +9,9 @@ export const ProtectedRoutes: React.FC<{ children: JSX.Element }> = ({ children 
   const { isLoggedIn, isLoading } = useAuth();
   const location = useLocation();
 
-
-
-  if (!isLoggedIn) {
-    return <Navigate to={'/login'} state={{ from: location }} relative='path'/>
-
-
-  }
+  // if (!isLoggedIn) {
+  //   return <Navigate to={'/login'} state={{ from: location }} relative='path'/>
+  // }
 
   return children;
 };

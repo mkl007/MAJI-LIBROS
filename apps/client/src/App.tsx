@@ -11,6 +11,7 @@ import { Userverificationsuccess } from './pages/Userverificationsuccess';
 import { Footer } from './components/Footer.component';
 import { ProtectedRoutes } from './components/ProtectedRoutes.component';
 import { AddNewBook } from './pages/AddNewBook.page';
+import ShoppingCartPage from './pages/ShoppingCart.page';
 
 
 const AppContent = () => {
@@ -35,6 +36,7 @@ const AppContent = () => {
         <Route path='/products' element={<ProtectedRoutes><Products /></ProtectedRoutes>} />
         <Route path='/settings' element={<ProtectedRoutes><Settings /></ProtectedRoutes>} />
         <Route path='/addNewBook' element={<ProtectedRoutes><AddNewBook /></ProtectedRoutes>} />
+        <Route path='/cart' element={<ProtectedRoutes><ShoppingCartPage /></ProtectedRoutes>} />
 
         <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
       </Routes>
