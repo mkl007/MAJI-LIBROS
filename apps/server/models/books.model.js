@@ -6,7 +6,7 @@ const bookSchema = new realSchema({
     bookTitle: {
         type: String,
     },
-    authors: {
+    author: {
         type: String,
     },
     description: {
@@ -30,9 +30,7 @@ const bookSchema = new realSchema({
     ownerId: {
         type: String,
     },
-    lastOwner: {
-        type: String
-    }
+
 }, { timestamps: true }); // Add timestamps to track creation and update times
 
 const BookSchema = mongoose.model('BookSchema', bookSchema);

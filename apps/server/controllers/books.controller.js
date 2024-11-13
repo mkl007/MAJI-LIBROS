@@ -1,10 +1,3 @@
-
-/*
-    To create the new book you need to:
-
-    enter the BookModel information
-*/
-
 import BookSchema from "../models/books.model.js"
 
 const generateISBN = () => {
@@ -27,9 +20,9 @@ const generateISBN = () => {
 
 export const newBook = async (req, res) => {
     const isbn = await generateISBN();
-    const newBookData = {
+    const newBookData = new BookSchema({
         isbn,
-        authors: req.body.authors,
+        author: req.body.author,
         availabilityStatus: req.body.availabilityStatus,
         bookTitle: req.body.bookTitle,
         description: req.body.description,
@@ -37,16 +30,15 @@ export const newBook = async (req, res) => {
         image: req.body.image,
         ownerId: req.params.userId,
         price: req.body.price,
-        lastOwner: req.body.lastOwner,
         publishedYear: req.body.publishedYear,
-    };
+    });
 
     try {
-        // const book = await BookSchema.create(newBookData);
-        // console.log(req.headers.cookie)
-        // return res.status(201).json(book);
-        console.log('hi from the books.controller')
-        return res.status(200).json({newBookData})
+        await BookSchema.create(newBookData).then(() => {
+            return res.status(201).json({message: 'New book saved!'});
+
+        })
+
     } catch (error) {
         console.log(error)
         return res.status(500).json({ error: 'Error creating book' });
