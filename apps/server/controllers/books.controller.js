@@ -35,7 +35,7 @@ export const newBook = async (req, res) => {
 
     try {
         await BookSchema.create(newBookData).then(() => {
-            return res.status(201).json({message: 'New book saved!'});
+            return res.status(201).json({ message: 'New book saved!' });
 
         })
 
@@ -44,3 +44,35 @@ export const newBook = async (req, res) => {
         return res.status(500).json({ error: 'Error creating book' });
     }
 };
+
+export const myBooks = async (req, res) => {
+    try {
+        const reqBooks = await BookSchema.find({ ownerId: req.params.userId })
+        if (!reqBooks) {
+            console.log(req.params.userId)
+            return res.status(400).json({ message: 'seems that you dont have books yet.. ' })
+        }
+        res.json({ reqBooks })
+
+    } catch (error) {
+        console.log('There is an error: ', error)
+        return res.status(401).json({ message: 'You got a problem...' })
+    }
+}
+
+export const singleBook = async (req, res) => {
+    try {
+        const reqBook = await BookSchema.find({ ownerId: req.params.userI })
+        if (!reqBook) {
+            console.log(req.params.userId)
+            return res.status(400).json({ message: 'seems that you dont have books yet.. ' })
+        }
+        const reqSingleBook = await BookSchema.findOne({ _id: req.params.singlebook })
+        if(!reqSingleBook) return res.json({message: 'No file found with your searching criteria.'})
+        res.json({ reqSingleBook })
+
+    } catch (error) {
+        console.log('There is an error: ', error)
+        return res.status(401).json({ message: 'You got a problem...' })
+    }
+}
