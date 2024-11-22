@@ -4,6 +4,6 @@ export const routerBook = express.Router();
 
 routerBook.post('/newbook/:userId', newBook)
 
-routerBook.get('/books/:userId', myBooks);
+routerBook.get('/:userId/books', myBooks);
 
 routerBook.get('/book/:userId/:singlebook', singleBook)

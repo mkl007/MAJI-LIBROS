@@ -35,6 +35,7 @@ export const newBook = async (req, res) => {
 
     try {
         await BookSchema.create(newBookData).then(() => {
+            console.log(isbn)
             return res.status(201).json({ message: 'New book saved!' });
 
         })

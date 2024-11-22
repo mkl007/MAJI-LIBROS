@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 const realSchema = mongoose.Schema;
 
 const bookSchema = new realSchema({
+    isbn: {
+        type: Number
+    },
     bookTitle: {
         type: String,
     },
