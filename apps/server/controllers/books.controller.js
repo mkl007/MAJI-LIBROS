@@ -19,6 +19,7 @@ const generateISBN = () => {
 
 
 export const newBook = async (req, res) => {
+
     const isbn = await generateISBN();
     const newBookData = new BookSchema({
         isbn,
@@ -69,7 +70,7 @@ export const singleBook = async (req, res) => {
             return res.status(400).json({ message: 'seems that you dont have books yet.. ' })
         }
         const reqSingleBook = await BookSchema.findOne({ _id: req.params.singlebook })
-        if(!reqSingleBook) return res.json({message: 'No file found with your searching criteria.'})
+        if (!reqSingleBook) return res.json({ message: 'No file found with your searching criteria.' })
         res.json({ reqSingleBook })
 
     } catch (error) {
