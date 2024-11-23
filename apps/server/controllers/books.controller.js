@@ -1,20 +1,6 @@
 import BookSchema from "../models/books.model.js"
-
-const generateISBN = () => {
-    let isbn = '978'; // Prefijo EAN para libros
-    for (let i = 0; i < 9; i++) {
-        isbn += Math.floor(Math.random() * 10);
-    }
-
-    let checksum = 0;
-    for (let i = 0; i < 12; i++) {
-        checksum += (isbn[i] * ((i % 2 === 0) ? 1 : 3));
-    }
-    checksum = (10 - (checksum % 10)) % 10;
-    isbn += checksum;
-
-    return isbn;
-};
+import { uploadedFilefunction } from "../utils/cloudinary.js";
+import { generateISBN } from '../utils/generateISBN.js'
 
 
 
@@ -28,18 +14,19 @@ export const newBook = async (req, res) => {
         bookTitle: req.body.bookTitle,
         description: req.body.description,
         gender: req.body.gender,
-        image: req.body.image,
+        coverImage: req.body.coverImage,
         ownerId: req.params.userId,
         price: req.body.price,
         publishedYear: req.body.publishedYear,
     });
 
     try {
-        await BookSchema.create(newBookData).then(() => {
-            console.log(isbn)
-            return res.status(201).json({ message: 'New book saved!' });
-
-        })
+        if (!req.files || Object.keys(req.files) === 0) return res.status(400).json({ message: 'No files were uploaded.' });
+        const uploadedFile = req.files.coverImage;
+        const result = await uploadedFilefunction(uploadedFile.tempFilePath)
+        newBookData.coverImage = result.secure_url;
+        await BookSchema.create(newBookData)
+        return res.status(201).json({ message: 'New book saved!' });
 
     } catch (error) {
         console.log(error)

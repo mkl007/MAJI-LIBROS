@@ -21,7 +21,7 @@ const bookSchema = new realSchema({
     gender: {
         type: String,
     },
-    image: {
+    coverImage: {
         type: String,
     },
     availabilityStatus: {
