@@ -21,7 +21,10 @@ export const newBook = async (req, res) => {
     });
 
     try {
-        if (!req.files || Object.keys(req.files) === 0) return res.status(400).json({ message: 'No files were uploaded.' });
+        if (!req.files || Object.keys(req.files) === 0) {
+            console.log(req.files)
+            return res.status(400).json({ message: 'No files were uploaded.' });
+        }
         const uploadedFile = req.files.coverImage;
         const result = await uploadedFilefunction(uploadedFile.tempFilePath)
         newBookData.coverImage = result.secure_url;
@@ -30,7 +33,7 @@ export const newBook = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ error: 'Error creating book' });
+        return res.status(500).json({ message: 'Error creating book' });
     }
 };
 

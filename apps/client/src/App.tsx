@@ -12,6 +12,7 @@ import { Footer } from './components/Footer.component';
 import { ProtectedRoutes } from './components/ProtectedRoutes.component';
 import { AddNewBook } from './pages/AddNewBook.page';
 import ShoppingCartPage from './pages/ShoppingCart.page';
+import { BookContextProvider } from './context/Book.contex';
 
 
 const AppContent = () => {
@@ -49,9 +50,11 @@ const AppContent = () => {
 export default function App() {
   return (
     <AuthContextProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <BookContextProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </BookContextProvider>
     </AuthContextProvider>
   );
 }

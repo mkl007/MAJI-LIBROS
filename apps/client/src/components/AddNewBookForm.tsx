@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { genres } from '../utils/contsToExport.util';
 import { FeedItem } from './Feeds.compoment';
+import { useBook } from '../hooks/useBook';
 
 
 
@@ -11,12 +12,11 @@ export interface BookFormData {
     description?: string;
     publicationYear?: number;
     genre: string;
-    coverImage: string | null;
-    backCoverImage: string | null;
+    coverImage: File | null | string;
+    backCoverImage: File | null;
     availabilityStatus: 'exchange' | 'sell' | 'both';
     price?: number;
-    descriptionFile?: string | null;
-    uploadDescriptionAsPdf: File | null;
+    uploadContentPdf: File | null;
 }
 
 export interface BookFormProps {
@@ -27,8 +27,10 @@ export interface BookFormProps {
 
 export const AddNewBookForm: React.FC = () => {
     // export const AddNewBookForm: React.FC<BookFormProps> = () => {
+    const { onSubmitBookForm } = useBook()
     const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
     const [image, setImage] = useState<string | null>(null)
+    const [docs, setDocs] = useState<string | null>(null)
     const [formData, setFormData] = useState<BookFormData>({
         bookTitle: '',
         author: '',
@@ -39,8 +41,7 @@ export const AddNewBookForm: React.FC = () => {
         backCoverImage: null,
         availabilityStatus: 'both',
         price: undefined,
-        descriptionFile: null,
-        uploadDescriptionAsPdf: null,
+        uploadContentPdf: null,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -49,28 +50,37 @@ export const AddNewBookForm: React.FC = () => {
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, files } = e.target;
-        const file = files?.[0]; // Selecciona el primer archivo
-        if (file) {
-            // Actualiza el formData con el archivo seleccionad
-            // Crea un FileReader para mostrar una vista previa
-            const reader = new FileReader();
-            reader.onloadend = () => setImage(reader.result as string);
-            reader.readAsDataURL(file);
 
+        const { name, files } = e.target;
+        const file = files?.[0]; 
+        if (file && file.type == 'application/pdf') {
+            console.log(file.type)
+            formData.uploadContentPdf = file
+            // const reader = new FileReader();
+            // // reader.onloadend = () => docs ? setImage(reader.result as string) : setDocs(reader.result as string);
+            // reader.onloadend = () => setImage(reader.result as string);
+            // reader.readAsDataURL(file);
 
             setFormData((prev) => ({ ...prev, [name]: file }));
-            console.log(file)
+            console.log(formData)
+
+        } else if (file && file.type != 'application/pdf') {
+            console.log(file.type)
+            // const reader = new FileReader();
+            // reader.onloadend = () => setImage(reader.result as string);
+            // reader.readAsDataURL();
+            formData.coverImage = file
+            setFormData((prev) => ({ ...prev, [name]: file }));
+            console.log(formData)
         }
 
-        console.log(image); // Imprime el valor actual de coverImage
     };
 
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         setIsOnSubmit(true)
-        // console.log(formData.coverImage)
+        onSubmitBookForm(formData);
     }
     return (
         <div className="container flex mx-auto p-4">
@@ -114,14 +124,14 @@ export const AddNewBookForm: React.FC = () => {
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             value={formData.description}
                             onChange={handleChange}
-                            // disabled={formData.uploadDescriptionAsPdf}
+                            // disabled={formData.uploadContentPdf}
                             placeholder='Description'
                         />
                     </div>
 
                     <div className="flex mb-4">
                         <div className="w-full md:w-1/2 pr-2">
-                            <label htmlFor="uploadDescriptionAsPdf" className="block text-sm font-medium text-gray-700">Upload Content as PDF <span className='text-red-700'>*</span></label>
+                            <label htmlFor="uploadContentPdf" className="block text-sm font-medium text-gray-700">Upload Content as PDF <span className='text-red-700'>*</span></label>
                             <div className="mt-1 flex items-center">
                                 <input
                                     type="file"
@@ -237,7 +247,7 @@ export const AddNewBookForm: React.FC = () => {
             </div>
 
 
-            {
+            {/* {
                 formData.coverImage ? (
                     <div className="container w-1/3">
                         <FeedItem
@@ -252,7 +262,7 @@ export const AddNewBookForm: React.FC = () => {
 
                     </div>
                 ) : ('')
-            }
+            } */}
 
 
 
