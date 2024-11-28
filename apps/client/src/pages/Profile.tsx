@@ -1,13 +1,10 @@
-import axios from "axios";
-import { BookReal } from "../interfaces/User.interface";
-import { useAuth } from "../hooks/useAuth";
 import { FaEdit, FaPlus } from "react-icons/fa";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { MyBooksComponent } from "../components/MyBooks.component";
 
 
 
 export const Profile = () => {
-  const { data } = useAuth()
 
   return (
     <div className="container h-screen mt-4 mb-4 border-2 border-late-600">
@@ -15,7 +12,7 @@ export const Profile = () => {
       <div className="flex">
 
         <MyDescription />
-        <MyBooksProfileComponent />
+        <MyBooksComponent />
         <TradedBooks />
 
       </div>
@@ -60,35 +57,6 @@ export const ImageEditCircle = ({ imageUrl }: { imageUrl: string | undefined }) 
 };
 
 
-export const MyBooksProfileComponent = () => {
-  return (
-    <div className=" container w-1/3 border-2 ">
-      <h1>My Books</h1>
-      <AddCard />
-
-    </div>
-  )
-}
-
-export const AddCard = () => {
-  // export const AddCard = ({ onAdd }: { onAdd: MouseEventHandler<HTMLButtonElement> }) => {
-  const onAdd = () => {
-    console.log('Add clicked')
-  }
-  return (
-    <Link to={"/addNewBook"}>
-      <div
-        className="flex justify-center items-center w-24 h-40 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
-      >
-        <button
-          onClick={onAdd}
-        >
-          <FaPlus className="text-gray-500 text-2xl" />
-        </button>
-      </div>
-    </Link>
-  );
-};
 
 export const TradedBooks = () => {
   return (

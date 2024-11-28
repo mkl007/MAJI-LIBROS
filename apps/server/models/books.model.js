@@ -24,6 +24,12 @@ const bookSchema = new realSchema({
     coverImage: {
         type: String,
     },
+    backCoverImage: {
+        type: String,
+    },
+    uploadContentPdf: {
+        type: String,
+    },
     availabilityStatus: {
         type: String,
     },

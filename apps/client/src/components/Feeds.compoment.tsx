@@ -69,7 +69,7 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
       }
     }, [showLoginModal]);
     return (
-      <div className="bg-slate-100 shadow-md rounded-lg hover:border-2 border-red-500">
+      <div className=" bg-slate-50 hover:shadow-indigo-800/40 hover:shadow-2xl">
         <div className="flex flex-col justify-center p-2">
           <Link
             to={`/books/${id}`}

@@ -15,9 +15,11 @@ export const newBook = async (req, res) => {
         description: req.body.description,
         gender: req.body.gender,
         coverImage: req.body.coverImage,
+        backCoverImage: req.body.backCoverImage,
         ownerId: req.params.userId,
         price: req.body.price,
         publishedYear: req.body.publishedYear,
+        uploadContentPdf: req.body.uploadContentPdf
     });
 
     try {
@@ -26,10 +28,19 @@ export const newBook = async (req, res) => {
             return res.status(400).json({ message: 'No files were uploaded.' });
         }
         const uploadedFile = req.files.coverImage;
-        const result = await uploadedFilefunction(uploadedFile.tempFilePath)
-        newBookData.coverImage = result.secure_url;
-        await BookSchema.create(newBookData)
-        return res.status(201).json({ message: 'New book saved!' });
+        const uploadFileBackImage = req.files.backCoverImage
+        const uploadFileuploadContentPdf = req.files.uploadContentPdf
+
+        const result1 = await uploadedFilefunction(uploadedFile.tempFilePath)
+        const result2 = await uploadedFilefunction(uploadFileBackImage.tempFilePath)
+        const result3 = await uploadedFilefunction(uploadFileuploadContentPdf.tempFilePath)
+
+        newBookData.coverImage = result1.secure_url;
+        newBookData.backCoverImage = result2.secure_url;
+        newBookData.uploadContentPdf = result3.secure_url;
+
+        const savedBook = await BookSchema.create(newBookData)
+        return res.status(201).json({ message: 'New book saved!', savedBook });
 
     } catch (error) {
         console.log(error)
@@ -40,11 +51,12 @@ export const newBook = async (req, res) => {
 export const myBooks = async (req, res) => {
     try {
         const reqBooks = await BookSchema.find({ ownerId: req.params.userId })
-        if (!reqBooks) {
-            console.log(req.params.userId)
-            return res.status(400).json({ message: 'seems that you dont have books yet.. ' })
+        if (reqBooks <= 0) {
+
+            return res.status(200).json({ message: 'seems that you dont have books yet.. ' })
         }
-        res.json({ reqBooks })
+
+        res.status(200).json({ reqBooks })
 
     } catch (error) {
         console.log('There is an error: ', error)

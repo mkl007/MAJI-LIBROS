@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { genres } from '../utils/contsToExport.util';
+import { genders } from '../utils/contsToExport.util';
 import { FeedItem } from './Feeds.compoment';
 import { useBook } from '../hooks/useBook';
 
@@ -11,8 +11,8 @@ export interface BookFormData {
     author: string;
     description?: string;
     publicationYear?: number;
-    genre: string;
-    coverImage: File | null | string;
+    gender: string;
+    coverImage: File | null;
     backCoverImage: File | null;
     availabilityStatus: 'exchange' | 'sell' | 'both';
     price?: number;
@@ -36,7 +36,7 @@ export const AddNewBookForm: React.FC = () => {
         author: '',
         description: '',
         publicationYear: undefined,
-        genre: '',
+        gender: '',
         coverImage: null,
         backCoverImage: null,
         availabilityStatus: 'both',
@@ -52,9 +52,9 @@ export const AddNewBookForm: React.FC = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const { name, files } = e.target;
-        const file = files?.[0]; 
+        const file = files?.[0];
         if (file && file.type == 'application/pdf') {
-            console.log(file.type)
+            console.log(file.type, name)
             formData.uploadContentPdf = file
             // const reader = new FileReader();
             // // reader.onloadend = () => docs ? setImage(reader.result as string) : setDocs(reader.result as string);
@@ -64,12 +64,17 @@ export const AddNewBookForm: React.FC = () => {
             setFormData((prev) => ({ ...prev, [name]: file }));
             console.log(formData)
 
-        } else if (file && file.type != 'application/pdf') {
-            console.log(file.type)
+        } else if ((file && file.type != 'application/pdf') && name == 'coverImage') {
+            console.log(file.type, name)
             // const reader = new FileReader();
             // reader.onloadend = () => setImage(reader.result as string);
             // reader.readAsDataURL();
             formData.coverImage = file
+            setFormData((prev) => ({ ...prev, [name]: file }));
+            console.log(formData)
+
+        } else if ((file && file.type != 'application/pdf') && name == 'backCoverImage') {
+            formData.backCoverImage = file;
             setFormData((prev) => ({ ...prev, [name]: file }));
             console.log(formData)
         }
@@ -135,8 +140,8 @@ export const AddNewBookForm: React.FC = () => {
                             <div className="mt-1 flex items-center">
                                 <input
                                     type="file"
-                                    id="descriptionFile"
-                                    name="descriptionFile"
+                                    id="uploadContentPdf"
+                                    name="uploadContentPdf"
                                     className="ml-4 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                                     onChange={handleFileChange}
                                     accept="application/pdf"
@@ -145,18 +150,18 @@ export const AddNewBookForm: React.FC = () => {
                         </div>
 
                         <div className="w-full md:w-1/2 pl-2">
-                            <label htmlFor="genre" className="block text-sm font-medium text-gray-700">Gender <span className='text-red-700'>*</span></label>
+                            <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender <span className='text-red-700'>*</span></label>
                             <select
-                                id="genre"
-                                name="genre"
+                                id="gender"
+                                name="gender"
                                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                                value={formData.genre}
+                                value={formData.gender}
                                 onChange={handleChange}
                                 required
                             >
                                 <option value="">Select a Gender</option>
-                                {genres.map((genre) => (
-                                    <option key={genre} value={genre}>{genre}</option>
+                                {genders.map((gender) => (
+                                    <option key={gender} value={gender}>{gender}</option>
                                 ))}
                             </select>
                         </div>
