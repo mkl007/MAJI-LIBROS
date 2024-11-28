@@ -3,27 +3,23 @@ import { useBook } from "../hooks/useBook"
 import { AddNewBookCard } from "./AddNewBookCard"
 import { FeedItem } from "./Feeds.compoment"
 import { useAuth } from "../hooks/useAuth"
+import { LoadingSpinner } from "../utils/LoadingSnipper"
 
 
 export const MyBooksComponent = () => {
     const { isLoading } = useAuth()
-    const { showAllMyBooks, books } = useBook()
-    // 1 ver si el arreglo esta vacio => console.log(arreglo vacio)
-    // 2 si no esta vacio => console.log(arreglo)
-    // useEffect(()=>{
-    //     if(books.length > 0) console.log(books)
-    // })
+    const { books } = useBook()
     return (
-        // <div className="container">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
+        <div className="container flex flex-col justify-center p-2 border-1 border-red-800">
 
-            <div>
+            <div className=" container pb-2 grid sm:grid-cols-7 md:grid-cols-8" >
                 <AddNewBookCard />
-            </div>
+            </div >
+
             <div>
                 {
                     books && (books.length > 0) ? (
-                        <div>
+                        <div className="  border-x-orange-500 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
                             {
                                 books.map((book) => (
                                     <FeedItem
@@ -34,18 +30,17 @@ export const MyBooksComponent = () => {
                                         coverImage={book.coverImage}
                                     />
                                 ))
-
                             }
-
                         </div>
                     ) : (
-                        <div>No books yet...</div>
+                        <div>
+                            <LoadingSpinner />
+                        </div>
                     )
                 }
 
             </div>
-
-        </div>
+        </div >
 
     )
 }
