@@ -1,13 +1,10 @@
-import { useEffect } from "react"
 import { useBook } from "../hooks/useBook"
 import { AddNewBookCard } from "./AddNewBookCard"
 import { FeedItem } from "./Feeds.compoment"
-import { useAuth } from "../hooks/useAuth"
 import { LoadingSpinner } from "../utils/LoadingSnipper"
 
 
 export const MyBooksComponent = () => {
-    const { isLoading } = useAuth()
     const { books } = useBook()
     return (
         <div className="container flex flex-col justify-center p-2 border-1 border-red-800">

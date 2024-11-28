@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { genders } from '../utils/contsToExport.util';
 import { FeedItem } from './Feeds.compoment';
 import { useBook } from '../hooks/useBook';
+import { useAuth } from '../hooks/useAuth';
+import { LoadingSpinner } from '../utils/LoadingSnipper';
+import { ConfirmationSnipper } from '../utils/ConfirmationSnipper';
 
 
 
@@ -27,7 +30,8 @@ export interface BookFormProps {
 
 export const AddNewBookForm: React.FC = () => {
     // export const AddNewBookForm: React.FC<BookFormProps> = () => {
-    const { onSubmitBookForm } = useBook()
+    const { onSubmitBookForm, resStatus } = useBook()
+    const { isLoading } = useAuth()
     const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
     const [image, setImage] = useState<string | null>(null)
     const [docs, setDocs] = useState<string | null>(null)
@@ -44,6 +48,7 @@ export const AddNewBookForm: React.FC = () => {
         uploadContentPdf: null,
     });
 
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -54,29 +59,17 @@ export const AddNewBookForm: React.FC = () => {
         const { name, files } = e.target;
         const file = files?.[0];
         if (file && file.type == 'application/pdf') {
-            console.log(file.type, name)
             formData.uploadContentPdf = file
-            // const reader = new FileReader();
-            // // reader.onloadend = () => docs ? setImage(reader.result as string) : setDocs(reader.result as string);
-            // reader.onloadend = () => setImage(reader.result as string);
-            // reader.readAsDataURL(file);
-
             setFormData((prev) => ({ ...prev, [name]: file }));
-            console.log(formData)
+
 
         } else if ((file && file.type != 'application/pdf') && name == 'coverImage') {
-            console.log(file.type, name)
-            // const reader = new FileReader();
-            // reader.onloadend = () => setImage(reader.result as string);
-            // reader.readAsDataURL();
             formData.coverImage = file
             setFormData((prev) => ({ ...prev, [name]: file }));
-            console.log(formData)
 
         } else if ((file && file.type != 'application/pdf') && name == 'backCoverImage') {
             formData.backCoverImage = file;
             setFormData((prev) => ({ ...prev, [name]: file }));
-            console.log(formData)
         }
 
     };
@@ -86,10 +79,14 @@ export const AddNewBookForm: React.FC = () => {
         e.preventDefault()
         setIsOnSubmit(true)
         onSubmitBookForm(formData);
+        console.log(resStatus)
     }
+
+    useEffect(() => {
+        if (resStatus > 0) console.log(resStatus)
+    })
     return (
         <div className="container flex mx-auto p-4">
-            {/* <div className="container mx-auto p-4 w-1/2 border-2 border-slate-800"> */}
             <div>
                 <form className="bg-slate-300 shadow-md rounded p-6" onSubmit={onSubmit}>
                     <div className="flex mb-4">
@@ -251,8 +248,15 @@ export const AddNewBookForm: React.FC = () => {
                 </form>
             </div>
 
-
-            {/* {
+            <div>
+                {
+                    isLoading && <LoadingSpinner />
+                }
+                {
+                    resStatus > 0 && <div><ConfirmationSnipper /></div>
+                }
+            </div>
+            {
                 formData.coverImage ? (
                     <div className="container w-1/3">
                         <FeedItem
@@ -267,7 +271,7 @@ export const AddNewBookForm: React.FC = () => {
 
                     </div>
                 ) : ('')
-            } */}
+            }
 
 
 

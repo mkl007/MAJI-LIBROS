@@ -30,7 +30,7 @@ export interface BooksFromDb {
 export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { setIsLoading, isLoading, data } = useAuth();
     const [books, setBooks] = useState<BooksFromDb[]>([])
-    const [errors, setErrors] = useState()
+    const [resStatus, setResStatus] = useState<number>(0)
 
     const userId = data?.userInfo._id;
     useEffect(() => {
@@ -46,12 +46,13 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             setIsLoading(true)
             const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.post(`/newbook/${userId}`, newBook)
             // Create a component that loads and show the confirmation of new book created. Should be green mark
-            console.log(response)
+            if (response.status === 201) {
+                setResStatus(201)
+            }
         } catch (error) {
             console.log('here from try onSubmitBookForm, Error:  ', error)
 
         } finally {
-            console.log('here from finally')
             setIsLoading(false)
 
         }
@@ -71,7 +72,7 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     }, [])
 
     return (
-        <BookContext.Provider value={{ onSubmitBookForm, showAllMyBooks, books }}>
+        <BookContext.Provider value={{ onSubmitBookForm, showAllMyBooks, books, resStatus }}>
             {children}
         </BookContext.Provider>
     )
