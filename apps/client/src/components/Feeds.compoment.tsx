@@ -7,23 +7,26 @@ import React from 'react';
 import { ViewContentLoginSuggest } from './popups/ViewContentLoginPrompt';
 import { BookFormData } from './AddNewBookForm'
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import { useBook } from '../hooks/useBook';
 
 
 
 export const Feeds = () => {
-  const [books, setBooks] = useState<Book[]>([]);
+  // const [books, setBooks] = useState<Book[]>([]);
   const [limit, setLimit] = useState<number>(20);
   const { isLoggedIn } = useAuth();
+  const { allBooks, books } = useBook()
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      setBooks(myApi);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     setBooks(myApi);
+  //     allBooks()
 
-    } else {
-      setBooks(myApi.slice(0, limit));
+  //   } else {
+  //     setBooks(myApi.slice(0, limit));
 
-    }
-  }, [isLoggedIn, limit]);
+  //   }
+  // }, [isLoggedIn, limit]);
 
 
 
@@ -33,8 +36,8 @@ export const Feeds = () => {
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
         {books.map((book) => (
           <FeedItem
-            key={book.id}
-            id={book.id}
+            key={book._id}
+            _id={book._id}
             author={book.author}
             bookTitle={book.bookTitle}
             coverImage={book.coverImage}

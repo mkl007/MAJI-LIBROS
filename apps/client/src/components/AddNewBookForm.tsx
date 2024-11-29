@@ -9,7 +9,7 @@ import { ConfirmationSnipper } from '../utils/ConfirmationSnipper';
 
 
 export interface BookFormData {
-    id?: number,
+    _id?: string,
     bookTitle: string;
     author: string;
     description?: string;

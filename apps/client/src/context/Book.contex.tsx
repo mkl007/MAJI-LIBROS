@@ -25,6 +25,7 @@ export interface BooksFromDb {
     gender: string,
     backCoverImage?: string,
     uploadContentPdf?: string
+    price: number
 }
 
 export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -71,8 +72,18 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, [])
 
+    const allBooks = async () => {
+        try {
+            const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get(`/showbooks`)
+            // setBooks(respon.data.re)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
-        <BookContext.Provider value={{ onSubmitBookForm, showAllMyBooks, books, resStatus }}>
+        <BookContext.Provider value={{ onSubmitBookForm, showAllMyBooks, books, resStatus, allBooks }}>
             {children}
         </BookContext.Provider>
     )

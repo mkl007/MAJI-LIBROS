@@ -48,37 +48,36 @@ interface UserInfoGithubCredential {
 }
 
 export interface Book {
-  id: number;
+  _id: string;
   bookTitle: string;
   author: string;
   description?: {
     publishedYear: number;
   };
   gender?: string;
-  coverImage: string | null ;
+  coverImage: string | null;
   availabilityStatus: string;
   price?: number;
 }
 
 export interface BookReal {
-  id?: number;
+  _id?: string;
   bookTitle: string;
   author: string;
   description?: {
     publishedYear: number;
   };
   gender?: string;
-  coverImage: string | null ;
+  coverImage: string | null;
   availabilityStatus: string;
   price?: number;
 }
 
 export interface FeedItemProps {
-  id?: number;
-  bookTitle: string ;
+  _id?: string;
+  bookTitle: string;
   author: string;
-  coverImage: string | null ;
+  coverImage: string | null;
   availabilityStatus: string;
   price?: number;
 }
-

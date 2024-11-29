@@ -7,6 +7,7 @@ export interface BookContextInterface {
     showAllMyBooks: (userId: string) => Promise<void>
     books: BooksFromDb[]
     resStatus: number
+    allBooks: () => Promise<void>
 }
 
 export const BookContext = createContext<BookContextInterface | undefined>(undefined)
