@@ -175,5 +175,3 @@ export const verifyTokenRoute = async (req, res) => {
     res.json({ error })
   }
 }
-
-

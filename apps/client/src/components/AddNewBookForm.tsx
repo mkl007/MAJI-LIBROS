@@ -17,7 +17,7 @@ export interface BookFormData {
     gender: string;
     coverImage: File | null;
     backCoverImage: File | null;
-    availabilityStatus: 'exchange' | 'sell' | 'both';
+    availabilityStatus: 'exchange' | 'sell' | 'not-available';
     price?: number;
     uploadContentPdf: File | null;
 }
@@ -43,7 +43,7 @@ export const AddNewBookForm: React.FC = () => {
         gender: '',
         coverImage: null,
         backCoverImage: null,
-        availabilityStatus: 'both',
+        availabilityStatus: 'sell',
         price: undefined,
         uploadContentPdf: null,
     });
@@ -220,12 +220,12 @@ export const AddNewBookForm: React.FC = () => {
                                     name="availabilityStatus"
                                     value="both"
                                     className="form-radio"
-                                    checked={formData.availabilityStatus === 'both'}
+                                    checked={formData.availabilityStatus === 'sell'}
                                     onChange={handleChange}
                                 />
                                 <span className="ml-2">Both options</span>
                             </label>
-                            {(formData.availabilityStatus === 'sell' || formData.availabilityStatus === 'both') && (
+                            {(formData.availabilityStatus === 'sell' || formData.availabilityStatus === 'exchange') && (
                                 <div className="mt-1 inline-flex items-center">
                                     <label htmlFor="price" className="ml-6 text-sm font-medium text-gray-700">Price</label>
                                     <input

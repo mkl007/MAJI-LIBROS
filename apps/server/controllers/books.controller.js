@@ -82,7 +82,7 @@ export const singleBook = async (req, res) => {
 }
 export const showBooks = async (req, res) => {
     try {
-        const reqBooks = await BookSchema.find()
+        const reqBooks = await BookSchema.find({ availabilityStatus: { $ne: 'not-available' } }).sort({ createdAt: -1 })
         res.status(200).json({ reqBooks })
     } catch (error) {
         console.log(error)
