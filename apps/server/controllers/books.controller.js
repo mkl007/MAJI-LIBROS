@@ -83,6 +83,7 @@ export const singleBook = async (req, res) => {
 export const showBooks = async (req, res) => {
     try {
         const allbooks = await BookSchema.find()
+        console.log(allbooks)
         res.status(200).json({ allbooks })
     } catch (error) {
         console.log(error)
