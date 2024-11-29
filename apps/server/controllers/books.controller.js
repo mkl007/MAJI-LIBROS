@@ -2,7 +2,7 @@ import BookSchema from "../models/books.model.js"
 import { uploadedFilefunction } from "../utils/cloudinary.js";
 import { generateISBN } from '../utils/generateISBN.js'
 
-
+// TODO: Enable the middleware
 
 export const newBook = async (req, res) => {
 
@@ -78,5 +78,14 @@ export const singleBook = async (req, res) => {
     } catch (error) {
         console.log('There is an error: ', error)
         return res.status(401).json({ message: 'You got a problem...' })
+    }
+}
+export const showBooks = async (req, res) => {
+    try {
+        const allbooks = await BookSchema.find()
+        res.status(200).json({ allbooks })
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({ message: 'Ups! Some problems here, please refresh the page.' })
     }
 }

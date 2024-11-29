@@ -1,5 +1,5 @@
 import express from 'express'
-import { myBooks, newBook, singleBook } from '../controllers/books.controller.js';
+import { myBooks, newBook, showBooks, singleBook } from '../controllers/books.controller.js';
 export const routerBook = express.Router();
 import fileupload from 'express-fileupload'
 
@@ -13,3 +13,5 @@ routerBook.post('/newbook/:userId', newBook)
 routerBook.get('/:userId/books', myBooks);
 
 routerBook.get('/book/:userId/:singlebook', singleBook)
+
+routerBook.get('/showbooks', showBooks)
