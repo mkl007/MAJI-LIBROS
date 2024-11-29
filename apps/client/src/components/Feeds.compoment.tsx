@@ -17,6 +17,10 @@ export const Feeds = () => {
   const { isLoggedIn } = useAuth();
   const { allBooks, books } = useBook()
 
+  useEffect(() => {
+    allBooks()
+
+  },[])
   // useEffect(() => {
   //   if (isLoggedIn) {
   //     setBooks(myApi);

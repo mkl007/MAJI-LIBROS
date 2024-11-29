@@ -82,9 +82,8 @@ export const singleBook = async (req, res) => {
 }
 export const showBooks = async (req, res) => {
     try {
-        const allbooks = await BookSchema.find()
-        console.log(allbooks)
-        res.status(200).json({ allbooks })
+        const reqBooks = await BookSchema.find()
+        res.status(200).json({ reqBooks })
     } catch (error) {
         console.log(error)
         return res.status(400).json({ message: 'Ups! Some problems here, please refresh the page.' })
