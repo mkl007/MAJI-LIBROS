@@ -13,12 +13,6 @@ passport.use(new GitHubStrategy({
   scope: ['email']
 }, async (accessToken, refreshToken, profile, done) => {
 
-  // for Dev enviroment only
-  await User.deleteMany();
-  await Token.deleteMany();
-
-  /////
-
   let user = await User.findOne({ accountID: profile.id, provider: profile.provider });
   if (!user) {
     user = new User({

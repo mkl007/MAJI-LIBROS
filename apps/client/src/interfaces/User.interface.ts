@@ -30,7 +30,7 @@ interface UserInfo {
   email: string;
   fullname: string;
   virified: boolean;
-  id: string;
+  _id: string;
   // userAvatar?: string;
 }
 

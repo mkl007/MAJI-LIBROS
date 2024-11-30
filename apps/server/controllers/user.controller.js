@@ -11,9 +11,7 @@ import { sendConfirmationEmail } from "../utils/email.utils.js";
 
 export const registerUser = async (req, res) => {
   try {
-    // for Dev enviroment only
-    await User.deleteMany();
-    await Token.deleteMany();
+
     const verifyEmail = await User.findOne({ email: req.body.email });
     if (verifyEmail)
       return res.status(409).json({ message: "Email already exist. Do you mean to login?" });

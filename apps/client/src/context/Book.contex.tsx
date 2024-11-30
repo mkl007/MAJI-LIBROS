@@ -29,20 +29,18 @@ export interface BooksFromDb {
 }
 
 export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { setIsLoading, isLoading, data } = useAuth();
+    const { setIsLoading, data, isLoggedIn } = useAuth();
     const [books, setBooks] = useState<BooksFromDb[]>([])
     const [resStatus, setResStatus] = useState<number>(0)
 
-    //We have an issue here, the error says that the userId is not readable property. 
-    //Investigate and fix bug
-        // const userId = data?.userInfo._id || data?.userInfo.id
-        // useEffect(() => {
-        //     if (userId) {
-        //         showAllMyBooks(userId)
-        //         setIsLoading(true)
-        //     }
+    const userId = data?.userInfo._id
+    useEffect(() => {
+        if (userId && isLoggedIn) {
+            showAllMyBooks(userId)
+            setIsLoading(true)
+        }
 
-        // }, [userId])
+    }, [userId])
 
     const onSubmitBookForm = async (newBook: BookFormData) => {
         try {
@@ -78,7 +76,7 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         try {
             const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get(`/showbooks`)
             setBooks(response.data.reqBooks)
-            // console.log(response.data.reqBooks)
+            // console.log(response.data.reqBooks.slice(0, 10))
         } catch (error) {
             console.log(error)
         }

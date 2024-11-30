@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { genders } from '../utils/contsToExport.util';
-import { FeedItem } from './Feeds.compoment';
 import { useBook } from '../hooks/useBook';
 import { useAuth } from '../hooks/useAuth';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
@@ -22,19 +21,10 @@ export interface BookFormData {
     uploadContentPdf: File | null;
 }
 
-export interface BookFormProps {
-    onSubmit: (data: BookFormData) => void;
-    // onSubmit: (e: React.FormEvent, data: BookFormData) => void;
-}
-
-
 export const AddNewBookForm: React.FC = () => {
-    // export const AddNewBookForm: React.FC<BookFormProps> = () => {
     const { onSubmitBookForm, resStatus } = useBook()
     const { isLoading } = useAuth()
     const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
-    const [image, setImage] = useState<string | null>(null)
-    const [docs, setDocs] = useState<string | null>(null)
     const [formData, setFormData] = useState<BookFormData>({
         bookTitle: '',
         author: '',
@@ -73,7 +63,6 @@ export const AddNewBookForm: React.FC = () => {
         }
 
     };
-
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -203,6 +192,19 @@ export const AddNewBookForm: React.FC = () => {
                                 />
                                 <span className="ml-2">Exchange</span>
                             </label>
+
+                            <label className="inline-flex items-center ml-6">
+                                <input
+                                    type="radio"
+                                    name="availabilityStatus"
+                                    value="not-available"
+                                    className="form-radio"
+                                    checked={formData.availabilityStatus === 'not-available'}
+                                    onChange={handleChange}
+                                />
+                                <span className="ml-2">Not Available</span>
+                            </label>
+
                             <label className="inline-flex items-center ml-6">
                                 <input
                                     type="radio"
@@ -214,18 +216,7 @@ export const AddNewBookForm: React.FC = () => {
                                 />
                                 <span className="ml-2">Sell</span>
                             </label>
-                            <label className="inline-flex items-center ml-6">
-                                <input
-                                    type="radio"
-                                    name="availabilityStatus"
-                                    value="both"
-                                    className="form-radio"
-                                    checked={formData.availabilityStatus === 'sell'}
-                                    onChange={handleChange}
-                                />
-                                <span className="ml-2">Both options</span>
-                            </label>
-                            {(formData.availabilityStatus === 'sell' || formData.availabilityStatus === 'exchange') && (
+                            {(formData.availabilityStatus === 'sell') && (
                                 <div className="mt-1 inline-flex items-center">
                                     <label htmlFor="price" className="ml-6 text-sm font-medium text-gray-700">Price</label>
                                     <input
@@ -256,25 +247,6 @@ export const AddNewBookForm: React.FC = () => {
                     resStatus > 0 && <div><ConfirmationSnipper /></div>
                 }
             </div>
-            {
-                formData.coverImage ? (
-                    <div className="container w-1/3">
-                        <FeedItem
-                            key={formData.id}
-                            id={formData.id}
-                            author={formData.author}
-                            bookTitle={formData.bookTitle}
-                            coverImage={image}
-                            availabilityStatus={formData.availabilityStatus}
-                            price={formData.price}
-                        />
-
-                    </div>
-                ) : ('')
-            }
-
-
-
         </div>
     );
 };
