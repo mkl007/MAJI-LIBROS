@@ -5,6 +5,11 @@ import { useAuth } from '../hooks/useAuth';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { ConfirmationSnipper } from '../utils/ConfirmationSnipper';
 
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+// minified version is also included
+// import 'react-toastify/dist/ReactToastify.min.css';
 
 
 export interface BookFormData {
@@ -68,12 +73,15 @@ export const AddNewBookForm: React.FC = () => {
         e.preventDefault()
         setIsOnSubmit(true)
         onSubmitBookForm(formData);
-        console.log(resStatus)
     }
 
     useEffect(() => {
-        if (resStatus > 0) console.log(resStatus)
-    })
+        if ((resStatus > 0)) {
+            setTimeout(() => {
+                toast.success('New Book created! ')
+            }, 200);
+        }
+    }, [resStatus])
     return (
         <div className="container flex mx-auto p-4">
             <div>
@@ -244,7 +252,7 @@ export const AddNewBookForm: React.FC = () => {
                     isLoading && <LoadingSpinner />
                 }
                 {
-                    resStatus > 0 && <div><ConfirmationSnipper /></div>
+                    resStatus > 0 && <div><ToastContainer /></div>
                 }
             </div>
         </div>
