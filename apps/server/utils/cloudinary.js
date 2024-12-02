@@ -8,6 +8,6 @@ cloudinary.config({
 
 export async function uploadedFilefunction(filePath) {
     return await cloudinary.uploader.upload(filePath, {
-        folder: 'replit'
+        folder: 'replit1'
     })
 }
