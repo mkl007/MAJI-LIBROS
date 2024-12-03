@@ -8,6 +8,7 @@ import { ConfirmationSnipper } from '../utils/ConfirmationSnipper';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 // minified version is also included
 // import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -30,6 +31,7 @@ export const AddNewBookForm: React.FC = () => {
     const { onSubmitBookForm, resStatus } = useBook()
     const { isLoading } = useAuth()
     const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
+    const navigate = useNavigate()
     const [formData, setFormData] = useState<BookFormData>({
         bookTitle: '',
         author: '',
@@ -79,6 +81,9 @@ export const AddNewBookForm: React.FC = () => {
         if ((resStatus > 0)) {
             setTimeout(() => {
                 toast.success('New Book created! ')
+                setTimeout(() => {
+                    navigate('/mybooks')
+                }, 1800);
             }, 200);
         }
     }, [resStatus])
