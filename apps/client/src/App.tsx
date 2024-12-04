@@ -14,6 +14,7 @@ import { AddNewBook } from './pages/AddNewBook.page';
 import ShoppingCartPage from './pages/ShoppingCart.page';
 import { BookContextProvider } from './context/Book.contex';
 import { MyBooksPage } from './pages/MyBooks.page';
+import { SideBar } from './components/SideBar';
 
 
 const AppContent = () => {
@@ -30,10 +31,11 @@ const AppContent = () => {
         <Route path='/' element={<HomePage />} />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
+      </Routes>
 
-
-        {/* Protected Routes */}
-
+      {/* Protected Routes */}
+      <SideBar />
+      <Routes>
         <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
         <Route path='/products' element={<ProtectedRoutes><Products /></ProtectedRoutes>} />
         <Route path='/settings' element={<ProtectedRoutes><Settings /></ProtectedRoutes>} />

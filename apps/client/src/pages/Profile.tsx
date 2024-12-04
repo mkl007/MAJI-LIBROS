@@ -12,9 +12,6 @@ export const Profile = () => {
       <div className="flex">
 
         <MyDescription />
-        <MyBooksComponent />
-        <TradedBooks />
-
       </div>
     </div>
   )
