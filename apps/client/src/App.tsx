@@ -15,6 +15,7 @@ import ShoppingCartPage from './pages/ShoppingCart.page';
 import { BookContextProvider } from './context/Book.contex';
 import { MyBooksPage } from './pages/MyBooks.page';
 import { SideBar } from './components/SideBar';
+import { AppLayout } from './layout/App.layout';
 
 
 const AppContent = () => {
@@ -34,17 +35,18 @@ const AppContent = () => {
       </Routes>
 
       {/* Protected Routes */}
-      <SideBar />
-      <Routes>
-        <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
-        <Route path='/products' element={<ProtectedRoutes><Products /></ProtectedRoutes>} />
-        <Route path='/settings' element={<ProtectedRoutes><Settings /></ProtectedRoutes>} />
-        <Route path='/addNewBook' element={<ProtectedRoutes><AddNewBook /></ProtectedRoutes>} />
-        <Route path='/cart' element={<ProtectedRoutes><ShoppingCartPage /></ProtectedRoutes>} />
-        <Route path='/mybooks' element={<ProtectedRoutes><MyBooksPage /></ProtectedRoutes>} />
+      <AppLayout>
+        <Routes>
+          <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+          <Route path='/products' element={<ProtectedRoutes><Products /></ProtectedRoutes>} />
+          <Route path='/settings' element={<ProtectedRoutes><Settings /></ProtectedRoutes>} />
+          <Route path='/addNewBook' element={<ProtectedRoutes><AddNewBook /></ProtectedRoutes>} />
+          <Route path='/cart' element={<ProtectedRoutes><ShoppingCartPage /></ProtectedRoutes>} />
+          <Route path='/mybooks' element={<ProtectedRoutes><MyBooksPage /></ProtectedRoutes>} />
 
-        <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
-      </Routes>
+          <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
+        </Routes>
+      </AppLayout>
       {!noFooterRoutes.includes(location.pathname) && <Footer />}
 
     </>

@@ -7,9 +7,9 @@ import { LoadingSpinner } from "../utils/LoadingSnipper"
 export const MyBooksComponent = () => {
     const { books } = useBook()
     return (
-        <div className="container flex flex-col justify-center p-2 border-1 border-red-800">
+        <div className=" ml-60 flex flex-col justify-center p-2 border-1 border-red-800">
 
-            <div className=" container pb-2 grid sm:grid-cols-7 md:grid-cols-8" >
+            <div className="  pb-2 grid sm:grid-cols-7 md:grid-cols-8" >
                 <AddNewBookCard />
             </div >
 

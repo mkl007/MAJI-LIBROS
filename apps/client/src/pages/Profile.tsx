@@ -1,14 +1,11 @@
 import { FaEdit, FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { MyBooksComponent } from "../components/MyBooks.component";
-
 
 
 export const Profile = () => {
 
   return (
-    <div className="container h-screen mt-4 mb-4 border-2 border-late-600">
-      <h1>Profile</h1>
+    <div className=" relative h-screen mt-4 mb-4">
+      
       <div className="flex">
 
         <MyDescription />
@@ -18,7 +15,6 @@ export const Profile = () => {
 }
 
 
-// export const MyDescription = ({imageUrl}: {imageUrl: string | undefined}) => {
 export const MyDescription = () => {
   return (
     <div className=" w-1/3 container">
