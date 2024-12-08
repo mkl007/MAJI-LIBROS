@@ -6,6 +6,7 @@ import { db } from './config/db.config.js'
 import passport from 'passport';
 import './config/passport.config.js'; // Importar configuración de Passport
 import { routerBook } from './routes/books.route.js'
+import cookieParser from 'cookie-parser'
 
 
 const port = process.env.NODE_ENV === 'test' ? 3001 : process.env.PORT || 3000;
@@ -16,11 +17,16 @@ db();
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cookieParser())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+
+}))
 app.use(passport.initialize());
 
 app.use('/api/v1', routerUser)
-app.use('/api/v1/books', routerBook )
+app.use('/api/v1/books', routerBook)
 
 
 app.post('/test', (req, res) => {

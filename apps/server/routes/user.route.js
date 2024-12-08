@@ -18,8 +18,7 @@ routerUser.post('/reset_password', passwordReset)
 
 routerUser.put('/password_reset/:token', passwordResetHandler)
 
-routerUser.get('/userData/:token', verifyTokenRoute)
-
+routerUser.get('/userData', verifyTokenRoute)
 
 routerUser.get('/auth/github', passport.authenticate('github'));
 

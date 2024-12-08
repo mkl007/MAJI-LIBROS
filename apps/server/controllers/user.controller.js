@@ -160,16 +160,19 @@ export const passwordResetHandler = async (req, res) => {
 
 
 export const verifyTokenRoute = async (req, res) => {
+
   try {
-    const token = req.params.token
+    const token = req.cookies.token
+    // if (!token) console.log('no token bro')
     const decoded = jwt.verify(token, process.env.JWT_PASS)
     const userId = decoded.id
     const userInfo = await User.findById(userId).select('-password')
     if (userInfo) return res.json({ userInfo })
     return res.json({ message: 'No user found' })
   } catch (error) {
-    if (error.name === 'TokenExpiredError') return res.json({ errorMessage: 'Token for the verification expired. Please signup in the app!' })
-    console.log(error.name)
-    res.json({ error })
+    if (error.name === 'TokenExpiredError') return res.json({ Message: 'Token for the verification expired. Please signup in the app!' })
+    else if (error.name === 'JsonWebTokenError') return res.json({ message: 'Please log in' })
+    console.log(error)
+    res.status(500).json({ error })
   }
 }

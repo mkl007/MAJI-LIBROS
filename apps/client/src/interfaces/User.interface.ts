@@ -1,7 +1,10 @@
 export interface ApiResponse {
   token: string;
   message: string;
-  userInfo: UserInfo & UserInfoGithubCredential;
+  userInfo: UserInfo & UserInfoGithubCredential ;
+}
+export interface UserData {
+  userInfo: UserInfo | UserInfoGithubCredential | null
 }
 
 export interface UserContextInterface {
@@ -10,7 +13,6 @@ export interface UserContextInterface {
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loginFunction: (user: UserToLogin) => Promise<void>;
-  getUserInfo: (token: string) => Promise<void>;
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }

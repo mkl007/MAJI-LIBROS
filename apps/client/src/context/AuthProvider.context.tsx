@@ -1,10 +1,8 @@
-import { ReactNode, useCallback, useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { AuthContext } from "./Auth.context"
-import { ApiResponse, UserToLogin, UserToSignUp } from "../interfaces/User.interface"
-import axios, { AxiosResponse } from "axios"
+import { ApiResponse, UserData, UserToLogin, UserToSignUp } from "../interfaces/User.interface"
+import { AxiosResponse } from "axios"
 import instanceAxios from "../api/axiosSetup"
-import { useGetToken } from "../hooks/useGetToken"
-import { LoadingSpinner } from "../utils/LoadingSnipper"
 
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -12,6 +10,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [data, setData] = useState<ApiResponse | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [user, setUser] = useState<UserData | null>(null)
 
 
 
@@ -45,53 +44,39 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     };
 
-    const getUserInfo = useCallback(async (token: string) => {
-        try {
-            const response: AxiosResponse<ApiResponse> = await axios.get<ApiResponse>(`http://localhost:3000/api/v1/userData/${token}`);
-            if (response.data) {
-                setData(response.data);
-            } else {
-                setError('Error fetching user information');
+    useEffect(() => {
+        const getUserInfo = async () => {
+            try {
+                const response: AxiosResponse = await instanceAxios.get(`/userData`)
+                if (response.data.userInfo) {
+                    setUser(response.data.userInfo);
+                    setIsLoggedIn(true)
+                } else {
+                    setError(response.data);
+                }
+            } catch (error) {
+                setError('Error: ' + error);
             }
-        } catch (error) {
-            setError('Error: ' + error);
-        }
+        };
+        getUserInfo()
     }, []);
 
-    const token = useGetToken();
 
     useEffect(() => {
-        if (token != null) {
-            setIsLoading(true);
-            setError(null); // Clear previous errors
-
-            getUserInfo(token)
-                .then(() => {
-                    setIsLoggedIn(true);
-                })
-                .finally(() => {
-                    setIsLoading(false);
-                });
+        if (user) {
+            console.log(user)
         }
-    }, [token, getUserInfo]);
-
-
-    useEffect(() => {
-     if(isLoading) {
-        console.log('Isloading: ', isLoading)
-        // return <LoadingSpinner/>
-     }
-    }, [isLoading])
+    }, [user])
 
     useEffect(() => {
-        if(isLoggedIn) {
-           console.log('Is logged in: ', isLoggedIn)
+        if(error) {
+            console.log(error)
         }
-       }, [isLoggedIn])
-    
+    })
+
 
     return (
-        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, getUserInfo, isLoggedIn, setIsLoggedIn }}>
+        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn }}>
             {children}
         </AuthContext.Provider>
     )
