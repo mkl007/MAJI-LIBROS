@@ -48,25 +48,22 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         const getUserInfo = async () => {
             try {
                 const response: AxiosResponse = await instanceAxios.get(`/userData`)
+                setIsLoading(true)
                 if (response.data.userInfo) {
                     setUser(response.data.userInfo);
                     setIsLoggedIn(true)
+                    setIsLoading(false)
                 } else {
                     setError(response.data);
+                    setIsLoggedIn(false)
                 }
             } catch (error) {
                 setError('Error: ' + error);
             }
         };
         getUserInfo()
+        
     }, []);
-
-
-    useEffect(() => {
-        if (user) {
-            // console.log(user)
-        }
-    }, [user])
 
     useEffect(() => {
         if(error) {
