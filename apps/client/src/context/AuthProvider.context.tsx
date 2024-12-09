@@ -64,7 +64,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     useEffect(() => {
         if (user) {
-            console.log(user)
+            // console.log(user)
         }
     }, [user])
 
@@ -76,7 +76,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
 
     return (
-        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn }}>
+        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user }}>
             {children}
         </AuthContext.Provider>
     )

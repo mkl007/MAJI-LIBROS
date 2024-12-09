@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useId, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { BookContext } from "./BookAuth.context";
 import { BookFormData } from "../components/AddNewBookForm";
 import { useAuth } from "../hooks/useAuth";
@@ -29,18 +29,9 @@ export interface BooksFromDb {
 }
 
 export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { setIsLoading, data, isLoggedIn } = useAuth();
+    const { setIsLoading, user, isLoggedIn } = useAuth();
     const [books, setBooks] = useState<BooksFromDb[]>([])
     const [resStatus, setResStatus] = useState<number>(0)
-
-    const userId = data?.userInfo._id
-    useEffect(() => {
-        if (userId && isLoggedIn) {
-            showAllMyBooks(userId)
-            setIsLoading(true)
-        }
-
-    }, [userId])
 
     const onSubmitBookForm = async (newBook: BookFormData) => {
         try {
@@ -81,6 +72,19 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             console.log(error)
         }
     }, [])
+
+
+    useEffect(() => {
+        // if (userId && isLoggedIn) {
+        if (isLoggedIn) {
+            console.log(user)
+            showAllMyBooks('674a522b7ad81f04cbe394c2')
+            console.log(books)
+            // setIsLoading(true)
+        }
+
+    }, [user, isLoggedIn]);
+
 
     return (
         <BookContext.Provider value={{ onSubmitBookForm, showAllMyBooks, books, resStatus, allBooks }}>
