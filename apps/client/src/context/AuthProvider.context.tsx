@@ -68,6 +68,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     useEffect(() => {
         if(error) {
             console.log(error)
+            setIsLoading(false)
         }
     })
 

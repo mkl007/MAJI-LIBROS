@@ -1,17 +1,24 @@
 
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { useEffect } from 'react';
 
 
-export const ProtectedRoutes: React.FC<{ children: JSX.Element }> = ({ children }) => {
-  const { isLoggedIn, isLoading } = useAuth();
-  const location = useLocation();
+interface ProtectedRoutesProps {
+  children?: JSX.Element; // Ahora children es opcional
+}
 
-  // if (!isLoggedIn) {
-  //   return <Navigate to={'/login'} state={{ from: location }} relative='path'/>
-  // }
 
-  return children;
+export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
+  const { isLoading, user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user && isLoading) navigate('/login ')
+  })
+
+  if (isLoading) return <LoadingSpinner />
+  return children || <Outlet />;
+
 };
