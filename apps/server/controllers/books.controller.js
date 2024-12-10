@@ -2,8 +2,6 @@ import BookSchema from "../models/books.model.js"
 import { uploadedFilefunction } from "../utils/cloudinary.js";
 import { generateISBN } from '../utils/generateISBN.js'
 
-// TODO: Enable the middleware
-
 export const newBook = async (req, res) => {
 
     const isbn = await generateISBN();
@@ -46,7 +44,7 @@ export const newBook = async (req, res) => {
         console.log(error)
         return res.status(500).json({ message: 'Error creating book' });
     }
-};
+}
 
 export const myBooks = async (req, res) => {
     try {
@@ -80,6 +78,7 @@ export const singleBook = async (req, res) => {
         return res.status(401).json({ message: 'You got a problem...' })
     }
 }
+
 export const showBooks = async (req, res) => {
     try {
         const reqBooks = await BookSchema.find({ availabilityStatus: { $ne: 'not-available' } }).sort({ createdAt: -1 })
@@ -87,5 +86,16 @@ export const showBooks = async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(400).json({ message: 'Ups! Some problems here, please refresh the page.' })
+    }
+}
+
+export const removeBook = async (req, res) => {
+    try {
+        const deleteBook = await BookSchema.deleteOne({ _id: req.params.bookId })
+        console.log(deleteBook)
+        return res.status(200).json({message: 'Book deleted'})
+
+    } catch (error) {
+        console.log(error)
     }
 }
