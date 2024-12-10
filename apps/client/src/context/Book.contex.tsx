@@ -29,24 +29,36 @@ export interface BooksFromDb {
 }
 
 export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { setIsLoading, user, isLoggedIn } = useAuth();
+    const { setIsLoading, isLoading, user, isLoggedIn } = useAuth();
     const [books, setBooks] = useState<BooksFromDb[]>([])
     const [resStatus, setResStatus] = useState<number>(0)
+
+    let userId = '';
+
+    useEffect(() => {
+        // setIsLoading
+        if (user && !isLoading) {
+            userId = user.userInfo._id
+        }
+
+    }, [user, isLoggedIn]);
 
     const onSubmitBookForm = async (newBook: BookFormData) => {
         try {
             setIsLoading(true)
-            const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.post(`/newbook/${userId}`, newBook)
+            console.log('from here onsubmite:', user?.userInfo)
+            const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.post(`/newbook/${userId || user?.userInfo._id}`, newBook)
             // Create a component that loads and show the confirmation of new book created. Should be green mark
+            console.log(response)
             if (response.status === 201) {
                 setResStatus(201)
             }
         } catch (error) {
             console.log('here from try onSubmitBookForm, Error:  ', error)
+            setBooks([])
 
         } finally {
             setIsLoading(false)
-
         }
     };
 
@@ -54,7 +66,7 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         try {
             const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get<BookApiResponse>(`/${userId}/books`)
             setBooks(response.data.reqBooks)
-
+            setResStatus(0)
         } catch (error) {
             console.log(error)
             setBooks([])
@@ -74,16 +86,6 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     }, [])
 
 
-    useEffect(() => {
-        // if (userId && isLoggedIn) {
-        if (isLoggedIn) {
-            console.log(user)
-            showAllMyBooks('674a522b7ad81f04cbe394c2')
-            console.log(books)
-            // setIsLoading(true)
-        }
-
-    }, [user, isLoggedIn]);
 
 
     return (

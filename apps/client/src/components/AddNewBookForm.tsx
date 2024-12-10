@@ -3,8 +3,6 @@ import { genders } from '../utils/contsToExport.util';
 import { useBook } from '../hooks/useBook';
 import { useAuth } from '../hooks/useAuth';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
-import { ConfirmationSnipper } from '../utils/ConfirmationSnipper';
-
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,10 +26,11 @@ export interface BookFormData {
 }
 
 export const AddNewBookForm: React.FC = () => {
-    const { onSubmitBookForm, resStatus } = useBook()
-    const { isLoading } = useAuth()
+    const { onSubmitBookForm, resStatus, } = useBook()
+    const { isLoading, user } = useAuth()
     const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
     const navigate = useNavigate()
+    const [isNotification, setIsNotification] = useState<boolean>(false)
     const [formData, setFormData] = useState<BookFormData>({
         bookTitle: '',
         author: '',
@@ -44,7 +43,6 @@ export const AddNewBookForm: React.FC = () => {
         price: undefined,
         uploadContentPdf: null,
     });
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -78,15 +76,19 @@ export const AddNewBookForm: React.FC = () => {
     }
 
     useEffect(() => {
-        if ((resStatus > 0)) {
+        if (resStatus > 0) {
             setTimeout(() => {
                 toast.success('New Book created! ')
+                setIsNotification(true)
                 setTimeout(() => {
                     navigate('/mybooks')
                 }, 1800);
             }, 200);
+
+
         }
-    }, [resStatus])
+    })
+
     return (
         <div className="container flex mx-auto p-4">
             <div>
@@ -257,7 +259,7 @@ export const AddNewBookForm: React.FC = () => {
                     isLoading && <LoadingSpinner />
                 }
                 {
-                    resStatus > 0 && <div><ToastContainer /></div>
+                    isNotification && <div><ToastContainer /></div>
                 }
             </div>
         </div>

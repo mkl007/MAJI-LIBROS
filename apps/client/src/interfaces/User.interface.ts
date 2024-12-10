@@ -4,11 +4,11 @@ export interface ApiResponse {
   userInfo: UserInfo & UserInfoGithubCredential ;
 }
 export interface UserData {
-  userInfo: UserInfo & UserInfoGithubCredential | null
+  userInfo: UserInfo & UserInfoGithubCredential
 }
 
 export interface UserContextInterface {
-  user: UserData | null
+  user: UserData | undefined
   data: ApiResponse | null;
   signUpFunction: (user: UserToSignUp) => Promise<void>;
   isLoading: boolean;

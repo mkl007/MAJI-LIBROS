@@ -10,7 +10,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [data, setData] = useState<ApiResponse | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [user, setUser] = useState<UserData | null>(null)
+    const [user, setUser] = useState<UserData | undefined >(undefined)
 
 
 
@@ -50,7 +50,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
                 const response: AxiosResponse = await instanceAxios.get(`/userData`)
                 setIsLoading(true)
                 if (response.data.userInfo) {
-                    setUser(response.data.userInfo);
+                    setUser(response.data);
                     setIsLoggedIn(true)
                     setIsLoading(false)
                 } else {
@@ -62,16 +62,15 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             }
         };
         getUserInfo()
-        
-    }, []);
+
+    }, [isLoading]);
 
     useEffect(() => {
-        if(error) {
+        if (error) {
             console.log(error)
             setIsLoading(false)
         }
     })
-
 
     return (
         <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user }}>
