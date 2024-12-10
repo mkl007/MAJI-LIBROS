@@ -36,11 +36,9 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     let userId = '';
 
     useEffect(() => {
-        // setIsLoading
         if (user && !isLoading) {
             userId = user.userInfo._id
         }
-
     }, [user, isLoggedIn]);
 
     const onSubmitBookForm = async (newBook: BookFormData) => {
@@ -85,11 +83,27 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, [])
 
-
+    const removeBook = useCallback(async (bookId: string) => {
+        try {
+            const deleteBook = await instanceAxiosBooks.delete(`/removebook/${bookId}`)
+            console.log(deleteBook.data)
+            // return 'Book deleted'
+        } catch (error) {
+            console.log(error)
+            // return 'There is an issue'
+        }
+    }, [])
 
 
     return (
-        <BookContext.Provider value={{ onSubmitBookForm, showAllMyBooks, books, resStatus, allBooks }}>
+        <BookContext.Provider value={{
+            onSubmitBookForm,
+            showAllMyBooks,
+            books,
+            resStatus,
+            allBooks,
+            removeBook
+        }}>
             {children}
         </BookContext.Provider>
     )

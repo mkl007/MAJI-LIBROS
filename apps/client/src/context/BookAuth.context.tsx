@@ -8,6 +8,7 @@ export interface BookContextInterface {
     books: BooksFromDb[]
     resStatus: number
     allBooks: () => Promise<void>
+    removeBook: (bookId: string) => Promise<void>
 }
 
 export const BookContext = createContext<BookContextInterface | undefined>(undefined)
