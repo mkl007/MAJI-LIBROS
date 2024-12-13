@@ -10,7 +10,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [data, setData] = useState<ApiResponse | null>(null);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [user, setUser] = useState<UserData | undefined >(undefined)
+    const [user, setUser] = useState<UserData | undefined>(undefined)
 
 
 
@@ -55,10 +55,12 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
                     setIsLoading(false)
                 } else {
                     setError(response.data);
+                    setIsLoading(false)
                     setIsLoggedIn(false)
                 }
             } catch (error) {
                 setError('Error: ' + error);
+                setIsLoading(false)
             }
         };
         getUserInfo()
@@ -68,9 +70,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     useEffect(() => {
         if (error) {
             console.log(error)
-            setIsLoading(false)
         }
-    })
+    }, [user])
 
     return (
         <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user }}>

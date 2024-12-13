@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 
 interface ProtectedRoutesProps {
-  children?: JSX.Element; // Ahora children es opcional
+  children?: JSX.Element; 
 }
 
 
