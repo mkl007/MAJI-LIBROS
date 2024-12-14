@@ -19,7 +19,6 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             setIsLoading(true)
             const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/register', user);
             setData(response.data);
-
         } catch (error) {
             console.error('Error while creating user:', error);
             setData(null);
@@ -34,13 +33,13 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             setData(response.data);
             setIsLoading(true)
             if (response?.data?.message === 'Logged in') {
-                document.cookie = `token=${response.data.token}; SameSite=None; Secure`;
+                setIsLoggedIn(true)
+                setIsLoading(false)
             }
-            setIsLoggedIn(true)
-            setIsLoading(false)
-        } catch (error) {
-            console.error('Error Logging into the account:', error);
+        } catch (err) {
+            console.log('Error Logging into the account:', err);
             setData(null);
+            // setError(err)
         }
     };
 
@@ -53,25 +52,28 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
                     setUser(response.data);
                     setIsLoggedIn(true)
                     setIsLoading(false)
-                } else {
+                }
+                else {
                     setError(response.data);
                     setIsLoading(false)
-                    setIsLoggedIn(false)
+
                 }
             } catch (error) {
                 setError('Error: ' + error);
                 setIsLoading(false)
+                setIsLoggedIn(false)
             }
         };
         getUserInfo()
 
-    }, [isLoading]);
+    }, [isLoading, data]);
 
     useEffect(() => {
         if (error) {
             console.log(error)
+            setIsLoggedIn(false)
         }
-    }, [user])
+    }, [data])
 
     return (
         <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user }}>

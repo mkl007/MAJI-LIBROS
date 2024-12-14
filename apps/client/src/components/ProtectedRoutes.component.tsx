@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 
 interface ProtectedRoutesProps {
-  children?: JSX.Element; 
+  children?: JSX.Element;
 }
 
 
@@ -15,7 +15,7 @@ export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) =>
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user && isLoading) navigate('/login ')
+    if (!user && isLoading) navigate('/login')
   })
 
   if (isLoading) return <LoadingSpinner />

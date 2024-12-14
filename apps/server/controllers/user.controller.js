@@ -70,7 +70,7 @@ export const userLogin = async (req, res) => {
         sameSite: 'none',
         secure: true
       })
-      res.json({ message: 'Logged in', token })
+      res.json({ message: 'Logged in', token, })
     } else {
       res.status(400).json({ message: "Email not verified. Please check your Mail box to verify your email or register your account" })
     }
@@ -161,11 +161,14 @@ export const passwordResetHandler = async (req, res) => {
 export const verifyTokenRoute = async (req, res) => {
 
   try {
+
     const token = req.cookies.token
     const decoded = jwt.verify(token, process.env.JWT_PASS)
     const userId = decoded.id
     const userInfo = await User.findById(userId).select('-password')
-    if (userInfo) return res.status(200).json({ userInfo })
+    if (userInfo) {
+      return res.status(200).json({ userInfo })
+    }
     return res.status(404).json({ message: 'No user found' })
   } catch (error) {
     if (error.name === 'TokenExpiredError') return res.json({ Message: 'Token for the verification expired. Please signup in the app!' })
