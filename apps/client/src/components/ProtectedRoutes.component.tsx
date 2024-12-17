@@ -3,6 +3,8 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { useEffect } from 'react';
+import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
+import { useBook } from '../hooks/useBook';
 
 
 interface ProtectedRoutesProps {
@@ -12,6 +14,7 @@ interface ProtectedRoutesProps {
 
 export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
   const { isLoading, user } = useAuth();
+  const { isLoadingBook } = useBook();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +22,7 @@ export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) =>
   })
 
   if (isLoading) return <LoadingSpinner />
+  // if (isLoadingBook) return <MiniLoadingSpinner />
   return children || <Outlet />;
 
 };

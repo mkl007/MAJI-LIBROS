@@ -29,9 +29,10 @@ export interface BooksFromDb {
 }
 
 export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { setIsLoading, isLoading, user, isLoggedIn } = useAuth();
+    const { isLoading, user, isLoggedIn } = useAuth();
     const [books, setBooks] = useState<BooksFromDb[]>([])
     const [resStatus, setResStatus] = useState<number>(0)
+    const [isLoadingBook, setIsLoadingBook] = useState<boolean>(false)
 
     let userId = '';
 
@@ -43,11 +44,7 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     const onSubmitBookForm = async (newBook: BookFormData) => {
         try {
-            setIsLoading(true)
-            console.log('from here onsubmite:', user?.userInfo)
             const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.post(`/newbook/${userId || user?.userInfo._id}`, newBook)
-            // Create a component that loads and show the confirmation of new book created. Should be green mark
-            console.log(response)
             if (response.status === 201) {
                 setResStatus(201)
             }
@@ -56,7 +53,8 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             setBooks([])
 
         } finally {
-            setIsLoading(false)
+            setIsLoadingBook(false)
+
         }
     };
 
@@ -69,7 +67,7 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             console.log(error)
             setBooks([])
         } finally {
-            setIsLoading(false)
+            setIsLoadingBook(false)
         }
     }, [])
 
@@ -86,11 +84,12 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const removeBook = useCallback(async (bookId: string) => {
         try {
             const deleteBook = await instanceAxiosBooks.delete(`/removebook/${bookId}`)
+            setIsLoadingBook(true)
             console.log(deleteBook.data)
-            // return 'Book deleted'
         } catch (error) {
             console.log(error)
-            // return 'There is an issue'
+        } finally {
+            setIsLoadingBook(false)
         }
     }, [])
 
@@ -102,7 +101,9 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             books,
             resStatus,
             allBooks,
-            removeBook
+            removeBook,
+            isLoadingBook,
+            setIsLoadingBook
         }}>
             {children}
         </BookContext.Provider>

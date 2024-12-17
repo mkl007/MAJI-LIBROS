@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { genders } from '../utils/contsToExport.util';
 import { useBook } from '../hooks/useBook';
 import { useAuth } from '../hooks/useAuth';
-import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-// minified version is also included
-// import 'react-toastify/dist/ReactToastify.min.css';
-
+import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
+import { LoadingSpinner } from '../utils/LoadingSnipper';
 
 export interface BookFormData {
     _id?: string,
@@ -26,8 +23,7 @@ export interface BookFormData {
 }
 
 export const AddNewBookForm: React.FC = () => {
-    const { onSubmitBookForm, resStatus, } = useBook()
-    const { isLoading, user } = useAuth()
+    const { onSubmitBookForm, resStatus, isLoadingBook, setIsLoadingBook } = useBook()
     const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
     const navigate = useNavigate()
     const [isNotification, setIsNotification] = useState<boolean>(false)
@@ -73,10 +69,13 @@ export const AddNewBookForm: React.FC = () => {
         e.preventDefault()
         setIsOnSubmit(true)
         onSubmitBookForm(formData);
+        setIsLoadingBook(true)
+
     }
 
     useEffect(() => {
         if (resStatus > 0) {
+            setIsLoadingBook(false)
             setTimeout(() => {
                 toast.success('New Book created! ')
                 setIsNotification(true)
@@ -256,7 +255,7 @@ export const AddNewBookForm: React.FC = () => {
 
             <div>
                 {
-                    isLoading && <LoadingSpinner />
+                    isLoadingBook && <MiniLoadingSpinner />
                 }
                 {
                     isNotification && <div><ToastContainer /></div>
