@@ -62,23 +62,6 @@ export const myBooks = async (req, res) => {
     }
 }
 
-export const singleBook = async (req, res) => {
-    try {
-        const reqBook = await BookSchema.find({ ownerId: req.params.userI })
-        if (!reqBook) {
-            console.log(req.params.userId)
-            return res.status(400).json({ message: 'seems that you dont have books yet.. ' })
-        }
-        const reqSingleBook = await BookSchema.findOne({ _id: req.params.singlebook })
-        if (!reqSingleBook) return res.json({ message: 'No file found with your searching criteria.' })
-        res.json({ reqSingleBook })
-
-    } catch (error) {
-        console.log('There is an error: ', error)
-        return res.status(401).json({ message: 'You got a problem...' })
-    }
-}
-
 export const showBooks = async (req, res) => {
     try {
         const reqBooks = await BookSchema.find({ availabilityStatus: { $ne: 'not-available' } }).sort({ createdAt: -1 })
@@ -93,9 +76,69 @@ export const removeBook = async (req, res) => {
     try {
         const deleteBook = await BookSchema.deleteOne({ _id: req.params.bookId })
         console.log(deleteBook)
-        return res.status(200).json({message: 'Book deleted'})
+        return res.status(200).json({ message: 'Book deleted' })
 
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const singleBook = async (req, res) => {
+    try {
+
+        const reqSingleBook = await BookSchema.findOne({ _id: req.params.bookId })
+        if (!reqSingleBook) return res.json({ message: 'No file found with your searching criteria.' })
+        res.status(200).json({ reqSingleBook })
+    } catch (error) {
+        console.log('There is an error: ', error)
+        return res.status(401).json({ message: 'You got a problem...' })
+    }
+}
+
+export const editBook = async (req, res) => {
+    try {
+        const existingBook = {
+            author: req.body.author,
+            availabilityStatus: req.body.availabilityStatus,
+            bookTitle: req.body.bookTitle,
+            description: req.body.description,
+            gender: req.body.gender,
+            coverImage: req.body.coverImage,
+            backCoverImage: req.body.backCoverImage,
+            price: req.body.price,
+            publishedYear: req.body.publishedYear,
+            uploadContentPdf: req.body.uploadContentPdf
+        };
+
+        if (!req.files || Object.keys(req.files) === 0) {
+            return res.status(400).json({ message: 'No files were uploaded.' });
+        }
+        const uploadedFileCover = req.files.coverImage;
+        const uploadFileBackImage = req.files.backCoverImage
+        const uploadFileuploadContentPdf = req.files.uploadContentPdf
+
+        const result1 = await uploadedFilefunction(uploadedFileCover.tempFilePath)
+        const result2 = await uploadedFilefunction(uploadFileBackImage.tempFilePath)
+        const result3 = await uploadedFilefunction(uploadFileuploadContentPdf.tempFilePath)
+
+        existingBook.coverImage = result1.secure_url;
+        existingBook.backCoverImage = result2.secure_url;
+        existingBook.uploadContentPdf = result3.secure_url;
+
+        const book = await BookSchema.findOneAndUpdate({ _id: req.params.bookId }, {
+            author: existingBook.author,
+            bookTitle: existingBook.bookTitle,
+            description: existingBook.description,
+            availabilityStatus: existingBook.availabilityStatus,
+            gender: existingBook.gender,
+            coverImage: existingBook.coverImage,
+            backCoverImage: existingBook.backCoverImage,
+            uploadContentPdf: existingBook.uploadContentPdf
+        }, { new: true });
+
+        return res.status(200).json({ message: 'Book updated!' })
+    } catch (error) {
+        console.log(error)
+        return res.json({ message: 'There is an error', error })
     }
 }

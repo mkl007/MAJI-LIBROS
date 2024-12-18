@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import jwt from 'jsonwebtoken'
+import jwt, { decode } from 'jsonwebtoken'
 
 /**
  * -Validate token after proceed to profile,dashbaord and some routes that has verifyToken
@@ -24,6 +24,7 @@ export function verifyToken (req, res, next) {
     }
     const decoded = jwt.verify(token, process.env.JWT_PASS)
     req.userId = decoded.id
+    console.log(decode)
     next()
   } catch (error) {
     res.status(500).json({ msg: 'Error bro', error })
