@@ -16,6 +16,7 @@ import { BookContextProvider } from './context/Book.contex';
 import { MyBooksPage } from './pages/MyBooks.page';
 import { SideBar } from './components/SideBar';
 import { AppLayout } from './layout/App.layout';
+import { UpdateBook } from './pages/UpdateBook.page';
 
 
 const AppContent = () => {
@@ -43,7 +44,8 @@ const AppContent = () => {
           <Route path='/addNewBook' element={<ProtectedRoutes><AddNewBook /></ProtectedRoutes>} />
           <Route path='/cart' element={<ProtectedRoutes><ShoppingCartPage /></ProtectedRoutes>} />
           <Route path='/mybooks' element={<ProtectedRoutes><MyBooksPage /></ProtectedRoutes>} />
-
+          <Route path='/editbook' element={<ProtectedRoutes><UpdateBook /></ProtectedRoutes>} />
+        
           <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
         </Routes>
       </AppLayout>
