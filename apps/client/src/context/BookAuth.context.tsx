@@ -11,6 +11,7 @@ export interface BookContextInterface {
     removeBook: (bookId: string) => Promise<void>
     setIsLoadingBook: React.Dispatch<React.SetStateAction<boolean>>
     isLoadingBook: boolean
+    getSingleBook: (bookId: string) => Promise<void>
 }
 
 export const BookContext = createContext<BookContextInterface | undefined>(undefined)

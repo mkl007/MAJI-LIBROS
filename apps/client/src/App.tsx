@@ -44,7 +44,7 @@ const AppContent = () => {
           <Route path='/addNewBook' element={<ProtectedRoutes><AddNewBook /></ProtectedRoutes>} />
           <Route path='/cart' element={<ProtectedRoutes><ShoppingCartPage /></ProtectedRoutes>} />
           <Route path='/mybooks' element={<ProtectedRoutes><MyBooksPage /></ProtectedRoutes>} />
-          <Route path='/editbook' element={<ProtectedRoutes><UpdateBook /></ProtectedRoutes>} />
+          <Route path='/editbook/:bookId' element={<ProtectedRoutes><UpdateBook /></ProtectedRoutes>} />
         
           <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
         </Routes>

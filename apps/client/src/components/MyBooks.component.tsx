@@ -4,11 +4,14 @@ import { FeedItem } from "./Feeds.compoment"
 import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { useEffect } from "react"
 import { useAuth } from "../hooks/useAuth"
+import { useNavigate } from "react-router-dom"
 
 
 export const MyBooksComponent = () => {
     const { books, showAllMyBooks, removeBook } = useBook()
     const { isLoggedIn, user, isLoading } = useAuth()
+  const navigate = useNavigate();
+
 
     useEffect(() => {
         if (user && !isLoading) {
@@ -34,9 +37,15 @@ export const MyBooksComponent = () => {
                                     <div key={book._id}>
                                         <button
                                             onClick={() => removeBook(book._id)}
-                                            className="bg-red-500 text-white px-4 py-2 rounded"
+                                            className="bg-red-500 text-white ml-3 px-2 py-2 rounded"
                                         >
                                             Delete
+                                        </button>
+                                        <button
+                                            onClick={() => navigate(`/editbook/${book._id}`)}
+                                            className="bg-green-500 text-white ml-3 px-4 py-2 rounded"
+                                        >
+                                            Edit
                                         </button>
                                         <FeedItem
                                             key={book._id}

@@ -93,6 +93,18 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, [])
 
+    const getSingleBook = useCallback(async (bookId: string) => {
+        try {
+            const req = await instanceAxiosBooks.get(`/book/${bookId}`)
+            setIsLoadingBook(true)
+            console.log(req.data)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoadingBook(false)
+        }
+    }, [])
+
 
     return (
         <BookContext.Provider value={{
@@ -103,7 +115,8 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             allBooks,
             removeBook,
             isLoadingBook,
-            setIsLoadingBook
+            setIsLoadingBook,
+            getSingleBook
         }}>
             {children}
         </BookContext.Provider>
