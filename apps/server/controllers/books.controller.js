@@ -22,7 +22,6 @@ export const newBook = async (req, res) => {
 
     try {
         if (!req.files || Object.keys(req.files) === 0) {
-            console.log(req.files)
             return res.status(400).json({ message: 'No files were uploaded.' });
         }
         const uploadedFile = req.files.coverImage;
@@ -50,7 +49,6 @@ export const myBooks = async (req, res) => {
     try {
         const reqBooks = await BookSchema.find({ ownerId: req.params.userId })
         if (reqBooks <= 0) {
-
             return res.status(200).json({ message: 'seems that you dont have books yet.. ' })
         }
 
@@ -75,7 +73,6 @@ export const showBooks = async (req, res) => {
 export const removeBook = async (req, res) => {
     try {
         const deleteBook = await BookSchema.deleteOne({ _id: req.params.bookId })
-        console.log(deleteBook)
         return res.status(200).json({ message: 'Book deleted' })
 
     } catch (error) {
@@ -110,35 +107,45 @@ export const editBook = async (req, res) => {
             uploadContentPdf: req.body.uploadContentPdf
         };
 
-        if (!req.files || Object.keys(req.files) === 0) {
-            return res.status(400).json({ message: 'No files were uploaded.' });
+        if (!req.files || Object.keys(req.files).length === 0) {
+            console.log({ message: 'No files were uploaded for update.' });
+        } else {
+            if (req.files.coverImage) {
+                const result1 = await uploadedFilefunction(req.files.coverImage.tempFilePath);
+                existingBook.coverImage = result1?.secure_url;
+            }
+
+            if (req.files.backCoverImage) {
+                const result2 = await uploadedFilefunction(req.files.backCoverImage.tempFilePath);
+                existingBook.backCoverImage = result2?.secure_url;
+            }
+
+            if (req.files.uploadContentPdf) {
+                const result3 = await uploadedFilefunction(req.files.uploadContentPdf.tempFilePath);
+                existingBook.uploadContentPdf = result3?.secure_url;
+            }
         }
-        const uploadedFileCover = req.files.coverImage;
-        const uploadFileBackImage = req.files.backCoverImage
-        const uploadFileuploadContentPdf = req.files.uploadContentPdf
 
-        const result1 = await uploadedFilefunction(uploadedFileCover.tempFilePath)
-        const result2 = await uploadedFilefunction(uploadFileBackImage.tempFilePath)
-        const result3 = await uploadedFilefunction(uploadFileuploadContentPdf.tempFilePath)
+        const book = await BookSchema.findOneAndUpdate(
+            { _id: req.params.bookId },
+            {
+                author: existingBook.author,
+                bookTitle: existingBook.bookTitle,
+                description: existingBook.description,
+                availabilityStatus: existingBook.availabilityStatus,
+                gender: existingBook.gender,
+                coverImage: existingBook.coverImage,
+                backCoverImage: existingBook.backCoverImage,
+                uploadContentPdf: existingBook.uploadContentPdf,
+                price: existingBook.price
+            },
+            { new: true }
+        );
 
-        existingBook.coverImage = result1.secure_url;
-        existingBook.backCoverImage = result2.secure_url;
-        existingBook.uploadContentPdf = result3.secure_url;
-
-        const book = await BookSchema.findOneAndUpdate({ _id: req.params.bookId }, {
-            author: existingBook.author,
-            bookTitle: existingBook.bookTitle,
-            description: existingBook.description,
-            availabilityStatus: existingBook.availabilityStatus,
-            gender: existingBook.gender,
-            coverImage: existingBook.coverImage,
-            backCoverImage: existingBook.backCoverImage,
-            uploadContentPdf: existingBook.uploadContentPdf
-        }, { new: true });
-
-        return res.status(200).json({ message: 'Book updated!' })
+        console.log(book);
+        return res.status(200).json({ message: 'Book updated!' });
     } catch (error) {
-        console.log(error)
-        return res.json({ message: 'There is an error', error })
+        console.log('There error is: ', error);
+        return res.status(500).json({ message: 'There is an error', error });
     }
-}
+};

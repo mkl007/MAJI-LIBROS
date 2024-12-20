@@ -145,6 +145,7 @@ export const AddNewBookForm: React.FC = () => {
                                     className="ml-4 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                                     onChange={handleFileChange}
                                     accept="application/pdf"
+                                    required
                                 />
                             </div>
                         </div>
@@ -177,6 +178,7 @@ export const AddNewBookForm: React.FC = () => {
                                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                                 onChange={handleFileChange}
                                 accept="image/*"
+                                required
                             />
                         </div>
                         <div className="w-full md:w-1/2 pl-2">
@@ -194,7 +196,7 @@ export const AddNewBookForm: React.FC = () => {
 
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">Availability Status <span className='text-red-700'>*</span></label>
-                        <div className="mt-1">
+                        <div className="mt-1 required">
                             <label className="inline-flex items-center">
                                 <input
                                     type="radio"

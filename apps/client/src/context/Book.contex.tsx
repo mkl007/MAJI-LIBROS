@@ -8,7 +8,8 @@ import instanceAxiosBooks from "../api/AxiosBooksSetUp";
 
 interface BookApiResponse {
     message: string,
-    reqBooks: BooksFromDb[]
+    reqBooks: BooksFromDb[],
+    reqSingleBook: BooksFromDb
 }
 
 export interface BooksFromDb {
@@ -17,7 +18,7 @@ export interface BooksFromDb {
     bookTitle: string,
     coverImage: string,
     createdAt: string,
-    description: number,
+    description: string,
     isbn: number
     ownerId: string,
     updatedAt?: string,
@@ -28,9 +29,28 @@ export interface BooksFromDb {
     price: number
 }
 
+var initialValue: BooksFromDb = {
+    author: '',
+    availabilityStatus: '',
+    _id: '',
+    bookTitle: '',
+    coverImage: '',
+    createdAt: '',
+    description: '',
+    gender: '',
+    isbn: 0,
+    ownerId: '',
+    price: 0,
+    backCoverImage: '',
+    updatedAt: '',
+    uploadContentPdf: ''
+
+
+}
 export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { isLoading, user, isLoggedIn } = useAuth();
     const [books, setBooks] = useState<BooksFromDb[]>([])
+    const [singleBook, setSingleBook] = useState<BooksFromDb>(initialValue)
     const [resStatus, setResStatus] = useState<number>(0)
     const [isLoadingBook, setIsLoadingBook] = useState<boolean>(false)
 
@@ -95,9 +115,26 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     const getSingleBook = useCallback(async (bookId: string) => {
         try {
-            const req = await instanceAxiosBooks.get(`/book/${bookId}`)
+            const req: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get<BookApiResponse>(`/book/${bookId}`)
             setIsLoadingBook(true)
-            console.log(req.data)
+            if (req.data.reqSingleBook) {
+                setSingleBook(req.data.reqSingleBook)
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoadingBook(false)
+        }
+    }, [])
+
+    const updateBookFunction = useCallback(async (bookId: string, editBook: BookFormData) => {
+        try {
+            const req = await instanceAxiosBooks.put(`/edit/${bookId}`, editBook)
+            setIsLoadingBook(true)
+            if (req.data.reqSingleBook) {
+                setSingleBook(req.data.reqSingleBook)
+                console.log(req.data)
+            }
         } catch (error) {
             console.log(error)
         } finally {
@@ -116,7 +153,9 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             removeBook,
             isLoadingBook,
             setIsLoadingBook,
-            getSingleBook
+            getSingleBook,
+            singleBook,
+            updateBookFunction
         }}>
             {children}
         </BookContext.Provider>

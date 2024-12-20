@@ -10,17 +10,19 @@ import { useNavigate } from "react-router-dom"
 export const MyBooksComponent = () => {
     const { books, showAllMyBooks, removeBook } = useBook()
     const { isLoggedIn, user, isLoading } = useAuth()
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
         if (user && !isLoading) {
             if (user) {
                 showAllMyBooks(user.userInfo._id)
+                let counter: number = 0
+                console.log(counter++)
             }
         }
-    })
-    
+    },[])
+
     return (
         <div className=" container flex flex-col justify-center p-2 border-1 border-red-800">
 
