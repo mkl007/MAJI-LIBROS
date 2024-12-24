@@ -103,9 +103,8 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     const removeBook = useCallback(async (bookId: string) => {
         try {
-            const deleteBook = await instanceAxiosBooks.delete(`/removebook/${bookId}`)
             setIsLoadingBook(true)
-            console.log(deleteBook.data)
+            await instanceAxiosBooks.delete(`/removebook/${bookId}`)
         } catch (error) {
             console.log(error)
         } finally {
