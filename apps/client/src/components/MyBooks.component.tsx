@@ -1,7 +1,6 @@
 import { useBook } from "../hooks/useBook"
 import { AddNewBookCard } from "./AddNewBookCard"
 import { FeedItem } from "./Feeds.compoment"
-import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { useEffect } from "react"
 import { useAuth } from "../hooks/useAuth"
 import { useNavigate } from "react-router-dom"
@@ -9,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 export const MyBooksComponent = () => {
     const { books, showAllMyBooks, removeBook, isLoadingBook, getSingleBook } = useBook()
-    const { isLoggedIn, user, isLoading } = useAuth()
+    const { user, isLoading } = useAuth()
     const navigate = useNavigate();
 
 
@@ -49,7 +48,6 @@ export const MyBooksComponent = () => {
                                         </button>
                                         <button
                                             onClick={() => onClickEditButton(book._id)}
-                                            // onClick={() => navigate(`/editbook/${book._id}`)}
                                             className="bg-green-500 text-white ml-3 px-4 py-2 rounded"
                                         >
                                             Edit

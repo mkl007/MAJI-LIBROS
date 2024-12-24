@@ -126,18 +126,15 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, [])
 
-    const updateBookFunction = useCallback(async (bookId: string, editBook: BookFormData) => {
+    const updateBookFunction = useCallback(async (editBook: BookFormData) => {
         try {
-            const req = await instanceAxiosBooks.put(`/edit/${bookId}`, editBook)
-            setIsLoadingBook(true)
-            if (req.data.reqSingleBook) {
-                setSingleBook(req.data.reqSingleBook)
-                console.log(req.data)
+            const req = await instanceAxiosBooks.put(`/edit/${editBook._id}`, editBook)
+            if (req.data.message) {
+                setSingleBook(req.data.message)
+                setResStatus(req.status)
             }
         } catch (error) {
             console.log(error)
-        } finally {
-            setIsLoadingBook(false)
         }
     }, [])
 

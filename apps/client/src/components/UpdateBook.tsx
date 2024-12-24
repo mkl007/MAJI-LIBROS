@@ -9,9 +9,7 @@ import { MiniLoadingSpinner } from "../utils/MiniLoadingSnipper"
 
 export const UpdateBookComponent = () => {
 
-    const params = useParams()
-    const { resStatus, isLoadingBook, setIsLoadingBook, updateBookFunction, getSingleBook, singleBook, setSingleBook } = useBook()
-    const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
+    const { resStatus, isLoadingBook, setIsLoadingBook, updateBookFunction, singleBook } = useBook()
     const navigate = useNavigate()
     const [isNotification, setIsNotification] = useState<boolean>(false)
     const [formData, setFormData] = useState<BookFormData>({
@@ -56,17 +54,12 @@ export const UpdateBookComponent = () => {
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        setIsOnSubmit(true)
-        if (params.bookId) {
-            updateBookFunction(params.bookId, formData);
-
-            setIsLoadingBook(true)
-        }
-
+        updateBookFunction(formData);
+        setIsLoadingBook(true)
     }
 
     useEffect(() => {
-        if (resStatus > 0) {
+        if (resStatus == 200) {
             setIsLoadingBook(false)
             setTimeout(() => {
                 toast.success('Book Edited! ')

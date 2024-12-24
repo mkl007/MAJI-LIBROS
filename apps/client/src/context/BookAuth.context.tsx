@@ -13,7 +13,7 @@ export interface BookContextInterface {
     isLoadingBook: boolean
     getSingleBook: (bookId: string) => Promise<void>
     singleBook: BooksFromDb
-    updateBookFunction: (bookId: string, editBook: BookFormData) => Promise<void>
+    updateBookFunction: ( editBook: BookFormData) => Promise<void>
 }
 
 export const BookContext = createContext<BookContextInterface | undefined>(undefined)

@@ -126,7 +126,7 @@ export const editBook = async (req, res) => {
             }
         }
 
-        const book = await BookSchema.findOneAndUpdate(
+        await BookSchema.findOneAndUpdate(
             { _id: req.params.bookId },
             {
                 author: existingBook.author,
@@ -142,7 +142,6 @@ export const editBook = async (req, res) => {
             { new: true }
         );
 
-        console.log(book);
         return res.status(200).json({ message: 'Book updated!' });
     } catch (error) {
         console.log('There error is: ', error);
