@@ -9,13 +9,13 @@ import { MiniLoadingSpinner } from "../utils/MiniLoadingSnipper"
 
 export const UpdateBookComponent = () => {
 
-    const { getSingleBook, singleBook } = useBook()
     const params = useParams()
-    const { resStatus, isLoadingBook, setIsLoadingBook, updateBookFunction } = useBook()
+    const { resStatus, isLoadingBook, setIsLoadingBook, updateBookFunction, getSingleBook, singleBook, setSingleBook } = useBook()
     const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
     const navigate = useNavigate()
     const [isNotification, setIsNotification] = useState<boolean>(false)
     const [formData, setFormData] = useState<BookFormData>({
+        _id: singleBook._id,
         bookTitle: `${singleBook.bookTitle}`,
         author: `${singleBook.author}`,
         description: `${singleBook.description}`,
@@ -28,11 +28,6 @@ export const UpdateBookComponent = () => {
         uploadContentPdf: null,
     });
 
-    useEffect(() => {
-        if (params.bookId) {
-            getSingleBook(params.bookId)
-        }
-    }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;

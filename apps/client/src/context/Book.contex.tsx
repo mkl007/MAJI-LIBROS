@@ -29,7 +29,7 @@ export interface BooksFromDb {
     price: number
 }
 
-var initialValue: BooksFromDb = {
+let initialValue: BooksFromDb = {
     author: '',
     availabilityStatus: '',
     _id: '',

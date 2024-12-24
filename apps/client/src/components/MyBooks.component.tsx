@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 
 export const MyBooksComponent = () => {
-    const { books, showAllMyBooks, removeBook,isLoadingBook } = useBook()
+    const { books, showAllMyBooks, removeBook, isLoadingBook, getSingleBook } = useBook()
     const { isLoggedIn, user, isLoading } = useAuth()
     const navigate = useNavigate();
 
@@ -17,11 +17,15 @@ export const MyBooksComponent = () => {
         if (user && !isLoading) {
             if (books) {
                 showAllMyBooks(user.userInfo._id)
-                let counter: number = 0
-                console.log(counter++)
             }
         }
-    },[books])
+    }, [isLoadingBook])
+
+    async function onClickEditButton(bookId: string) {
+        await getSingleBook(bookId)
+        navigate(`/editbook/${bookId}`)
+
+    }
 
     return (
         <div className=" container flex flex-col justify-center p-2 border-1 border-red-800">
@@ -44,7 +48,8 @@ export const MyBooksComponent = () => {
                                             Delete
                                         </button>
                                         <button
-                                            onClick={() => navigate(`/editbook/${book._id}`)}
+                                            onClick={() => onClickEditButton(book._id)}
+                                            // onClick={() => navigate(`/editbook/${book._id}`)}
                                             className="bg-green-500 text-white ml-3 px-4 py-2 rounded"
                                         >
                                             Edit
