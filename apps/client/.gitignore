@@ -26,3 +26,4 @@ dist-ssr
 components/Characters.tsx
 pages/Test.page.tsx
 hooks/useUser.tsx
+.env

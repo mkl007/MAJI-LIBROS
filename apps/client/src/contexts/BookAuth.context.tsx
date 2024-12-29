@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { BookFormData } from "../components/AddNewBookForm";
-import { BooksFromDb } from "./Book.contex";
+import { BooksFromDb } from "./Book.context";
 
 export interface BookContextInterface {
     onSubmitBookForm: (newBook: BookFormData) => Promise<void>

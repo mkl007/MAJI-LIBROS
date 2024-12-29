@@ -3,7 +3,7 @@ import { BookContext } from "./BookAuth.context";
 import { BookFormData } from "../components/AddNewBookForm";
 import { useAuth } from "../hooks/useAuth";
 import { AxiosResponse } from "axios";
-import instanceAxiosBooks from "../api/AxiosBooksSetUp";
+import instanceAxiosBooks from "../services/AxiosBooksSetUp";
 
 
 interface BookApiResponse {

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { menuRoutes } from '../router/sideNav.route';
+import { menuRoutes } from '../routers/sideNav.route';
 
 export const SideBar = () => {
   return (

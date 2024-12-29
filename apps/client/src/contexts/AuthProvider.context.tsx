@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react"
 import { AuthContext } from "./Auth.context"
 import { ApiResponse, UserData, UserToLogin, UserToSignUp } from "../interfaces/User.interface"
 import { AxiosResponse } from "axios"
-import instanceAxios from "../api/axiosSetup"
+import instanceAxios from "../services/axiosSetup"
 
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

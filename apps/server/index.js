@@ -1,10 +1,10 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { routerUser } from './routes/user.route.js'
-import { db } from './config/db.config.js'
+import { routerUser } from './routes/users.route.js'
+import { db } from './configs/db.config.js'
 import passport from 'passport';
-import './config/passport.config.js'; // Importar configuración de Passport
+import './configs/passport.config.js'; // Importar configuración de Passport
 import { routerBook } from './routes/books.route.js'
 import cookieParser from 'cookie-parser'
 

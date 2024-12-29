@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Book, FeedItemProps } from '../interfaces/User.interface';
-import { myApi } from '../api/MyApiBooks';
+import { myApi } from '../services/MyApiBooks';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';

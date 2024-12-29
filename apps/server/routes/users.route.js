@@ -1,5 +1,5 @@
 import express from 'express'
-import { emailTokenConfimation, logout, passwordReset, passwordResetHandler, registerUser, userLogin, verifyTokenRoute } from '../controllers/user.controller.js';
+import { emailTokenConfimation, logout, passwordReset, passwordResetHandler, registerUser, userLogin, verifyTokenRoute } from '../controllers/users.controller.js';
 import passport from 'passport';
 import jwt from "jsonwebtoken";
 

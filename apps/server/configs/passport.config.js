@@ -44,4 +44,4 @@ passport.deserializeUser(async (token, done) => {
   }
 });
 
-export default passport; // Exportar passport para asegurarse de que se pueda importar en otros archivos
+export default passport; 
