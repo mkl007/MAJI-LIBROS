@@ -35,6 +35,9 @@ const userSchema = new realSchema({
   userAvatar: {
     type: String,
   },
+  role: {
+    type: String
+  },
 }, { timestamps: true }); // Add timestamps to track creation and update times
 
 const User = mongoose.model('User', userSchema);

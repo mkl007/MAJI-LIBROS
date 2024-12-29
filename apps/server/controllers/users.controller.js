@@ -13,12 +13,12 @@ export const registerUser = async (req, res) => {
   try {
 
     const verifyEmail = await User.findOne({ email: req.body.email });
-    if (verifyEmail)
-      return res.status(409).json({ message: "Email already exist. Do you mean to login?" });
+    if (verifyEmail) return res.status(409).json({ message: "Email already exist. Do you mean to login?" });
     const newUser = new User({
       fullname: req.body.fullname,
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, 10),
+      role: 'user',
     });
 
     const tokenBytes = randomFillSync(Buffer.alloc(16));
@@ -70,6 +70,7 @@ export const userLogin = async (req, res) => {
         sameSite: 'none',
         secure: true
       })
+      console.log(user)
       res.json({ message: 'Logged in', token, })
     } else {
       res.status(400).json({ message: "Email not verified. Please check your Mail box to verify your email or register your account" })
