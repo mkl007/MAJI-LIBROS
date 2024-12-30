@@ -1,7 +1,6 @@
-import LogInFormComponent from '../components/LogInForm';
+import {LogInFormComponent} from '../components/LogInForm';
 
-const LoginPage = () => {
-
+export const LoginPage = () => {
 
   return (
     <div>
@@ -17,4 +16,4 @@ const LoginPage = () => {
   )
 };
 
-export default LoginPage;
+

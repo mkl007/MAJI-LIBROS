@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Book, FeedItemProps } from '../interfaces/User.interface';
-import { myApi } from '../services/MyApiBooks';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';
@@ -13,8 +12,8 @@ import { useBook } from '../hooks/useBook';
 
 export const Feeds = () => {
   // const [books, setBooks] = useState<Book[]>([]);
-  const [limit, setLimit] = useState<number>(20);
-  const { isLoggedIn } = useAuth();
+  // const [limit, setLimit] = useState<number>(20);
+  // const { isLoggedIn } = useAuth();
   const { allBooks, books } = useBook()
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { VerifyEmailModalComponent } from "../components/VerifyEmailModal.compon
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 
-const SignUpPage = () => {
+export const SignUpPage = () => {
   const { data } = useAuth();
   const [showModal, setShowModal] = useState(true);
 
@@ -24,7 +24,3 @@ const SignUpPage = () => {
     </div>
   );
 };
-
-export default SignUpPage;
-
-

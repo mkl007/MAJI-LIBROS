@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { genders } from '../utils/contsToExport.util';
 import { useBook } from '../hooks/useBook';
-import { useAuth } from '../hooks/useAuth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
-import { LoadingSpinner } from '../utils/LoadingSnipper';
 
 export interface BookFormData {
     _id?: string,

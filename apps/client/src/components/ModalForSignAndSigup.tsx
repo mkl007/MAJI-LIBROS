@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-// ModalProps
-import { ModalProps } from '../interfaces/User.interface';
 
+interface ModalProps {
+  fullname: string;
+  email: string;
+  message: string;
+}
 
-
-const Modal: React.FC<ModalProps> = ({ fullname, email, message }) => {
+export const Modal: React.FC<ModalProps> = ({ fullname, email, message }) => {
   const [isOpen, setIsOpen] = useState(true);
   console.log(fullname, email, message)
   const toggleModal = () => {

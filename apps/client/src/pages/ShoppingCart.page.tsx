@@ -1,7 +1,6 @@
-export default function ShoppingCartPage() {
+
+export const ShoppingCartPage = () => {
   return (
-    <div>
-        Shopping Cart Page
-    </div>
+    <div>ShoppingCart.page</div>
   )
 }

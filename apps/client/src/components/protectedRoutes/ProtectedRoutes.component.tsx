@@ -1,5 +1,5 @@
 
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import {  Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { LoadingSpinner } from '../../utils/LoadingSnipper';
 import { useEffect } from 'react';

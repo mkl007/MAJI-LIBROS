@@ -4,7 +4,7 @@ interface LoginModalProps{
     message: string
 }
 
-const ModalLogin: React.FC<LoginModalProps> = ({ message }) => {
+export const ModalLogin: React.FC<LoginModalProps> = ({ message }) => {
     const [isOpen, setIsOpen] = useState(true);
     const toggleModal = () => {
       console.log('hi from toggleModal')
@@ -36,4 +36,3 @@ const ModalLogin: React.FC<LoginModalProps> = ({ message }) => {
     );
   };
   
-  export default ModalLogin;

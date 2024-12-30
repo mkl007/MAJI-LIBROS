@@ -1,4 +1,4 @@
-import ModalLogin from "../Modal.login.component"
+import { ModalLogin } from "../Modal.login.component"
 
 export const ViewContentLoginSuggest = () => {
   return (

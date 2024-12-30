@@ -8,7 +8,7 @@ import { disabledInputStyle, notDisabledInputStyle } from './SignUpForm';
 
 
 
-const LogInFormComponent = () => {
+export const LogInFormComponent = () => {
     const { loginFunction, data, isLoggedIn, isLoading } = useAuth()
     const [user, setUser] = useState<UserToLogin>({ email: '', password: '' });
 
@@ -106,4 +106,3 @@ const LogInFormComponent = () => {
     );
 };
 
-export default LogInFormComponent;
