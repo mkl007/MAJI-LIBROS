@@ -17,6 +17,7 @@ const navigation = [
     { name: 'Home', href: '/', current: false },
     { name: 'Products', href: '/products', current: false },
     { name: 'Settings', href: '/settings', current: false },
+    { name: 'Admin', href: '/adminpage', current: false },
 ]
 
 const noLogingNavi = [

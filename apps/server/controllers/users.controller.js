@@ -96,7 +96,6 @@ export const logout = async (req, res) => {
 
 export const passwordReset = async (req, res) => {
   try {
-    // verify the email
     const verifyEmail = await User.findOne({ email: req.body.email })
     if (!verifyEmail) return res.status(404).json({ message: 'Email not registered. Would you like to register your account?' })
     const tokenBytes = randomFillSync(Buffer.alloc(16))

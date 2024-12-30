@@ -9,7 +9,7 @@ import { Settings } from './pages/Settings.page';
 import { AuthContextProvider } from './contexts/AuthProvider.context';
 import { Userverificationsuccess } from './pages/Userverificationsuccess';
 import { Footer } from './components/Footer.component';
-import { ProtectedRoutes } from './components/ProtectedRoutes.component';
+import { ProtectedRoutes } from './components/protectedRoutes/ProtectedRoutes.component';
 import { AddNewBook } from './pages/AddNewBook.page';
 import ShoppingCartPage from './pages/ShoppingCart.page';
 import { BookContextProvider } from './contexts/Book.context';
@@ -17,6 +17,9 @@ import { MyBooksPage } from './pages/MyBooks.page';
 import { SideBar } from './components/SideBar';
 import { AppLayout } from './layout/App.layout';
 import { UpdateBook, UpdateBookPage } from './pages/UpdateBook.page';
+import Adminpage from './pages/Admin.page';
+import { AdminProtectedRoutes } from './components/protectedRoutes/AdminProtectedRoutes';
+import { NotAuthorized } from './pages/NotAuthorized.page';
 
 
 const AppContent = () => {
@@ -45,8 +48,11 @@ const AppContent = () => {
           <Route path='/cart' element={<ProtectedRoutes><ShoppingCartPage /></ProtectedRoutes>} />
           <Route path='/mybooks' element={<ProtectedRoutes><MyBooksPage /></ProtectedRoutes>} />
           <Route path='/editbook/:bookId' element={<ProtectedRoutes><UpdateBookPage /></ProtectedRoutes>} />
-        
+
           <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />
+          
+          <Route path='/not-authorized' element={<NotAuthorized />} />  
+          <Route path='/adminPage' element={<AdminProtectedRoutes><Adminpage /></AdminProtectedRoutes>} />
         </Routes>
       </AppLayout>
       {!noFooterRoutes.includes(location.pathname) && <Footer />}

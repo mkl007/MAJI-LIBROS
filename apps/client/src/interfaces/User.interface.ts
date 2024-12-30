@@ -34,6 +34,7 @@ interface UserInfo {
   fullname: string;
   virified: boolean;
   _id: string;
+  role: string;
   // userAvatar?: string;
 }
 
@@ -48,6 +49,7 @@ interface UserInfoGithubCredential {
   userAvatar: string;
   verified: boolean;
   _id: string;
+  role: string;
 }
 
 export interface Book {
