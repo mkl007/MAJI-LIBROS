@@ -1,6 +1,6 @@
 
 export const ShoppingCartPage = () => {
   return (
-    <div>ShoppingCart.page</div>
+    <div>ShoppingCart page</div>
   )
 }
