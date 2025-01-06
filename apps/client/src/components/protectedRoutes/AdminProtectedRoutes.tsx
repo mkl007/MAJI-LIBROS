@@ -13,19 +13,8 @@ export const AdminProtectedRoutes: React.FC<AdminProtectedRoutesProps> = ({ chil
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!user) {
-        navigate('/login');
-      } else if (user.userInfo.role !== 'admin') {
-        return console.log('You are not an admin');
-        // navigate('/not-authorized'); // Navigate to a not authorized page if the user is not an admin
-      }
-    }
-  }, [user, isLoading, navigate]);
-
-  useEffect(() => {
     if (!user && !isLoading) navigate('/login')
-    else if(user && user.userInfo.role !== 'admin') navigate('/not-authorized')
+    else if (user && user.userInfo.role !== 'admin') navigate('/not-authorized')
   }, [user, isLoading, navigate])
 
 
