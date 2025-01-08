@@ -7,6 +7,7 @@ import passport from 'passport';
 import './configs/passport.config.js'; // Importar configuración de Passport
 import { routerBook } from './routes/books.route.js'
 import cookieParser from 'cookie-parser'
+import { cartRouter } from './routes/userCarts.route.js'
 
 
 const port = process.env.NODE_ENV === 'test' ? 3001 : process.env.PORT || 3000;
@@ -27,6 +28,8 @@ app.use(passport.initialize());
 
 app.use('/api/v1', routerUser)
 app.use('/api/v1/books', routerBook)
+app.use('/api/v1/cart', cartRouter)
+
 
 
 app.post('/test', (req, res) => {

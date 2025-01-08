@@ -17,7 +17,6 @@ routerBook.get('/showbooks', showBooks)
 
 routerBook.delete('/removebook/:bookId', removeBook)
 
-// routerBook.get('/book/:userId/:singlebook', verifyToken, singleBook)
 routerBook.get('/book/:bookId', verifyToken, singleBook)
 
 routerBook.put('/edit/:bookId', editBook)
