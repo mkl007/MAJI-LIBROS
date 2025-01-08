@@ -17,3 +17,4 @@ export {UploadBookForm} from './popups/UploadBookForm.popups.component';
 export {ViewContentLoginSuggest} from './popups/ViewContentLoginPrompt';
 export {AdminProtectedRoutes} from './protectedRoutes/AdminProtectedRoutes';
 export {ProtectedRoutes} from './protectedRoutes/ProtectedRoutes.component';
+export {MyCartComponent} from './MyCart.component'
