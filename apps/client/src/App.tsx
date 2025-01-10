@@ -4,6 +4,7 @@ import { BookContextProvider } from './contexts/Book.context';
 import { AppLayout } from './layout/App.layout';
 import { AddNewBook, AdminDashboard, HomePage, LoginPage, MyBooksPage, NotAuthorized, Products, Profile, Settings, ShoppingCartPage, SignUpPage, UpdateBookPage, Userverificationsuccess } from './pages/index';
 import { Navbar, Footer, ProtectedRoutes, AdminProtectedRoutes } from './components/index'
+import { ShoppingCartProvider } from './contexts/ShoppingCartProvider';
 
 const AppContent = () => {
   const location = useLocation();
@@ -53,9 +54,11 @@ export default function App() {
   return (
     <AuthContextProvider>
       <BookContextProvider>
-        <Router>
-          <AppContent />
-        </Router>
+        <ShoppingCartProvider >
+          <Router>
+            <AppContent />
+          </Router>
+        </ShoppingCartProvider >
       </BookContextProvider>
     </AuthContextProvider>
   );

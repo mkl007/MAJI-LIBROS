@@ -1,4 +1,4 @@
-import { CartSchema } from '../models/userCart.model.js';
+import { ShoopingCartSchema } from '../models/userCart.model.js';
 
 export const getCart = async (req, res) => {
     try {
@@ -13,12 +13,15 @@ export const getCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
     try {
-        const { userId, bookId } = req.body;
-        if (!userId || !bookId) {
+        const addNewCart = new ShoopingCartSchema({
+            bookId: req.body.bookId,
+            userId: req.body.userId,
+            availabilityStatus: req.body.availabilityStatus,
+        })
+        if (!addNewCart.userId || !addNewCart.bookId) {
             return res.status(400).json({ message: 'UserId and bookId are required' });
         }
-        const userCart = await CartSchema.create({ userId, bookId });
-        console.log(userCart);
+        await addNewCart.save({ addNewCart });
         res.status(200).json({ message: 'Item added to cart successfully' });
     } catch (error) {
         console.log(error);

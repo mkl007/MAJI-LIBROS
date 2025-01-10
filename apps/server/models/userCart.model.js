@@ -1,12 +1,9 @@
-import momgoose from 'mongoose'
-const Schema = momgoose.Schema;
+import mongoose from 'mongoose'
+const Schema = mongoose.Schema;
 
 const userCartSchema = new Schema({
     userId: {
         type: String,
-        ref: "user",
-        required: true,
-        unique: true
     },
     bookId: {
         type: String,
@@ -18,5 +15,5 @@ const userCartSchema = new Schema({
 
 }, { timestamps: true })
 
-export const CartSchema = momgoose.model('CartSchema', userCartSchema);
+export const ShoopingCartSchema = mongoose.model('ShoopingCartSchema', userCartSchema);
 

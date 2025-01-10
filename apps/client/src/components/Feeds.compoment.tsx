@@ -7,6 +7,7 @@ import { ViewContentLoginSuggest } from './popups/ViewContentLoginPrompt';
 import { BookFormData } from './AddNewBookForm'
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useBook } from '../hooks/useBook';
+import { useShoppingCart } from '../hooks/useShoppingCart';
 
 
 
@@ -48,6 +49,7 @@ export const Feeds = () => {
 export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
   ({ bookTitle, author, coverImage, _id, availabilityStatus, price }) => {
     const { isLoggedIn } = useAuth()
+    const { addToCart } = useShoppingCart()
     const [showLoginModal, setShowLoginModal] = useState(false);
 
     const handleLinkClick = (event: React.MouseEvent) => {
@@ -66,6 +68,14 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
         return () => clearTimeout(timer);
       }
     }, [showLoginModal]);
+
+    const onClickCartButton = (bookID: string, availabilityStatus: string) => {
+      if (isLoggedIn) {
+        addToCart(bookID, availabilityStatus)
+      } else {
+        setShowLoginModal(true)
+      }
+    }
     return (
       <div className=" bg-slate-50 hover:shadow-indigo-800/40 hover:shadow-2xl">
         <div className="flex flex-col justify-center p-2">
@@ -91,7 +101,8 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
             </div>
             <div className='mr-3'>
               <span className='hover:text-red-500' about='Shopping Car'>
-                <button type="button" className='text-xl'><HiOutlineShoppingCart />
+                <button onClick={() => onClickCartButton(_id == undefined ? '#' : _id, availabilityStatus)} type="button" className='text-xl'>
+                  <HiOutlineShoppingCart />
                 </button>
               </span>
             </div>
