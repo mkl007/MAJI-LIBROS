@@ -82,6 +82,7 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         try {
             const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get<BookApiResponse>(`/${userId}/books`)
             setBooks(response.data.reqBooks)
+
             setResStatus(0)
         } catch (error) {
             console.log(error)

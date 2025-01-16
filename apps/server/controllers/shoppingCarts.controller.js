@@ -1,10 +1,13 @@
+import BookSchema from '../models/books.model.js';
 import { ShoopingCartSchema } from '../models/userCart.model.js';
 
-export const getCart = async (req, res) => {
+export const getIemsCart = async (req, res) => {
     try {
         const { userId } = req.params;
-        const userCart = await CartSchema.find({ userId });
-        res.status(200).json(userCart);
+        const userCart = await ShoopingCartSchema.find({ userId });
+        const items = await BookSchema.find({ _id: userCart.map((item) => item.bookId) });
+        console.log(items);
+        res.status(200).json({items});
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Error fetching cart' });
@@ -19,7 +22,7 @@ export const addToCart = async (req, res) => {
             userId: req.body.userId,
             availabilityStatus: req.body.availabilityStatus,
         })
-        
+
         if (!addNewCart.userId || !addNewCart.bookId) {
             return res.status(400).json({ message: 'UserId and bookId are required' });
         }

@@ -8,10 +8,6 @@ import { BookFormData } from './AddNewBookForm'
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useBook } from '../hooks/useBook';
 import { useShoppingCart } from '../hooks/useShoppingCart';
-import { ConfirmationAndMessageComponent } from './confirmationComponents/ConfirmationAndMessage.component';
-import { LoadingSpinner } from '../utils/LoadingSnipper';
-import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
-import { SuccessMessage } from './SuccessMessage';
 import { toast, ToastContainer } from 'react-toastify';
 
 
@@ -21,8 +17,6 @@ export const Feeds = () => {
   // const [limit, setLimit] = useState<number>(20);
   // const { isLoggedIn } = useAuth();
   const { allBooks, books } = useBook()
-  const { addToCart, isLoading, setIsLoading } = useShoppingCart()
-
 
   useEffect(() => {
     allBooks()
