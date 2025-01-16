@@ -8,6 +8,11 @@ import { BookFormData } from './AddNewBookForm'
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useBook } from '../hooks/useBook';
 import { useShoppingCart } from '../hooks/useShoppingCart';
+import { ConfirmationAndMessageComponent } from './confirmationComponents/ConfirmationAndMessage.component';
+import { LoadingSpinner } from '../utils/LoadingSnipper';
+import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
+import { SuccessMessage } from './SuccessMessage';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 
@@ -16,18 +21,24 @@ export const Feeds = () => {
   // const [limit, setLimit] = useState<number>(20);
   // const { isLoggedIn } = useAuth();
   const { allBooks, books } = useBook()
+  const { addToCart, isLoading, setIsLoading } = useShoppingCart()
+
 
   useEffect(() => {
     allBooks()
   }, [])
 
   return (
-    <div className="container mx-auto mb-7 pb-2 ">
+    <div className="container  mx-auto mb-7 pb-2 ">
       <h1 className="text-xl font-bold mb-4">Feeds: Last published Books</h1>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
+      <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
+
+
         {
           !books ? <div><h2>No Books available</h2> </div> : (
             books.map((book) => (
+
+
               <FeedItem
                 key={book._id}
                 _id={book._id}
@@ -37,10 +48,13 @@ export const Feeds = () => {
                 availabilityStatus={book.availabilityStatus}
                 price={book.price}
               />
+
             ))
 
           )
         }
+
+
       </div>
     </div>
   );
@@ -49,8 +63,9 @@ export const Feeds = () => {
 export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
   ({ bookTitle, author, coverImage, _id, availabilityStatus, price }) => {
     const { isLoggedIn } = useAuth()
-    const { addToCart } = useShoppingCart()
+    const { addToCart, isLoading, setIsLoading, status } = useShoppingCart()
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [notification, setNotification] = useState(false);
 
     const handleLinkClick = (event: React.MouseEvent) => {
       if (!isLoggedIn) {
@@ -72,13 +87,16 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
     const onClickCartButton = (bookID: string, availabilityStatus: string) => {
       if (isLoggedIn) {
         addToCart(bookID, availabilityStatus)
+        setIsLoading(true)
       } else {
         setShowLoginModal(true)
       }
-    }
+    };
+
+
     return (
       <div className=" bg-slate-50 hover:shadow-indigo-800/40 hover:shadow-2xl">
-        <div className="flex flex-col justify-center p-2">
+        <div className="flex flex-col justify-center p-2 " >
           <Link
             to={`${_id == undefined ? '#' : '/books/'}${_id}`}
             onClick={handleLinkClick}
@@ -108,9 +126,15 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
             </div>
           </div>
         </div>
+
+
         {showLoginModal && (
           <ViewContentLoginSuggest />
         )}
+        {
+          notification && <div><ToastContainer /></div>
+        }
+
       </div>
     );
   }
