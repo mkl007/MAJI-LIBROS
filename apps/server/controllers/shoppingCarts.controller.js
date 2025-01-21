@@ -7,7 +7,7 @@ export const getIemsCart = async (req, res) => {
         const userCart = await ShoopingCartSchema.find({ userId });
         const items = await BookSchema.find({ _id: userCart.map((item) => item.bookId) });
         console.log(items);
-        res.status(200).json({items});
+        res.status(200).json({ items });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Error fetching cart' });
@@ -36,11 +36,11 @@ export const addToCart = async (req, res) => {
 
 export const removeFromCart = async (req, res) => {
     try {
-        const { userId, itemId } = req.body;
+        const { userId, itemId } = req.params;
         if (!userId || !itemId) {
             return res.status(400).json({ message: 'UserId and itemId are required' });
         }
-        const result = await CartSchema.findOneAndDelete({ userId, _id: itemId });
+        const result = await ShoopingCartSchema.deleteOne({ userId, bookId: itemId });
         if (result) {
             res.status(200).json({ message: 'Item removed from cart successfully' });
         } else {
@@ -48,7 +48,7 @@ export const removeFromCart = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: 'Error removing item from cart' });
+        return res.status(500).json({ message: 'Oops! Error removing item from cart' });
     }
 };
 

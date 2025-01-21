@@ -12,6 +12,7 @@ export interface CartContextInterface {
     status: number;
     showAllMyItemsInCart: () => Promise<void>
     itemCarts: CartItemInterface[]
+    removeItemFromCart: (bookId: string) => void;
 }
 
 export const ShoppingCartContext = createContext<CartContextInterface | null>(null);

@@ -2,9 +2,7 @@ import { ReactNode, useEffect, useMemo, useState } from "react";
 import { ShoppingCartContext } from "./ShoppingCart.context";
 import instanceAxiosBooks from "../services/AxiosBooksSetUp";
 import { useAuth } from "../hooks/useAuth";
-import { LoadingSpinner } from "../utils/LoadingSnipper";
 import { BookFormData } from "../components/AddNewBookForm";
-import { FeedItemProps } from "../interfaces/User.interface";
 
 // export interface itemsCartProps {
 //     items: BookFormData | BookFormData[]
@@ -63,8 +61,22 @@ export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ childr
 
     }
 
+    const removeItemFromCart = async (bookId: string) => {
+        try {
+            setIsLoading(true)
+            const response = await instanceAxiosBooks.delete(`/carts/${userId}/remove-from-cart/${bookId}`)
+            // setItemsCart(response.data.items)
+            console.log('Item removed from cart:', response.data.message)
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+
     return (
-        <ShoppingCartContext.Provider value={{ message, addToCart, isLoading, setIsLoading, status, showAllMyItemsInCart, itemCarts }}>
+        <ShoppingCartContext.Provider value={{ message, addToCart, isLoading, setIsLoading, status, showAllMyItemsInCart, itemCarts, removeItemFromCart }}>
             {children}
         </ShoppingCartContext.Provider>
     )
