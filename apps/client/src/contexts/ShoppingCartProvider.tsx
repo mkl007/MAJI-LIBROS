@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState, useCallback } from 'react';
 import { ShoppingCartContext } from "./ShoppingCart.context";
 import instanceAxiosBooks from "../services/AxiosBooksSetUp";
 import { useAuth } from "../hooks/useAuth";
@@ -38,7 +38,7 @@ export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ childr
             setMessage(resp.data.message)
             setStatus(resp.status)
 
-        } catch (err) {
+        } catch (err: any) {
             console.error('Error adding book to cart', error);
             setError(err.message)
         }
@@ -47,11 +47,11 @@ export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ childr
         }
     }
 
-    const showAllMyItemsInCart = async () => {
+    const showAllMyItemsInCart = useCallback(async () => {
 
         try {
             setIsLoading(true)
-            const response = await instanceAxiosBooks.get(`/carts/${userId}/my-items-cart`)
+            const response = await instanceAxiosBooks.get(`/carts/${userId!}/my-items-cart`)
             setItemsCart(response.data.items)
         } catch (error) {
             console.error('Error fetching items in cart:', error);
@@ -59,18 +59,20 @@ export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ childr
             setIsLoading(false)
         }
 
-    }
+    }, [])
 
     const removeItemFromCart = async (bookId: string) => {
         try {
             setIsLoading(true)
             const response = await instanceAxiosBooks.delete(`/carts/${userId}/remove-from-cart/${bookId}`)
-            // setItemsCart(response.data.items)
-            console.log('Item removed from cart:', response.data.message)
+            setItemsCart(itemCarts.filter(item => item._id !== bookId))
+            setMessage(response.data.message)
         } catch (error) {
             console.error('Error removing item from cart:', error);
         } finally {
             setIsLoading(false)
+            alert(message)
+
         }
     }
 

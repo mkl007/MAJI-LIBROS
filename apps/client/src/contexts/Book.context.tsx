@@ -106,6 +106,7 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         try {
             setIsLoadingBook(true)
             await instanceAxiosBooks.delete(`/removebook/${bookId}`)
+            setBooks(books.filter((book) => book._id !== bookId))
         } catch (error) {
             console.log(error)
         } finally {

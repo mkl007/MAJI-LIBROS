@@ -5,17 +5,12 @@ import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { ButtonComponent } from "./Buttons/ButtonComponent"
 
 export const MyCartComponent = () => {
-  const { showAllMyItemsInCart, itemCarts, isLoading, removeItemFromCart } = useShoppingCart()
+  const { showAllMyItemsInCart, itemCarts, isLoading, removeItemFromCart, message } = useShoppingCart()
 
   useEffect(() => {
     showAllMyItemsInCart()
   }, [])
 
-
-  function onClickToDelete(itemId: string) {
-    console.log("Remove item from cart", itemId)
-    // removeItemFromCart(itemsId)
-  }
 
   return (
     <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">

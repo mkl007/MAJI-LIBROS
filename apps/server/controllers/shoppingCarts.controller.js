@@ -6,7 +6,6 @@ export const getIemsCart = async (req, res) => {
         const { userId } = req.params;
         const userCart = await ShoopingCartSchema.find({ userId });
         const items = await BookSchema.find({ _id: userCart.map((item) => item.bookId) });
-        console.log(items);
         res.status(200).json({ items });
     } catch (error) {
         console.log(error);
