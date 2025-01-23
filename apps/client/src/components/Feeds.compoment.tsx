@@ -20,6 +20,7 @@ export const Feeds = () => {
 
   useEffect(() => {
     allBooks()
+    console.log(books)
   }, [])
 
   return (

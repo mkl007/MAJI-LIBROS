@@ -25,15 +25,20 @@ export const newBook = async (req, res) => {
             return res.status(400).json({ message: 'No files were uploaded.' });
         }
         const uploadedFile = req.files.coverImage;
-        const uploadFileBackImage = req.files.backCoverImage
         const uploadFileuploadContentPdf = req.files.uploadContentPdf
 
+        // As backCoverImage is optional we have to make sure this is being tracked.
+        if (req.files.backCoverImage) {
+            const uploadFileBackImage = req.files.backCoverImage
+            const result2 = await uploadedFilefunction(uploadFileBackImage.tempFilePath)
+            newBookData.backCoverImage = result2.secure_url;
+
+        }
+
         const result1 = await uploadedFilefunction(uploadedFile.tempFilePath)
-        const result2 = await uploadedFilefunction(uploadFileBackImage.tempFilePath)
         const result3 = await uploadedFilefunction(uploadFileuploadContentPdf.tempFilePath)
 
         newBookData.coverImage = result1.secure_url;
-        newBookData.backCoverImage = result2.secure_url;
         newBookData.uploadContentPdf = result3.secure_url;
 
         const savedBook = await BookSchema.create(newBookData)

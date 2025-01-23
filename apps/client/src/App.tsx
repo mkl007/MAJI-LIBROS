@@ -14,10 +14,9 @@ const AppContent = () => {
 
   return (
     <>
-      {!noNavbarRoutes.includes(location.pathname) && !noFooterRoutes.includes(location.pathname) && <Navbar />}
+      {!noNavbarRoutes.includes(location.pathname) && !noFooterRoutes.includes(location.pathname) && (<Navbar /> )}
 
       <Routes>
-        {/* <Route path='/' element={<HomePage />} /> */}
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
       </Routes>
