@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Book, FeedItemProps } from '../interfaces/User.interface';
+import {  FeedItemProps } from '../interfaces/User.interface';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';
@@ -8,7 +8,7 @@ import { BookFormData } from './AddNewBookForm'
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useBook } from '../hooks/useBook';
 import { useShoppingCart } from '../hooks/useShoppingCart';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -23,7 +23,7 @@ export const Feeds = () => {
   }, [])
 
   return (
-    <div className="container  mx-auto mb-7 pb-2 ">
+    <div className="container  mb-7 pb-2  w-full">
       <h1 className="text-xl font-bold mb-4">Feeds: Last published Books</h1>
       <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
 
@@ -57,7 +57,7 @@ export const Feeds = () => {
 export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
   ({ bookTitle, author, coverImage, _id, availabilityStatus, price }) => {
     const { isLoggedIn } = useAuth()
-    const { addToCart, isLoading, setIsLoading, status } = useShoppingCart()
+    const { addToCart, isLoadingCart, setIsLoading, status } = useShoppingCart()
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [notification, setNotification] = useState(false);
 

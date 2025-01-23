@@ -4,7 +4,7 @@ import { menuRoutes } from '../routers/sideNav.route';
 export const SideBar = () => {
   return (
     <div>
-      <nav className="fixed mt-10 w-60 h-screen bg-white border-r border-gray-300 p-4 z-50">
+      <nav>
         <h1 className="text-2xl font-bold pb-6">Settings</h1>
         {menuRoutes.map((routeTo) => (
           <div className="hover:bg-gray-300" key={routeTo.title}>

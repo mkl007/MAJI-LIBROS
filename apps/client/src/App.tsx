@@ -17,7 +17,7 @@ const AppContent = () => {
       {!noNavbarRoutes.includes(location.pathname) && !noFooterRoutes.includes(location.pathname) && <Navbar />}
 
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        {/* <Route path='/' element={<HomePage />} /> */}
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
       </Routes>
@@ -25,7 +25,9 @@ const AppContent = () => {
       {/* Protected Routes */}
       <AppLayout>
         <Routes>
+          <Route path='/' element={<HomePage />} />
           <Route element={<ProtectedRoutes />}>
+
             <Route path='/profile' element={<Profile />} />
             <Route path='/products' element={<Products />} />
             <Route path='/settings' element={<Settings />} />
