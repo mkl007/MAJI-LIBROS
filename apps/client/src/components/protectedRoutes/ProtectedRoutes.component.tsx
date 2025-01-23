@@ -17,7 +17,6 @@ export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) =>
     if (!user && !isLoading) navigate('/login')
   }, [user, isLoading])
 
-  console.log(user?.userInfo.role)
 
   if (isLoading) return <LoadingSpinner />
   return children || <Outlet />;

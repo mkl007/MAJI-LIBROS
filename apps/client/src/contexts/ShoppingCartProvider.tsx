@@ -17,7 +17,7 @@ export interface CartItemInterface extends BookFormData {
 
 export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { user } = useAuth()
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoadingCart, setIsLoading] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
     const [error, setError] = useState<string>()
     const [status, setStatus] = useState<number>(0)
@@ -30,7 +30,7 @@ export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ childr
         if (user) {
             userId = user.userInfo._id
         }
-    })
+    }, [user, isLoadingCart])
 
     const addToCart = async (bookId: string, availabilityStatus: string) => {
         try {
@@ -47,26 +47,33 @@ export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ childr
         }
     }
 
-    const showAllMyItemsInCart = useCallback(async () => {
+    const showAllMyItemsInCart = async () => {
 
         try {
             setIsLoading(true)
-            const response = await instanceAxiosBooks.get(`/carts/${userId!}/my-items-cart`)
-            setItemsCart(response.data.items)
+            if (user?.userInfo._id) {
+                const response = await instanceAxiosBooks.get(`/carts/${user.userInfo._id}/my-items-cart`)
+                setItemsCart(response.data.items)
+            }
+            console.log('There is no user info to Show all Items cart')
         } catch (error) {
             console.error('Error fetching items in cart:', error);
         } finally {
             setIsLoading(false)
         }
 
-    }, [])
+    }
 
     const removeItemFromCart = async (bookId: string) => {
         try {
             setIsLoading(true)
-            const response = await instanceAxiosBooks.delete(`/carts/${userId}/remove-from-cart/${bookId}`)
-            setItemsCart(itemCarts.filter(item => item._id !== bookId))
-            setMessage(response.data.message)
+            if (user?.userInfo._id) {
+                const response = await instanceAxiosBooks.delete(`/carts/${user.userInfo._id}/remove-from-cart/${bookId}`)
+                setItemsCart(itemCarts.filter(item => item._id !== bookId))
+                setMessage(response.data.message)
+            }
+            console.log('There is no user info to delete Items cart')
+
         } catch (error) {
             console.error('Error removing item from cart:', error);
         } finally {
@@ -78,7 +85,7 @@ export const ShoppingCartProvider: React.FC<{ children: ReactNode }> = ({ childr
 
 
     return (
-        <ShoppingCartContext.Provider value={{ message, addToCart, isLoading, setIsLoading, status, showAllMyItemsInCart, itemCarts, removeItemFromCart }}>
+        <ShoppingCartContext.Provider value={{ message, addToCart, isLoadingCart, setIsLoading, status, showAllMyItemsInCart, itemCarts, removeItemFromCart, setItemsCart }}>
             {children}
         </ShoppingCartContext.Provider>
     )

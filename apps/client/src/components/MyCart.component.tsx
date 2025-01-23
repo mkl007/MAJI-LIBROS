@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { FeedItem } from "./Feeds.compoment"
 import { useShoppingCart } from "../hooks/useShoppingCart"
 import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { ButtonComponent } from "./Buttons/ButtonComponent"
+import { useAuth } from "../hooks/useAuth"
 
 export const MyCartComponent = () => {
-  const { showAllMyItemsInCart, itemCarts, isLoading, removeItemFromCart, message } = useShoppingCart()
+  const {user} = useAuth()
+  const { showAllMyItemsInCart, itemCarts, isLoadingCart, removeItemFromCart } = useShoppingCart()
 
   useEffect(() => {
     showAllMyItemsInCart()
-  }, [])
+  }, [user])
 
 
   return (
@@ -35,7 +37,7 @@ export const MyCartComponent = () => {
         )
       }
       {
-        isLoading && <div className="flex justify-center items-center"><LoadingSpinner /></div>
+        isLoadingCart && <div className="flex justify-center items-center"><LoadingSpinner /></div>
       }
     </div>
   )
