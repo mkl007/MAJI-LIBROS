@@ -11,3 +11,9 @@ export async function uploadedFilefunction(filePath) {
         folder: 'replit1'
     })
 }
+
+export const deleteFileFromCloudinary = async (publicId) => {
+    const deletionRequest = await cloudinary.uploader.destroy(publicId)
+    return console.log(deletionRequest)
+
+}

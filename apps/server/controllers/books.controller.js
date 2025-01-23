@@ -1,5 +1,5 @@
 import BookSchema from "../models/books.model.js"
-import { uploadedFilefunction } from "../utils/cloudinary.js";
+import { deleteFileFromCloudinary, uploadedFilefunction } from "../utils/cloudinary.js";
 import { generateISBN } from '../utils/generateISBN.js'
 
 export const newBook = async (req, res) => {
@@ -72,8 +72,11 @@ export const showBooks = async (req, res) => {
 
 export const removeBook = async (req, res) => {
     try {
-        const deleteBook = await BookSchema.deleteOne({ _id: req.params.bookId })
-        return res.status(200).json({ message: 'Book deleted' })
+        const deleteBook = await BookSchema.findOne({ _id: req.params.bookId })
+        await deleteFileFromCloudinary(deleteBook.coverImage)
+        await BookSchema.deleteOne({ _id: req.params.bookId })
+
+        return res.status(200).json({ message: 'Book successfully deleted' })
 
     } catch (error) {
         console.log(error)
