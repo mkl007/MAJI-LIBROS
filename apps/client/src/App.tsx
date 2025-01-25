@@ -14,19 +14,15 @@ const AppContent = () => {
 
   return (
     <>
-      {!noNavbarRoutes.includes(location.pathname) && !noFooterRoutes.includes(location.pathname) && (<Navbar /> )}
+      {!noNavbarRoutes.includes(location.pathname) && <Navbar />}
 
       <Routes>
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage />} />
-      </Routes>
 
-      {/* Protected Routes */}
-      <AppLayout>
-        <Routes>
+        <Route element={<AppLayout />}>
           <Route path='/' element={<HomePage />} />
           <Route element={<ProtectedRoutes />}>
-
             <Route path='/profile' element={<Profile />} />
             <Route path='/products' element={<Products />} />
             <Route path='/settings' element={<Settings />} />
@@ -43,10 +39,10 @@ const AppContent = () => {
           </Route>
 
           <Route path='/not-authorized' element={<NotAuthorized />} />
-        </Routes>
-      </AppLayout>
-      {!noFooterRoutes.includes(location.pathname) && <Footer />}
 
+        </Route>
+      </Routes>
+      {!noFooterRoutes.includes(location.pathname) && <Footer />}
     </>
   );
 };
