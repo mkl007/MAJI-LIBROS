@@ -38,3 +38,16 @@ routerUser.get('/auth/github/callback', passport.authenticate('github', { sessio
 //     res.clearCookie('token');
 //     res.redirect('http://localhost:5173/')
 // });
+
+/// Google password
+
+// routerUser.get('/auth/google',
+//     passport.authenticate('google'));
+
+// routerUser.get('/auth/google/callback',
+//     passport.authenticate('google', { failureRedirect: '/login' }),
+//     function (req, res) {
+//         // Successful authentication, redirect home.
+//         console.log('Success')
+//         res.redirect('/')
+//     });
