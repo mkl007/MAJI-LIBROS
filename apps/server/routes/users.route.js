@@ -1,5 +1,5 @@
 import express from 'express'
-import { emailTokenConfimation, logout, passwordReset, passwordResetHandler, registerUser, userLogin, verifyTokenRoute } from '../controllers/users.controller.js';
+import { emailTokenConfimation, logout, passwordReset, passwordResetHandler, registerUser, userLogin, verifyTokenRoute, handleAuthGoogleProvider } from '../controllers/users.controller.js';
 import passport from 'passport';
 import jwt from "jsonwebtoken";
 
@@ -24,16 +24,32 @@ routerUser.get('/auth/github', passport.authenticate('github'));
 
 routerUser.get('/auth/github/callback', passport.authenticate('github', { session: false }), async (req, res) => {
     const token = jwt.sign({ id: req.user.id }, process.env.JWT_PASS, { expiresIn: 60 * 60 * 24 });
-    
+
     res.cookie('token', token, {
         httpOnly: false,
         sameSite: 'none',
         secure: true
     })
-    res.redirect(`${process.env.FRONTEND_URI}/profile`); 
+    res.redirect(`${process.env.FRONTEND_URI}/profile`);
 });
 
+routerUser.get('/auth/google',
+    passport.authenticate('google', { scope: ['email', 'profile'] }
 
+    ));
+
+
+routerUser.get('/auth/google/callback',
+    passport.authenticate('google', { session: false }), handleAuthGoogleProvider)
+
+
+routerUser.get('/auth-signup-with-provider', (req, res) => {
+    res.send('Hi from  providers signup')
+})
+
+routerUser.get('/auth-login-with-provider', (req, res) => {
+    res.send('Hi from  providers login')
+})
 // routerUser.get('/logout', function (req, res) {
 //     res.clearCookie('token');
 //     res.redirect('http://localhost:5173/')

@@ -11,7 +11,7 @@ import { cartRouter } from './routes/userCarts.route.js'
 import { authFunction } from './configs/authGoogle.js'
 
 
-const port = process.env.NODE_ENV === 'test' ? 3001 : process.env.PORT || 3000;
+export const port = process.env.NODE_ENV === 'test' ? 3001 : process.env.PORT || 3000;
 
 dotenv.config()
 db();
@@ -32,21 +32,6 @@ app.use('/api/v1', routerUser)
 app.use('/api/v1/books', routerBook)
 app.use('/api/v1/books/carts', cartRouter)
 
-// Checking Google Auth 
-
-app.get('/auth/google',
-    passport.authenticate('google', { scope: ['email', 'profile'] }
-
-    ));
-
-
-// We do handle the auth Uri from provider, 
-app.get('/auth/google/callback',
-    passport.authenticate('google', { session: false }), async (req, res) => {
-        console.log(req.user)
-        res.json({message: 'Mi message'})
-    })
-////
 
 app.get('/success', (req, res) => {
     res.json({ message: 'Froom here all good', })

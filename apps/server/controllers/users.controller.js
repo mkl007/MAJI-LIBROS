@@ -177,3 +177,18 @@ export const verifyTokenRoute = async (req, res) => {
     res.status(500).json({ error })
   }
 }
+
+export const handleAuthGoogleProvider = async (req, res) => {
+  try {
+    const googleUser = req.user
+    // http://localhost:3000/api/v1/auth/google
+    console.log(googleUser)
+    const checkUser = await User.findOne({ email: googleUser._json.email })
+    if (checkUser) return res.redirect('/api/v1/auth-signup-with-provider')
+    return res.redirect('/api/v1/auth-login-with-provider')
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
