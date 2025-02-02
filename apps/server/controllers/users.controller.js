@@ -180,15 +180,37 @@ export const verifyTokenRoute = async (req, res) => {
 
 export const handleAuthGoogleProvider = async (req, res) => {
   try {
-    const googleUser = req.user
-    // http://localhost:3000/api/v1/auth/google
-    console.log(googleUser)
-    const checkUser = await User.findOne({ email: googleUser._json.email })
-    if (checkUser) return res.redirect('/api/v1/auth-signup-with-provider')
-    return res.redirect('/api/v1/auth-login-with-provider')
+    const user = req.user._json
+    // await User.deleteOne({ email: user.email })
+
+    const checkEmailUser = await User.findOne({ email: user.email })
+    // User does not exist in db, create user
+    if (!checkEmailUser) {
+
+      const newUser = new User({
+        accountID: user.sub,
+        fullname: user.name,
+        displayName: user.given_name,
+        provider: 'google',
+        userAvatar: user.picture,
+        email: user.email,
+        verified: true
+
+      })
+      await newUser.save()
+      return res.json({ message: 'User successfully Signed in!', newUser })
+
+    }
+
+    // if user exists in DB then, login the user
+    return res.json({ message: 'There is no user, would you like to create new one?', user })
+
 
   } catch (error) {
     console.log(error)
+    if (error.name == 'MongoServerError') {
+      return res.json({ error })
+    }
   }
 }
 
