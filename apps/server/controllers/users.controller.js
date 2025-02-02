@@ -64,7 +64,7 @@ export const userLogin = async (req, res) => {
 
       const paswrdDeshash = bcrypt.compareSync(password, user.password)
       if (!paswrdDeshash) return res.status(502).json({ message: "Wrong password" })
-      const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: 24 * 60 * 60 * 1000 })
+      const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: '7d' })
       res.cookie('token', token, {
         httpOnly: false,
         sameSite: 'none',
@@ -198,12 +198,30 @@ export const handleAuthGoogleProvider = async (req, res) => {
 
       })
       await newUser.save()
-      return res.json({ message: 'User successfully Signed in!', newUser })
+
+      const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: '7d' });
+      res.cookie('token', token, {
+        httpOnly: false,
+        sameSite: 'none',
+        secure: true
+      })
+
+      // return res.json({ message: 'User successfully Signed in!', newUser })
+      res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
     }
 
     // if user exists in DB then, login the user
-    return res.json({ message: 'There is no user, would you like to create new one?', user })
+    const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: '7d' });
+    res.cookie('token', token, {
+      httpOnly: false,
+      sameSite: 'none',
+      secure: true
+    })
+
+    return res.json({ message: 'Logged successfull', token })
+    // res.redirect(`${process.env.FRONTEND_URI}/profile`);
+
 
 
   } catch (error) {

@@ -4,6 +4,7 @@ import { UserToSignUp } from '../interfaces/User.interface';
 import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from '../components/GithubButton.component';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
+import { GoogleButton } from './GoogleButton.component';
 
 export const notDisabledInputStyle = "block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 export const disabledInputStyle = "block w-full rounded-md bg-gray-300 border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6 "
@@ -31,7 +32,7 @@ export const FormSigninComponent = () => {
 
       <div className="container">
         <form onSubmit={handleSubmit} className="space-y-6" >
-         {isLoading ? <LoadingSpinner/> : ''}
+          {isLoading ? <LoadingSpinner /> : ''}
           <div>
             <div className="mt-2">
               <input
@@ -95,7 +96,8 @@ export const FormSigninComponent = () => {
               <span className="border-b border-gray-300 w-full"></span>
             </div>
 
-            <div className=''>
+            <div className='flex flex-col space-y-4'>
+              <GoogleButton />
               <GithubButton />
             </div>
 
