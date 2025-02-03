@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserToSignUp } from '../interfaces/User.interface';
 import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from '../components/GithubButton.component';
@@ -13,6 +13,13 @@ export const notDisabledButtonStyle = 'flex w-full justify-center rounded-md bg-
 export const FormSigninComponent = () => {
   const [user, setUser] = useState<UserToSignUp>({ fullname: '', email: '', password: '' });
   const { signUpFunction, setIsLoading, isLoading } = useAuth()
+    const navigate = useNavigate();
+  
+
+    useEffect(() => {
+      if (user && !isLoading) navigate('/')
+    }, [user, isLoading])
+  
 
   async function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();

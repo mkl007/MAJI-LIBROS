@@ -38,8 +38,7 @@ routerUser.get('/auth/google',
 
     ));
 
-routerUser.get('/auth/google/callback',
-    passport.authenticate('google', { session: false }), handleAuthGoogleProvider)
+routerUser.get('/auth/google/callback', passport.authenticate('google', { session: false }), handleAuthGoogleProvider)
 
 
 // routerUser.get('/auth-signup-with-provider', (req, res) => {

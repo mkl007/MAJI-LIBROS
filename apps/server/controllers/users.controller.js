@@ -199,31 +199,28 @@ export const handleAuthGoogleProvider = async (req, res) => {
       })
       await newUser.save()
 
-      const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: '7d' });
+      const token = jwt.sign({ id: newUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
       res.cookie('token', token, {
         httpOnly: false,
         sameSite: 'none',
         secure: true
       })
 
-      // return res.json({ message: 'User successfully Signed in!', newUser })
-      res.redirect(`${process.env.FRONTEND_URI}/profile`);
+      return res.json({ message: 'User successfully Signed in!', newUser })
+      // res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
     }
 
-    // if user exists in DB then, login the user
-    const token = jwt.sign({ id: user.id }, process.env.JWT_PASS, { expiresIn: '7d' });
+    // if user exists in DB then, login the user 
+    const token = jwt.sign({ id: checkEmailUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
     res.cookie('token', token, {
       httpOnly: false,
       sameSite: 'none',
       secure: true
     })
 
-    return res.json({ message: 'Logged successfull', token })
-    // res.redirect(`${process.env.FRONTEND_URI}/profile`);
-
-
-
+    // return res.json({ message: 'Logged successfull', token })
+    res.redirect(`${process.env.FRONTEND_URI}/signup`);
   } catch (error) {
     console.log(error)
     if (error.name == 'MongoServerError') {

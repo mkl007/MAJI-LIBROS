@@ -3,6 +3,7 @@ import { AuthContext } from "./Auth.context"
 import { ApiResponse, UserData, UserToLogin, UserToSignUp } from "../interfaces/User.interface"
 import { AxiosResponse } from "axios"
 import instanceAxios from "../services/axiosSetup"
+import { useGetToken } from "../hooks/useGetToken"
 
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -11,6 +12,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [user, setUser] = useState<UserData | undefined>(undefined)
+    const [authToken, setAuthToken] = useState<string | null>(null)
 
 
 
@@ -26,6 +28,15 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             setIsLoading(false)
         }
     };
+
+    const googleSignIn = async () => {
+        // const response: AxiosResponse<ApiResponse> = await instanceAxios.get<ApiResponse>('/',);
+        setIsLoading(true)
+        console.log('Clicked!')
+        window.location.href = `http://localhost:3000/api/v1/auth/google`;
+        // useGetToken()
+        setIsLoggedIn(true)
+    }
 
     const loginFunction = async (user: UserToLogin) => {
         try {
@@ -52,14 +63,18 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
                     setUser(response.data);
                     setIsLoggedIn(true)
                     setIsLoading(false)
+                    console.log('Got the user info', response.data.userInfo)
+
                 }
                 else {
                     setError(response.data);
                     setIsLoading(false)
+                    console.log('Else Error')
 
                 }
             } catch (error) {
                 setError('Error: ' + error);
+                console.log('Error: ', error)
                 setIsLoading(false)
                 setIsLoggedIn(false)
             }
@@ -76,7 +91,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     }, [data])
 
     return (
-        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user }}>
+        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user, googleSignIn }}>
             {children}
         </AuthContext.Provider>
     )
