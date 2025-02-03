@@ -206,13 +206,13 @@ export const handleAuthGoogleProvider = async (req, res) => {
         secure: true
       })
 
-      return res.json({ message: 'User successfully Signed in!', newUser })
-      // res.redirect(`${process.env.FRONTEND_URI}/profile`);
+      // return res.json({ message: 'User successfully Signed in!', newUser })
+      res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
     }
 
     // if user exists in DB then, login the user 
-    const token = jwt.sign({ id: checkEmailUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
+    const token = jwt.sign({ id: checkEmailUser._id }, process.env.JWT_PASS, { expiresIn: '7d' });
     res.cookie('token', token, {
       httpOnly: false,
       sameSite: 'none',

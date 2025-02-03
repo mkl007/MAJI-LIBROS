@@ -5,6 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from './GithubButton.component';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { disabledInputStyle, notDisabledInputStyle } from './SignUpForm';
+import { GoogleButton } from './GoogleButton.component';
 
 
 
@@ -88,7 +89,9 @@ export const LogInFormComponent = () => {
                             <span className="px-4 text-gray-500">or</span>
                             <span className="border-b border-gray-300 w-full"></span>
                         </div>
-                        <div>
+                        <div className='flex flex-col space-y-4'>
+
+                            <GoogleButton />
                             <GithubButton />
                         </div>
 

@@ -17,7 +17,10 @@ export const FormSigninComponent = () => {
   
 
     useEffect(() => {
-      if (user && !isLoading) navigate('/')
+      if (user && !isLoading) {
+        console.log(user)
+        // navigate('/')
+      }
     }, [user, isLoading])
   
 
