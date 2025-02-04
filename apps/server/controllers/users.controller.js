@@ -180,8 +180,8 @@ export const verifyTokenRoute = async (req, res) => {
 
 export const handleAuthGoogleProvider = async (req, res) => {
   try {
+    await User.deleteOne({ email: req.profile })
     const user = req.user._json
-    // await User.deleteOne({ email: user.email })
 
     const checkEmailUser = await User.findOne({ email: user.email })
     // User does not exist in db, create user
@@ -218,10 +218,11 @@ export const handleAuthGoogleProvider = async (req, res) => {
       sameSite: 'none',
       secure: true
     })
-    
+
     // return res.json({ message: 'Logged successfull', token })
     res.redirect(`${process.env.FRONTEND_URI}/signup`);
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error)
     if (error.name == 'MongoServerError') {
       return res.json({ error })
@@ -229,3 +230,45 @@ export const handleAuthGoogleProvider = async (req, res) => {
   }
 }
 
+export const handleAuthGithubProvider = async (req, res) => {
+  try {
+    // await User.deleteOne({ email: req.user })
+    const profile = req.user
+    const checkEmailUser = await User.findOne({ email: profile._json.email })
+    if (!checkEmailUser) {
+      const newUser = new User({
+        accountID: profile.id,
+        fullname: profile.username,
+        displayName: profile.displayName,
+        provider: profile.provider,
+        userAvatar: profile._json.avatar_url,
+        email: profile._json.email === null ? `${profile.username}_${profile.id}@majibooks.com` : profile._json.email,
+        verified: true // Assuming social logins are automatically verified
+      })
+      const token = jwt.sign({ id: newUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
+      res.cookie('token', token, {
+        httpOnly: false,
+        sameSite: 'none',
+        secure: true
+      })
+      await newUser.save();
+      res.redirect(`${process.env.FRONTEND_URI}/signup`);
+    }
+
+    const token = jwt.sign({ id: checkEmailUser._id }, process.env.JWT_PASS, { expiresIn: '7d' });
+    res.cookie('token', token, {
+      httpOnly: false,
+      sameSite: 'none',
+      secure: true
+    })
+    res.redirect(`${process.env.FRONTEND_URI}/signup`);
+
+  }
+  catch (error) {
+    console.log(error)
+    if (error.name == 'MongoServerError') {
+      return res.json({ message: 'this is the error', error })
+    }
+    res.json({ error })
+  }
+}

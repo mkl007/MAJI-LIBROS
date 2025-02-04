@@ -12,36 +12,15 @@ passport.use(new GitHubStrategy({
   callbackURL: 'http://localhost:3000/api/v1/auth/github/callback',
   scope: ['email']
 }, async (accessToken, refreshToken, profile, done) => {
-
-  let user = await User.findOne({ accountID: profile.id, provider: profile.provider });
-  if (!user) {
-    user = new User({
-      accountID: profile.id,
-      fullname: profile.username,
-      displayName: profile.displayName,
-      provider: profile.provider,
-      userAvatar: profile._json.avatar_url,
-      email: profile._json.email === null ? `${profile.username}_${profile.id}@majibooks.com` : profile._json.email,
-      verified: true // Assuming social logins are automatically verified
-    });
-    await user.save();
-  }
-  return done(null, user);
+  done(null, profile);
 }));
 
 passport.serializeUser((user, done) => {
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-  done(null, token);
-});
+  done(null, user)
+})
 
-passport.deserializeUser(async (token, done) => {
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id);
-    done(null, user);
-  } catch (error) {
-    done(error);
-  }
-});
+passport.deserializeUser((user, done) => {
+  done(null, user)
+})
 
 export default passport; 
