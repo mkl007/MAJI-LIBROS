@@ -15,7 +15,6 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [authToken, setAuthToken] = useState<string | null>(null)
 
 
-
     const signUpFunction = async (user: UserToSignUp) => {
         try {
             setIsLoading(true)
@@ -70,7 +69,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
                     setError(response.data);
                     setIsLoading(false)
                     console.log('Else Error: ', response.data)
-                    
+
 
                 }
             } catch (error) {
@@ -83,6 +82,11 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         getUserInfo()
 
     }, [isLoading, data]);
+
+    useEffect(() => {
+        if (user) console.log('There is user')
+
+    })
 
     useEffect(() => {
         if (error) {

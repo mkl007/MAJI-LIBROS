@@ -12,17 +12,13 @@ export const notDisabledButtonStyle = 'flex w-full justify-center rounded-md bg-
 
 export const FormSigninComponent = () => {
   const [user, setUser] = useState<UserToSignUp>({ fullname: '', email: '', password: '' });
-  const { signUpFunction, setIsLoading, isLoading } = useAuth()
-    const navigate = useNavigate();
-  
+  const { signUpFunction, setIsLoading, isLoading, isLoggedIn } = useAuth()
+  const navigate = useNavigate();
 
-    useEffect(() => {
-      if (user && !isLoading) {
-        console.log(user)
-        // navigate('/')
-      }
-    }, [user, isLoading])
-  
+  useEffect(() => {
+    if (isLoggedIn) navigate('/')
+  })
+
 
   async function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();
