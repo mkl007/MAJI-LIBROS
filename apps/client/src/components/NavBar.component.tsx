@@ -135,6 +135,8 @@ export const Navbar = () => {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <Link
+                                                                // onClick={() => 'http://localhost:3000/api/v1/logout'}
+                                                                onClick={() => window.location.href = 'http://localhost:3000/api/v1/logout'}
                                                                 to="#"
                                                                 className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                             >

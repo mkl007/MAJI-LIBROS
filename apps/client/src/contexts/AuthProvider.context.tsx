@@ -69,7 +69,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
                 else {
                     setError(response.data);
                     setIsLoading(false)
-                    console.log('Else Error')
+                    console.log('Else Error: ', response.data)
+                    
 
                 }
             } catch (error) {

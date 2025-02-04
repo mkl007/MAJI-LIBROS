@@ -218,7 +218,7 @@ export const handleAuthGoogleProvider = async (req, res) => {
       sameSite: 'none',
       secure: true
     })
-
+    
     // return res.json({ message: 'Logged successfull', token })
     res.redirect(`${process.env.FRONTEND_URI}/signup`);
   } catch (error) {

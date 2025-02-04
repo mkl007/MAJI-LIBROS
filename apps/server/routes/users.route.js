@@ -40,31 +40,9 @@ routerUser.get('/auth/google',
 
 routerUser.get('/auth/google/callback', passport.authenticate('google', { session: false }), handleAuthGoogleProvider)
 
+routerUser.get('/logout', function (req, res) {
+    req.cookies = null
+    res.clearCookie('token');
+    res.redirect('http://localhost:5173/')
+});
 
-// routerUser.get('/auth-signup-with-provider', (req, res) => {
-//     console.log(req)
-//     res.send('Hi from  providers signup')
-// })
-
-// routerUser.get('/auth-login-with-provider', (req, res) => {
-//     console.log(req)
-
-//     res.send('Hi from  providers login')
-// })
-// routerUser.get('/logout', function (req, res) {
-//     res.clearCookie('token');
-//     res.redirect('http://localhost:5173/')
-// });
-
-/// Google password
-
-// routerUser.get('/auth/google',
-//     passport.authenticate('google'));
-
-// routerUser.get('/auth/google/callback',
-//     passport.authenticate('google', { failureRedirect: '/login' }),
-//     function (req, res) {
-//         // Successful authentication, redirect home.
-//         console.log('Success')
-//         res.redirect('/')
-//     });
