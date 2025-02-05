@@ -4,6 +4,7 @@ import { FeedItem } from "./Feeds.compoment"
 import { useEffect } from "react"
 import { useAuth } from "../hooks/useAuth"
 import { useNavigate } from "react-router-dom"
+import { ButtonComponent } from "./ui/ButtonComponent"
 
 
 export const MyBooksComponent = () => {
@@ -40,18 +41,21 @@ export const MyBooksComponent = () => {
                             {
                                 books.map((book) => (
                                     <div key={book._id}>
-                                        <button
-                                            onClick={() => removeBook(book._id)}
-                                            className="bg-red-500 text-white ml-3 px-2 py-2 rounded"
-                                        >
-                                            Delete
-                                        </button>
-                                        <button
-                                            onClick={() => onClickEditButton(book._id)}
-                                            className="bg-green-500 text-white ml-3 px-4 py-2 rounded"
-                                        >
-                                            Edit
-                                        </button>
+                                        <div className="flex">
+                                            <ButtonComponent
+                                                onClick={() => removeBook(book._id)}
+                                                text="Remove"
+                                                type="button"
+                                                className="bg-red-500"
+                                            />
+                                            <ButtonComponent
+                                                onClick={() => onClickEditButton(book._id)}
+                                                text="Edit"
+                                                type="button"
+                                                className="bg-green-500 px-4"
+                                            />
+                                        </div>
+
                                         <FeedItem
                                             key={book._id}
                                             author={book.author}

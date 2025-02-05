@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
+import { ButtonComponent } from './ui/ButtonComponent';
 
 export interface BookFormData {
     _id?: string,
@@ -104,6 +105,7 @@ export const AddNewBookForm: React.FC = () => {
                                 placeholder='   Title'
                             />
                         </div>
+
                         <div className="w-full md:w-1/2 pl-2">
                             <label htmlFor="author" className="block text-sm font-medium text-gray-700">Author <span className='text-red-700'>*</span></label>
                             <input
@@ -167,6 +169,7 @@ export const AddNewBookForm: React.FC = () => {
                     </div>
 
                     <div className="flex mb-4">
+
                         <div className="w-full md:w-1/2 pr-2">
                             <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700">Cover Image <span className='text-red-700'>*</span></label>
                             <input
@@ -179,6 +182,9 @@ export const AddNewBookForm: React.FC = () => {
                                 required
                             />
                         </div>
+
+
+
                         <div className="w-full md:w-1/2 pl-2">
                             <label htmlFor="backCoverImage" className="block text-sm font-medium text-gray-700">Back Cover Image</label>
                             <input
@@ -246,9 +252,24 @@ export const AddNewBookForm: React.FC = () => {
                             )}
                         </div>
                     </div>
+                    <div className='flex'>
+                        <ButtonComponent
+                            onClick={() => null}
+                            text='Publish'
+                            type='submit'
+                            className='bg-green-500 mt-4 px-4'
 
-                    <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm">Publish</button>
-                    <button type="submit" className="mt-4 ml-4 px-4 py-2 bg-red-500 text-white rounded-md shadow-sm">Save as draft</button>
+                        />
+
+                        <ButtonComponent
+                            onClick={() => null}
+                            text='Save as Draft'
+                            type='submit'
+                            className='bg-blue-500 mt-4 px-4'
+
+                        />
+
+                    </div>
 
                 </form>
             </div>

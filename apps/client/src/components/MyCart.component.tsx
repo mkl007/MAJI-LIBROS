@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { FeedItem } from "./Feeds.compoment"
 import { useShoppingCart } from "../hooks/useShoppingCart"
 import { LoadingSpinner } from "../utils/LoadingSnipper"
-import { ButtonComponent } from "./Buttons/ButtonComponent"
+import { ButtonComponent } from "./ui/ButtonComponent"
 import { useAuth } from "../hooks/useAuth"
 
 export const MyCartComponent = () => {
@@ -21,12 +21,18 @@ export const MyCartComponent = () => {
           <div key={item._id} >
 
             <div className="border-t-2 border-gray-200 flex items-center p-2">
-              <ButtonComponent onClick={() => removeItemFromCart(item._id!)} text="Remove" type="button" />
+              <ButtonComponent 
+                onClick={() => removeItemFromCart(item._id!)} 
+                text="Remove" 
+                type="button" 
+                className="bg-red-500"
+                />
+
               <ButtonComponent
                 onClick={() => console.log("Buy Now")}
                 text="Buy Now"
                 type="button"
-                className="bg-green-500 text-white ml-3 px-2 py-2 rounded-md"
+                className="bg-green-500"
               />
             </div>
 

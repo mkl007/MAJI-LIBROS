@@ -4,13 +4,13 @@ interface ButtonComponentProps {
     text: string;
     type: "button" | "submit" | "reset";
     className?: string;
-}
-export const ButtonComponent = ({ onClick, text, type, className = "bg-red-500 text-white ml-3 px-2 py-2 rounded" }: ButtonComponentProps) => {
+} 
+export const ButtonComponent = ({ onClick, text, type, className }: ButtonComponentProps) => {
     return (
         <div>
             <button
                 onClick={() => onClick()}
-                className={className}
+                className={`${className} text-white ml-3 px-2 py-2 rounded`}
                 type={type}
             >
                 {text}
