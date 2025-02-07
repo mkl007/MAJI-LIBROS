@@ -6,6 +6,12 @@ import { GithubButton } from './GithubButton.component';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { disabledInputStyle, notDisabledInputStyle } from './SignUpForm';
 import { GoogleButton } from './GoogleButton.component';
+import { string } from 'zod';
+import { InputUI } from './ui/InputUI';
+import { ButtonComponent } from './ui/ButtonComponent';
+
+
+
 
 
 
@@ -35,7 +41,7 @@ export const LogInFormComponent = () => {
         <div className="  mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md shadow-2xl">
 
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                <h2 className="text-xl mt-10 text-center  md:text-2xl font-bold leading-9 tracking-tight text-gray-900">
                     Log in
                 </h2>
             </div>
@@ -47,7 +53,7 @@ export const LogInFormComponent = () => {
 
                     <div>
                         <div className="mt-2">
-                            <input
+                            <InputUI
                                 id="email"
                                 name="email"
                                 type="email"
@@ -56,7 +62,6 @@ export const LogInFormComponent = () => {
                                 placeholder='Email'
                                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                                 disabled={isLoading}
-                                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
                             />
                         </div>
                     </div>
@@ -64,7 +69,7 @@ export const LogInFormComponent = () => {
                     <div>
 
                         <div className="mt-2">
-                            <input
+                            <InputUI
                                 id="password"
                                 name="password"
                                 type="password"
@@ -72,18 +77,26 @@ export const LogInFormComponent = () => {
                                 required
                                 placeholder='Password'
                                 onChange={(e) => setUser({ ...user, password: e.target.value })}
-                                className="block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
+                                disabled={isLoading}
                             />
                         </div>
                     </div>
 
                     <div>
-                        <button
+                        <ButtonComponent
+                            onClick={() => console.log('j')}
+                            text='Log in'
+                            type='submit'
+                            className=" w-full justify-center rounded-md bg-green-600 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:text-lg"
+
+
+                        />
+                        {/* <button
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Sign in
-                        </button>
+                        </button> */}
                         <div className="flex items-center justify-between my-1">
                             <span className="border-b border-gray-300 w-full"></span>
                             <span className="px-4 text-gray-500">or</span>
@@ -94,6 +107,8 @@ export const LogInFormComponent = () => {
                             <GoogleButton />
                             <GithubButton />
                         </div>
+
+
 
                     </div>
                 </form>

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.title {
+    @apply text-lg font-bold text-slate-50 lg:text-xl xl:text-2xl 2xl:text-3xl;
+  }
+
+  .icon {
+    @apply mr-2 size-4 lg:size-6;
+  }

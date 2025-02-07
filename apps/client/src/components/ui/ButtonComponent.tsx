@@ -1,6 +1,6 @@
 
 interface ButtonComponentProps {
-    onClick: () => void;
+    onClick: () => void 
     text: string;
     type: "button" | "submit" | "reset";
     className?: string;
@@ -10,7 +10,7 @@ export const ButtonComponent = ({ onClick, text, type, className }: ButtonCompon
         <div>
             <button
                 onClick={() => onClick()}
-                className={`${className} text-white ml-3 px-2 py-2 rounded`}
+                className={`${className} text-white px-2 py-2 rounded`}
                 type={type}
             >
                 {text}

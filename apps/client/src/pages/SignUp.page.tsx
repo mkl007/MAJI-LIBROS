@@ -17,7 +17,7 @@ export const SignUpPage = () => {
         <VerifyEmailModalComponent message={`${data?.message}`} onClose={handleModalClose} />
       ) : (
         <div className="sm:mx-auto sm:w-full sm:max-w-sm rounded-md">
-          <h1 className="text-xl text-cyan-900">MAJIBOOKS</h1>
+          <h1 className="text-xl text-cyan-400">MAJIBOOKS</h1>
           <FormSigninComponent />
         </div>
       )}

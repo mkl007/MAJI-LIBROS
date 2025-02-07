@@ -15,9 +15,11 @@ export const GithubButton = () => {
         <div>
             <button
                 onClick={handleLogin}
-                className="flex items-center justify-center w-full bg-gray-800 text-white py-2 rounded-md hover:bg-gray-900 transition duration-200">
-                <FaGithub className="mr-2" />
-                GitHub
+                className="flex items-center justify-center w-full bg-gray-800 text-white px-2 py-2 rounded-md hover:bg-gray-900 transition duration-200">
+                <FaGithub className="icon" />
+
+                <span className="text-sm lg:text-lg">GitHub</span>
+
             </button>
         </div>
     );
