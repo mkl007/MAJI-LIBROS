@@ -5,6 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from '../components/GithubButton.component';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { GoogleButton } from './GoogleButton.component';
+import { InputUI } from './ui/InputUI';
 
 export const notDisabledInputStyle = "block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 export const disabledInputStyle = "block w-full rounded-md bg-gray-300 border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6 "
@@ -30,7 +31,7 @@ export const FormSigninComponent = () => {
 
     <div className=" container mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md border-0 border-neutral-800 shadow-2xl">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="text-xl mt-10 text-center  md:text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in
         </h2>
       </div>
@@ -39,53 +40,51 @@ export const FormSigninComponent = () => {
       <div className="container">
         <form onSubmit={handleSubmit} className="space-y-6" >
           {isLoading ? <LoadingSpinner /> : ''}
-          <div>
-            <div className="mt-2">
-              <input
-                id="fullname"
-                name="fullname"
-                type="fullname"
-                autoComplete="fullname"
-                required
-                placeholder='Fullname'
-                onChange={(e) => setUser({ ...user, fullname: e.target.value })}
-                disabled={isLoading}
-                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
-              />
-            </div>
-          </div>
-          <div>
-
-            <div className="mt-2">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                placeholder='Email'
-                disabled={isLoading}
-                onChange={(e) => setUser({ ...user, email: e.target.value })}
-                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
-              />
-            </div>
+          <div className="relative mt-2">
+            <InputUI
+              id="fullname"
+              name="fullname"
+              type="fullname"
+              autoComplete="fullname"
+              required
+              placeholder='John Doe'
+              onChange={(e) => setUser({ ...user, fullname: e.target.value })}
+              disabled={isLoading}
+            />
           </div>
 
-          <div>
 
-            <div className="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                placeholder='Password'
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
-                disabled={isLoading}
-                className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
-              />
-            </div>
+
+          <div className="mt-2">
+            <InputUI
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              placeholder='JohnDoe@gmail.com'
+              disabled={isLoading}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
+
+            />
+
+          </div>
+
+
+          <div className="mt-2">
+            <InputUI
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              placeholder='Password'
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              disabled={isLoading}
+              className={`${isLoading ? disabledInputStyle : notDisabledInputStyle}`}
+            />
+
           </div>
 
           <div>
@@ -111,7 +110,7 @@ export const FormSigninComponent = () => {
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Already have an accoun?
+          Already have an account?
           <Link to="/login" className="pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
             Log in
           </Link>

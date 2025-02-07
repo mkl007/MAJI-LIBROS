@@ -51,52 +51,44 @@ export const LogInFormComponent = () => {
                 <form onSubmit={handleSubmit} className="space-y-6" >
                     {isLoading ? <LoadingSpinner /> : ''}
 
-                    <div>
-                        <div className="mt-2">
-                            <InputUI
-                                id="email"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
-                                required
-                                placeholder='Email'
-                                onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                disabled={isLoading}
-                            />
-                        </div>
+                    <div className="mt-2">
+                        <InputUI
+                            id="email"
+                            name="email"
+                            type="email"
+                            autoComplete="email"
+                            required
+                            placeholder='JohnDoe@gmail.com'
+                            onChange={(e) => setUser({ ...user, email: e.target.value })}
+                            disabled={isLoading}
+                        />
                     </div>
 
-                    <div>
 
-                        <div className="mt-2">
-                            <InputUI
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
-                                required
-                                placeholder='Password'
-                                onChange={(e) => setUser({ ...user, password: e.target.value })}
-                                disabled={isLoading}
-                            />
-                        </div>
+                    <div className="mt-2">
+
+                        <InputUI
+                            id="password"
+                            name="password"
+                            type="password"
+                            autoComplete="current-password"
+                            required
+                            placeholder='Password'
+                            onChange={(e) => setUser({ ...user, password: e.target.value })}
+                            disabled={isLoading}
+                        />
                     </div>
 
                     <div>
                         <ButtonComponent
-                            onClick={() => console.log('j')}
+                            onClick={() => console.log('')}
                             text='Log in'
                             type='submit'
                             className=" w-full justify-center rounded-md bg-green-600 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:text-lg"
 
 
                         />
-                        {/* <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Sign in
-                        </button> */}
+                    
                         <div className="flex items-center justify-between my-1">
                             <span className="border-b border-gray-300 w-full"></span>
                             <span className="px-4 text-gray-500">or</span>
