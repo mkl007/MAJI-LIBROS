@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Footer } from "../components";
 import { FormSigninComponent } from "../components/SignUpForm";
 import { H1 } from "../components/ui/H1";
@@ -14,13 +15,18 @@ export const SignUpPage = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-slate-100">
+    <div className='w-full bg-midnight '>
+
       {showModal && data?.message ? (
         <VerifyEmailModalComponent message={`${data?.message}`} onClose={handleModalClose} />
       ) : (
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm rounded-md">
-          <div className='bg-gray-800 px-4 pt-4 lg:bg-slate-100 lg: items-center justify-center'>
-            <H1 message="MAJIBOOKS" />
+        <div className="">
+          <div className='bg-gray-800 px-4 pt-4 lg:bg-white lg: items-center justify-center'>
+            <Link
+              to={'/'}
+            >
+              <H1 message='MAJIBOOKS' />
+            </Link>
           </div>
           <FormSigninComponent />
         </div>

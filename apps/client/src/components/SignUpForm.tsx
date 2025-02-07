@@ -29,7 +29,7 @@ export const FormSigninComponent = () => {
   }
   return (
 
-    <div className=" container mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md border-0 border-neutral-800 shadow-2xl">
+    <div className="  mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md border-0 border-neutral-800 shadow-2xl">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="text-xl mt-10 text-center  md:text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in
