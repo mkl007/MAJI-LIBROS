@@ -1,3 +1,4 @@
+import { Footer } from "../components";
 import { FormSigninComponent } from "../components/SignUpForm";
 import { VerifyEmailModalComponent } from "../components/VerifyEmailModal.component";
 import { useAuth } from "../hooks/useAuth";
@@ -21,6 +22,7 @@ export const SignUpPage = () => {
           <FormSigninComponent />
         </div>
       )}
+      <Footer/>
     </div>
   );
 };
