@@ -10,6 +10,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import { SearchInput } from './SearchInput.component'
 import { useAuth } from '../hooks/useAuth'
+import { SideBar } from './SideBar'
 
 
 
@@ -35,6 +36,7 @@ export const Navbar = () => {
 
     return (
         <div className='relative' >
+
             {isLoggedIn ? (
                 <Disclosure as="nav" className="fixed top-0 left-0 right-0 w-full bg-gray-800 z-50 ">
                     {({ open }) => (
@@ -150,9 +152,11 @@ export const Navbar = () => {
                                         {/* </div> */}
                                     </div>
                                 </div>
+
                             </div>
                             <DisclosurePanel className="sm:hidden">
                                 <div className="space-y-1 px-2 pb-3 pt-2">
+
                                     {navigation.map((item) => (
                                         <Link
                                             key={item.name}
@@ -168,6 +172,9 @@ export const Navbar = () => {
                                     ))}
                                 </div>
                             </DisclosurePanel>
+                            <div className='sm:hidden w-screen bg-slate-100 h-10'>
+                                <SideBar />
+                            </div>
                         </>
                     )}
                 </Disclosure>
@@ -175,6 +182,7 @@ export const Navbar = () => {
                 <Disclosure as="nav" className="fixed top-0 left-0 right-0 w-full bg-gray-800 z-50">
                     {({ open }) => (
                         <>
+
                             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                                 <div className="relative flex h-16 items-center justify-between">
                                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -255,10 +263,13 @@ export const Navbar = () => {
                                     ))}
                                 </div>
                             </DisclosurePanel>
+
+
                         </>
                     )}
                 </Disclosure>
             )}
+
         </div>
     );
 };
