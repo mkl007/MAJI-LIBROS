@@ -10,7 +10,9 @@ export const authFunction = () => {
             {
                 clientID: process.env.GOOGLE_CLIENT_ID,
                 clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-                callbackURL: "http://localhost:3000/api/v1/auth/google/callback",
+                // callbackURL: "http://localhost:3000/api/v1/auth/google/callback",
+                callbackURL: "https://maji-libros.onrender.com/api/v1/auth/google/callback",
+                // https://maji-libros.onrender.com/api/v1/auth/google/callback
                 // passReqToCallback: true
             },
             function (request, accessToken, refreshToken, profile, done) {

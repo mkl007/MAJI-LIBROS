@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useEffect, useState } from "react";
 import { BookContext } from "./BookAuth.context";
 import { BookFormData } from "../components/AddNewBookForm";
 import { useAuth } from "../hooks/useAuth";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import instanceAxiosBooks from "../services/AxiosBooksSetUp";
 
 
@@ -92,15 +92,20 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, [])
 
-    const allBooks = useCallback(async () => {
+    // const allBooks = useCallback(async () => {
+        const allBooks = async () => {
         try {
-            const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get(`/showbooks`)
+            // https://maji-libros.onrender.com/
+            const response: AxiosResponse<BookApiResponse> = await axios.get('https://maji-libros.onrender.com/api/v1/books/showbooks')
+            alert('great')
+            // const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get(`/showbooks`)
             setBooks(response.data.reqBooks)
             // console.log(response.data.reqBooks.slice(0, 10))
         } catch (error) {
             console.log(error)
         }
-    }, [])
+    // }, [])
+}
 
     const removeBook = useCallback(async (bookId: string) => {
         try {
