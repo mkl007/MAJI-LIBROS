@@ -1,6 +1,7 @@
 
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useAuth } from "../hooks/useAuth";
+import instanceAxios from "../services/axiosSetup";
 
 
 export const GithubButton = () => {
@@ -9,7 +10,9 @@ export const GithubButton = () => {
     const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         setIsLoading(true)
-        window.location.href = `http://localhost:3000/api/v1/auth/github/`
+        // window.location.href = `http://localhost:3000/api/v1/auth/github/`
+        window.location.href = `${instanceAxios}/auth/github/`
+        // https://maji-libros.onrender.com/api/v1/
     };
     return (
         <div>
