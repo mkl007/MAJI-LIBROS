@@ -6,12 +6,15 @@ import instanceAxios from "../services/axiosSetup";
 
 export const GithubButton = () => {
     const { setIsLoading } = useAuth()
+    const apiUrl = import.meta.env.VITE_API_URL
 
     const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         setIsLoading(true)
-        // window.location.href = `http://localhost:3000/api/v1/auth/github/`
-        window.location.href = `${instanceAxios}/auth/github/`
+        console.log(`${apiUrl}/auth/github/`);
+
+        window.location.href = `${apiUrl}/auth/github/`
+        // window.location.href = `${instanceAxios.u}/auth/github/`
         // https://maji-libros.onrender.com/api/v1/
     };
     return (
