@@ -5,10 +5,10 @@ import { SideBar } from "../components/SideBar";
 export const AppLayout = () => {
   return (
     <div className=" border-2 border-yellow-600 flex ">
-      <div className="mt-16 w-60 h-screen bg-white  p-4 ">
+      <div className="hidden sm:block container mt-16 pt-2 w-60 h-full ">
         <SideBar />
       </div>
-      <div className=" container mt-6 pt-5 h-full">
+      <div className=" flex-1 mt-16 pt-2 h-full">
         <Outlet />
       </div>
     </div>
