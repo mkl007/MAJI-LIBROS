@@ -16,8 +16,6 @@
     "server:dev": "npm run dev --workspace=@majibooks/server",
     "server:npm-i": "npm i --workspace=@majibooks/server",
     "server:test": "npm run test --workspace=@majibooks/server",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server:build": "npm run build --workspace=@majibooks/server"
-
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
