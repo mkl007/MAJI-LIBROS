@@ -31,11 +31,9 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const googleSignIn = async () => {
         // const response: AxiosResponse<ApiResponse> = await instanceAxios.get<ApiResponse>('/',);
         setIsLoading(true)
-        console.log('Clicked!')
         // window.location.href = `http://localhost:3000/api/v1/auth/google`;
         window.location.href = `https://maji-libros.onrender.com/api/v1/auth/google`;
-        // https://maji-libros.onrender.com/api/v1/
-        // useGetToken()
+    
         setIsLoggedIn(true)
     }
 

@@ -92,20 +92,19 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, [])
 
-    // const allBooks = useCallback(async () => {
-        const allBooks = async () => {
+    const allBooks = useCallback(async () => {
+
         try {
             // https://maji-libros.onrender.com/
             const response: AxiosResponse<BookApiResponse> = await axios.get('https://maji-libros.onrender.com/api/v1/books/showbooks')
-            alert('great')
             // const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get(`/showbooks`)
             setBooks(response.data.reqBooks)
             // console.log(response.data.reqBooks.slice(0, 10))
         } catch (error) {
             console.log(error)
         }
-    // }, [])
-}
+    }, [])
+
 
     const removeBook = useCallback(async (bookId: string) => {
         try {

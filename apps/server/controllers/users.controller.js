@@ -205,11 +205,12 @@ export const handleAuthGoogleProvider = async (req, res) => {
         sameSite: 'none',
         secure: true
       })
-
+      console.log(newUser)
       // return res.json({ message: 'User successfully Signed in!', newUser })
       res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
     }
+    console.log(checkEmailUser)
 
     // if user exists in DB then, login the user 
     const token = jwt.sign({ id: checkEmailUser._id }, process.env.JWT_PASS, { expiresIn: '7d' });
@@ -224,6 +225,7 @@ export const handleAuthGoogleProvider = async (req, res) => {
   }
   catch (error) {
     console.log(error)
+
     if (error.name == 'MongoServerError') {
       return res.json({ error })
     }
