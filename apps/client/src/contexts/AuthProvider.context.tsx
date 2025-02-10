@@ -3,7 +3,7 @@ import { AuthContext } from "./Auth.context"
 import { ApiResponse, UserData, UserToLogin, UserToSignUp } from "../interfaces/User.interface"
 import { AxiosResponse } from "axios"
 import instanceAxios from "../services/axiosSetup"
-import { useGetToken } from "../hooks/useGetToken"
+import { ApiUrl } from "../utils/contsToExport.util"
 
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -12,7 +12,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [user, setUser] = useState<UserData | undefined>(undefined)
-    const [authToken, setAuthToken] = useState<string | null>(null)
+    // const [authToken, setAuthToken] = useState<string | null>(null)
 
 
     const signUpFunction = async (user: UserToSignUp) => {
@@ -29,11 +29,9 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     };
 
     const googleSignIn = async () => {
-        // const response: AxiosResponse<ApiResponse> = await instanceAxios.get<ApiResponse>('/',);
         setIsLoading(true)
-        // window.location.href = `http://localhost:3000/api/v1/auth/google`;
-        window.location.href = `https://maji-libros.onrender.com/api/v1/auth/google`;
-    
+        window.location.href = `${ApiUrl}/auth/google`;
+
         setIsLoggedIn(true)
     }
 

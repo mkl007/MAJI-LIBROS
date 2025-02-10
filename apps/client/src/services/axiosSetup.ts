@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { ApiUrl } from '../utils/contsToExport.util';
+
 
 const instanceAxios = axios.create({
-    baseURL:'https://maji-libros.onrender.com/api/v1',
-    // baseURL:'http://localhost:3000/api/v1',
+    baseURL: ApiUrl,
     withCredentials: true
 })
 
