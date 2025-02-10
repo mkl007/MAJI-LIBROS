@@ -212,7 +212,7 @@ export const handleAuthGoogleProvider = async (req, res) => {
     console.log(checkEmailUser)
 
     // if user exists in DB then, login the user 
-    const token = jwt.sign({ id: checkEmailUser._id }, process.env.JWT_PASS, { expiresIn: '7d' });
+    const token = jwt.sign({ id: checkEmailUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
     res.cookie('token', token, {
       httpOnly: false,
       sameSite: 'none',
@@ -256,7 +256,7 @@ export const handleAuthGithubProvider = async (req, res) => {
       res.redirect(`${process.env.FRONTEND_URI}/signup`);
     }
 
-    const token = jwt.sign({ id: checkEmailUser._id }, process.env.JWT_PASS, { expiresIn: '7d' });
+    const token = jwt.sign({ id: checkEmailUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
     res.cookie('token', token, {
       httpOnly: false,
       sameSite: 'none',
