@@ -253,7 +253,7 @@ export const handleAuthGithubProvider = async (req, res) => {
         secure: true
       })
       await newUser.save();
-      res.redirect(`${process.env.FRONTEND_URI}/signup`);
+      res.redirect(`${process.env.FRONTEND_URI}/profile`);
     }
 
     const token = jwt.sign({ id: checkEmailUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });

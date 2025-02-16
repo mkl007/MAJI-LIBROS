@@ -4,7 +4,8 @@ import { ApiUrl } from '../utils/contsToExport.util';
 
 const instanceAxios = axios.create({
     baseURL: ApiUrl,
-    withCredentials: true
+    withCredentials: true,
+    
 })
 
 
