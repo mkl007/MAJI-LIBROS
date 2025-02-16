@@ -24,7 +24,6 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
     origin: process.env.FRONTEND_URI,
-    // origin: 'http://localhost:5173',
     credentials: true,
 
 }))
