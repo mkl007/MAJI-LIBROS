@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useEffect, useState } from "react";
 import { BookContext } from "./BookAuth.context";
 import { BookFormData } from "../components/AddNewBookForm";
 import { useAuth } from "../hooks/useAuth";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import instanceAxiosBooks from "../services/AxiosBooksSetUp";
 
 
