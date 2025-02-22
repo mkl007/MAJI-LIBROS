@@ -253,8 +253,10 @@ export const handleAuthGithubProvider = async (req, res) => {
         secure: true
       })
       await newUser.save();
-      res.redirect(`${process.env.FRONTEND_URI}/profile`);
+
+      return res.redirect(`${process.env.FRONTEND_URI}/profile`);
     }
+
 
     const token = jwt.sign({ id: checkEmailUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
     res.cookie('token', token, {
@@ -262,11 +264,11 @@ export const handleAuthGithubProvider = async (req, res) => {
       sameSite: 'none',
       secure: true
     })
-    res.redirect(`${process.env.FRONTEND_URI}/signup`);
+    return res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
   }
   catch (error) {
-    console.log(error)
+    console.log(error.name)
     if (error.name == 'MongoServerError') {
       return res.json({ message: 'this is the error', error })
     }

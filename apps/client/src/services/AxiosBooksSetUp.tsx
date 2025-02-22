@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { ApiUrl } from '../utils/contsToExport.util';
+
+
 const instanceAxiosBooks = axios.create({
-    // https://maji-libros.onrender.com/api/v1
-    baseURL:'https://maji-libros.onrender.com/api/v1/books',
-    // baseURL:'http://localhost:3000/api/v1/books',
+    baseURL: `${ApiUrl}/books`,
     headers: {
         "Content-Type": 'multipart/form-data'
     },
