@@ -206,7 +206,7 @@ export const handleAuthGoogleProvider = async (req, res) => {
       })
       console.log(newUser)
       // return res.json({ message: 'User successfully Signed in!', newUser })
-      res.redirect(`${process.env.FRONTEND_URI}/profile`);
+      return res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
     }
     console.log(checkEmailUser)
@@ -220,7 +220,7 @@ export const handleAuthGoogleProvider = async (req, res) => {
     })
 
     // return res.json({ message: 'Logged successfull', token })
-    res.redirect(`${process.env.FRONTEND_URI}/signup`);
+    return res.redirect(`${process.env.FRONTEND_URI}/signup`);
   }
   catch (error) {
     console.log(error)
