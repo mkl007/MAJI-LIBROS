@@ -1,5 +1,4 @@
-import React from "react";
-import { LoadingSpinner } from "../../utils/LoadingSnipper";
+
 
 interface ConfirmationAndMessageComponentProps {
     isLoading: boolean;

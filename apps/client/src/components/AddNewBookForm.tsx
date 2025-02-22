@@ -23,7 +23,6 @@ export interface BookFormData {
 
 export const AddNewBookForm: React.FC = () => {
     const { onSubmitBookForm, resStatus, isLoadingBook, setIsLoadingBook } = useBook()
-    const [isOnSubmit, setIsOnSubmit] = useState<boolean>(false)
     const navigate = useNavigate()
     const [isNotification, setIsNotification] = useState<boolean>(false)
     const [formData, setFormData] = useState<BookFormData>({
@@ -66,7 +65,6 @@ export const AddNewBookForm: React.FC = () => {
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        setIsOnSubmit(true)
         onSubmitBookForm(formData);
         setIsLoadingBook(true)
 

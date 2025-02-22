@@ -9,7 +9,7 @@
 
 
 interface InputFileComponentProps {
-    onChange: () => void;
+    onChange: undefined
     text: string;
     type: "button" | "submit" | "reset";
     className?: string;
@@ -20,10 +20,17 @@ interface InputFileComponentProps {
 }
 
 
-export const InputFileComponet = ({ accept, name, onChange, required, text, type, className }: InputFileComponentProps) => {
+export const InputFileComponet = ({ accept, name, required, type, className }: InputFileComponentProps) => {
     return (
         <div>
-
+            <input
+                accept={accept}
+                name={name}
+                required={required}
+                className={className}
+                type={type}
+                onChange={undefined}
+            />
         </div>
     )
 }

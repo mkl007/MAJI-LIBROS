@@ -1,6 +1,5 @@
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { useAuth } from "../hooks/useAuth";
-import instanceAxios from "../services/axiosSetup";
 
 export const GithubButton = () => {
     const { setIsLoading } = useAuth()
@@ -9,7 +8,6 @@ export const GithubButton = () => {
     const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         setIsLoading(true)
-        // console.log(`${apiUrl}/auth/github/`);
 
         try {
             // const res = instanceAxios.get('/auth/github/')

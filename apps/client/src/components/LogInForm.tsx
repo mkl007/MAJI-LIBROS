@@ -4,9 +4,7 @@ import { UserToLogin } from '../interfaces/User.interface';
 import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from './GithubButton.component';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
-import { disabledInputStyle, notDisabledInputStyle } from './SignUpForm';
 import { GoogleButton } from './GoogleButton.component';
-import { string } from 'zod';
 import { InputUI } from './ui/InputUI';
 import { ButtonComponent } from './ui/ButtonComponent';
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { BookFormData } from "./AddNewBookForm"
 import { useBook } from "../hooks/useBook"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import { genders } from "../utils/contsToExport.util"
 import { MiniLoadingSpinner } from "../utils/MiniLoadingSnipper"

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import {  FeedItemProps } from '../interfaces/User.interface';
+import { FeedItemProps } from '../interfaces/User.interface';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';
@@ -8,14 +8,8 @@ import { BookFormData } from './AddNewBookForm'
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useBook } from '../hooks/useBook';
 import { useShoppingCart } from '../hooks/useShoppingCart';
-import { ToastContainer } from 'react-toastify';
-
-
 
 export const Feeds = () => {
-  // const [books, setBooks] = useState<Book[]>([]);
-  // const [limit, setLimit] = useState<number>(20);
-  // const { isLoggedIn } = useAuth();
   const { allBooks, books } = useBook()
 
   useEffect(() => {
@@ -58,9 +52,8 @@ export const Feeds = () => {
 export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
   ({ bookTitle, author, coverImage, _id, availabilityStatus, price }) => {
     const { isLoggedIn } = useAuth()
-    const { addToCart, isLoadingCart, setIsLoading, status } = useShoppingCart()
+    const { addToCart, setIsLoading, } = useShoppingCart()
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [notification, setNotification] = useState(false);
 
     const handleLinkClick = (event: React.MouseEvent) => {
       if (!isLoggedIn) {
@@ -99,10 +92,11 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
           >
 
             <img
-              src={coverImage}
+              src={coverImage instanceof File ? URL.createObjectURL(coverImage) : coverImage || undefined}
               className="w-full h-48 object-cover rounded-t-lg"
               alt="coverImage desc"
             />
+
           </Link>
           <p className="text-base mb-1 mt-1"><b>Title:</b> {bookTitle}</p>
           <div className="flex justify-between">
@@ -126,9 +120,6 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
         {showLoginModal && (
           <ViewContentLoginSuggest />
         )}
-        {
-          notification && <div><ToastContainer /></div>
-        }
 
       </div>
     );

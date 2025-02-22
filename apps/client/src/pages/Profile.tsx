@@ -1,4 +1,4 @@
-import { FaEdit, FaPlus } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 
 
 export const Profile = () => {
