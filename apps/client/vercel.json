@@ -1,9 +1,20 @@
 {
-    "routes": [
+    "rewrites": [
         {
-            "src": "/(.*)",
-            "dest": "/index.html",
-            "status": 200
+            "source": "/(.*).js",
+            "destination": "/$1.js"
+        },
+        {
+            "source": "/(.*).css",
+            "destination": "/$1.css"
+        },
+        {
+            "source": "/static/(.*)",
+            "destination": "/static/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
         }
     ]
 }
