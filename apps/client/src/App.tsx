@@ -14,7 +14,7 @@ const AppContent = () => {
 
   return (
     <>
-      {!noNavbarRoutes.includes(location.pathname) && <Navbar />}
+      {/* {!noNavbarRoutes.includes(location.pathname) && <Navbar />} */}
 
       <Routes>
         <Route path='/signup' element={<SignUpPage />} />
@@ -42,7 +42,7 @@ const AppContent = () => {
 
         </Route>
       </Routes>
-      {!noFooterRoutes.includes(location.pathname) && <Footer />}
+      {/* {!noFooterRoutes.includes(location.pathname) && <Footer />} */}
     </>
   );
 };
