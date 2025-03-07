@@ -11,7 +11,10 @@ export const AppLayout = () => {
       <div className="flex ">
         {/* <div className="hidden sm:block container mt-16 pt-2 w-60 h-full "> */}
         <div className="block">
-          {/* <SideBar /> */}
+          <div className="hidden md:block container mt-16 pt-2 w-60 h-full">
+            <SideBar />
+
+          </div>
           <Navbar />
           {/* <SideBarFake /> */}
         </div>

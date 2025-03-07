@@ -172,7 +172,7 @@ export const Navbar = () => {
                                     ))}
                                 </div>
                             </DisclosurePanel>
-                            <div className='sm:hidden w-screen bg-slate-100 h-10'>
+                            <div className='md:hidden w-screen bg-slate-100 h-10'>
                                 <SideBar />
                             </div>
                         </>

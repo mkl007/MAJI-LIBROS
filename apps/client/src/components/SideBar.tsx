@@ -16,7 +16,7 @@ export const SideBar = () => {
           ))}
         </div>
 
-        <div className="hidden sm:block">
+        <div className="hidden md:block">
           {menuRoutes.map((routeTo) => (
             <div className="hover:bg-gray-300" key={routeTo.title}>
             
