@@ -1,6 +1,6 @@
 import { useBook } from "../hooks/useBook"
 import { AddNewBookCard } from "./AddNewBookCard"
-import { FeedItem } from "./Feeds.compoment"
+import {FeedItem} from "./FeedItem"
 import { useEffect } from "react"
 import { useAuth } from "../hooks/useAuth"
 import { useNavigate } from "react-router-dom"

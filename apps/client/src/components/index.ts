@@ -1,6 +1,8 @@
+export  { BookItemComponentes } from './BookItem.component';
 export {AddNewBookCard} from './AddNewBookCard';
 export {AddNewBookForm} from './AddNewBookForm';
-export {FeedItem, Feeds} from './Feeds.compoment';
+export { Feeds} from './Feeds.compoment';
+export {FeedItem} from "./FeedItem"
 export {Footer} from './Footer.component';
 export {GithubButton} from './GithubButton.component';
 export {LogInFormComponent} from './LogInForm';

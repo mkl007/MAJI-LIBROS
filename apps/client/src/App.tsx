@@ -5,6 +5,7 @@ import { AppLayout } from './layout/App.layout';
 import { AddNewBook, AdminDashboard, HomePage, LoginPage, MyBooksPage, NotAuthorized, Products, Profile, Settings, ShoppingCartPage, SignUpPage, UpdateBookPage, Userverificationsuccess } from './pages/index';
 import { Navbar, Footer, ProtectedRoutes, AdminProtectedRoutes } from './components/index'
 import { ShoppingCartProvider } from './contexts/ShoppingCartProvider';
+import { BookItem } from './pages/BookItem';
 
 const AppContent = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const AppContent = () => {
             <Route path='/cart' element={<ShoppingCartPage />} />
             <Route path='/mybooks' element={<MyBooksPage />} />
             <Route path='/editbook/:bookId' element={<UpdateBookPage />} />
+            <Route path='/bookItem/:bookId' element={<BookItem />} />
           </Route>
 
           <Route path='/userverificationsuccess' element={<Userverificationsuccess />} />

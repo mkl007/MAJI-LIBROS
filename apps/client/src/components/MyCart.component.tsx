@@ -1,9 +1,9 @@
 import { useEffect } from "react"
-import { FeedItem } from "./Feeds.compoment"
-import { useShoppingCart } from "../hooks/useShoppingCart"
+  import { useShoppingCart } from "../hooks/useShoppingCart"
 import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { ButtonComponent } from "./ui/ButtonComponent"
 import { useAuth } from "../hooks/useAuth"
+import { FeedItem } from "./FeedItem"
 
 export const MyCartComponent = () => {
   const {user} = useAuth()

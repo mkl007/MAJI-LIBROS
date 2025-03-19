@@ -10,7 +10,8 @@ export const ButtonComponent = ({ onClick, text, type, className }: ButtonCompon
         <div>
             <button
                 onClick={() => onClick()}
-                className={`${className} text-white px-2 py-2 rounded`}
+                className={`${className} text-white rounded`}
+                // className={`${className} text-white px-2 py-2 rounded`}
                 type={type}
             >
                 {text}
