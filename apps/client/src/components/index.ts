@@ -1,4 +1,4 @@
-export  { BookItemComponentes } from './BookItem.component';
+export  { BookItemComponent } from './BookItem.component';
 export {AddNewBookCard} from './AddNewBookCard';
 export {AddNewBookForm} from './AddNewBookForm';
 export { Feeds} from './Feeds.compoment';

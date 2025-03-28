@@ -1,9 +1,10 @@
-import { BookItemComponentes } from "../components"
+import { BookItemComponent } from "../components/BookItem.component"
 
+BookItemComponent
 export const BookItem = () => {
     return(
-        <div className="container">
-            <BookItemComponentes/>
+        <div className="container h-screen">
+            <BookItemComponent/>
         </div>
     )
 }
