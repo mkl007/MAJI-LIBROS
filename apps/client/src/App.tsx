@@ -1,18 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './contexts/AuthProvider.context';
 import { BookContextProvider } from './contexts/Book.context';
 import { AppLayout } from './layout/App.layout';
 import { AddNewBook, AdminDashboard, HomePage, LoginPage, MyBooksPage, NotAuthorized, Products, Profile, Settings, ShoppingCartPage, SignUpPage, UpdateBookPage, Userverificationsuccess } from './pages/index';
-import { Navbar, Footer, ProtectedRoutes, AdminProtectedRoutes } from './components/index'
+import { ProtectedRoutes, AdminProtectedRoutes } from './components/index'
 import { ShoppingCartProvider } from './contexts/ShoppingCartProvider';
 import { BookItem } from './pages/BookItem';
 
 const AppContent = () => {
-  const location = useLocation();
-
-  const noNavbarRoutes = ['/signup', '/login'];
-  const noFooterRoutes = ['/signup', '/login'];
-
+  
   return (
     <>
       {/* {!noNavbarRoutes.includes(location.pathname) && <Navbar />} */}
