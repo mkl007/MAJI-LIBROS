@@ -35,6 +35,7 @@ export const LogInFormComponent = () => {
         if (data?.message === 'Logged in') navegate('/profile')
 
     }, [data, navegate])
+
     return (
         <div className="  mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md shadow-2xl">
 
@@ -86,14 +87,13 @@ export const LogInFormComponent = () => {
 
 
                         />
-                    
+
                         <div className="flex items-center justify-between my-1">
                             <span className="border-b border-gray-300 w-full"></span>
                             <span className="px-4 text-gray-500">or</span>
                             <span className="border-b border-gray-300 w-full"></span>
                         </div>
-                        <div className='flex flex-col space-y-4'>
-
+                        <div className="flex flex-col space-y-3 md:flex-row md:justify-between md:space-x-4 md:space-y-0">
                             <GoogleButton />
                             <GithubButton />
                         </div>

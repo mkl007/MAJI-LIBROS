@@ -18,13 +18,15 @@ export const GoogleButton = () => {
 
     }
     return (
-        <div>
+        <>
             <button
                 onClick={handleClick}
-                className="flex items-center w-full mt-3 px-2 py-2 justify-center rounded-md font-semibold leading-6  shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 bg-red-600 text-white  hover:bg-red-700 transition duration-200 ">
+                className="flex items-center justify-center w-full bg-red-600
+                 text-white px-2 py-2 rounded-md hover:bg-red-700 transition 
+                 duration-200 md:w-2/4">
                 <FaGoogle className="icon" />
                 <span className="lg:text-md">Google</span>
             </button>
-        </div>
+        </>
     )
 }

@@ -101,7 +101,7 @@ export const FormSigninComponent = () => {
               <span className="border-b border-gray-300 w-full"></span>
             </div>
 
-            <div className='flex flex-col space-y-4'>
+            <div className="flex flex-col space-y-3 md:flex-row md:justify-between md:space-x-4 md:space-y-0">
               <GoogleButton />
               <GithubButton />
             </div>
