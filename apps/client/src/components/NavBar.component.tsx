@@ -38,7 +38,7 @@ export const Navbar = () => {
         <div className='relative' >
 
             {isLoggedIn ? (
-                <Disclosure as="nav" className="fixed top-0 left-0 right-0 w-full bg-gray-800 z-50">
+                <Disclosure as="nav" className="fixed top-0 left-0 right-0 w-full z-50 bg-gradient-to-b from-blue-900 to-sky-400">
                     {({ open }) => (
                         <>
                             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
