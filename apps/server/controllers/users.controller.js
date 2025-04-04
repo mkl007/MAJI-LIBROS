@@ -205,7 +205,6 @@ export const handleAuthGoogleProvider = async (req, res) => {
         secure: true
       })
       console.log(newUser)
-      // return res.json({ message: 'User successfully Signed in!', newUser })
       return res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
     }
@@ -219,7 +218,6 @@ export const handleAuthGoogleProvider = async (req, res) => {
       secure: true
     })
 
-    // return res.json({ message: 'Logged successfull', token })
     return res.redirect(`${process.env.FRONTEND_URI}/signup`);
   }
   catch (error) {
@@ -235,6 +233,7 @@ export const handleAuthGithubProvider = async (req, res) => {
   try {
     // await User.deleteOne({ email: req.user })
     const profile = req.user
+    // return res.json({ msg: 'Greeting! If you see this Message is because something is wrong with the github provider' })
     const checkEmailUser = await User.findOne({ email: profile._json.email })
     if (!checkEmailUser) {
       const newUser = new User({
@@ -268,7 +267,7 @@ export const handleAuthGithubProvider = async (req, res) => {
 
   }
   catch (error) {
-    console.log(error.name)
+    console.log(error)
     if (error.name == 'MongoServerError') {
       return res.json({ message: 'this is the error', error })
     }

@@ -1,12 +1,12 @@
 import { useEffect } from "react"
-  import { useShoppingCart } from "../hooks/useShoppingCart"
+import { useShoppingCart } from "../hooks/useShoppingCart"
 import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { ButtonComponent } from "./ui/ButtonComponent"
 import { useAuth } from "../hooks/useAuth"
 import { FeedItem } from "./FeedItem"
 
 export const MyCartComponent = () => {
-  const {user} = useAuth()
+  const { user } = useAuth()
   const { showAllMyItemsInCart, itemCarts, isLoadingCart, removeItemFromCart } = useShoppingCart()
 
   useEffect(() => {
@@ -20,19 +20,27 @@ export const MyCartComponent = () => {
         itemCarts.length > 0 ? itemCarts.map((item) => (
           <div key={item._id} >
 
-            <div className="border-t-2 border-gray-200 flex items-center p-2">
-              <ButtonComponent 
-                onClick={() => removeItemFromCart(item._id!)} 
-                text="Remove" 
-                type="button" 
-                className="bg-red-500"
-                />
+            <div className="border-t-2 border-gray-200 flex items-center justify-content-around px-2 ">
+            {/* <div className="border-t-2 border-gray-200 flex items-center p-2 justify-between bg-slate-200 rounded-md mb-2"> */}
+              <ButtonComponent
+                onClick={() => removeItemFromCart(item._id!)}
+                text="Remove"
+                type="button"
+                className="pr-4 bg-red-500 flex items-center 
+                            justify-center w-full text-white px-2 py-2 
+                            rounded-md hover:bg-red-700 transition duration-200 md:w-2/4"
+              />
+
+           
 
               <ButtonComponent
                 onClick={() => console.log("Buy Now")}
                 text="Buy Now"
                 type="button"
-                className="bg-green-500"
+                className="bg-green-500 flex items-center
+                            justify-center w-full text-white px-2 py-2 pl-4
+                            hover:bg-green-700 transition
+                            duration-200 md:w-2/4"
               />
             </div>
 
