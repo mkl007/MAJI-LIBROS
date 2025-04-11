@@ -41,7 +41,7 @@ export const FeedItem: React.FC<FeedItemProps | BookFormData> = React.memo(
 
 
         return (
-            <div className=" bg-slate-50 hover:shadow-indigo-800/40 hover:shadow-2xl">
+            <div className=" bg-slate-50 hover:shadow-indigo-800/40 hover:shadow-2xl ">
                 <div className="flex flex-col justify-center p-2 " >
                     <Link
                         to={`${_id == undefined ? '#' : '/bookItem/'}${_id}`}

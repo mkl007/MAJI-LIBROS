@@ -11,9 +11,11 @@ export const Feeds = () => {
   }, [])
 
   return (
-    <div className="container  mb-7 pb-2  w-full">
+    <div className="container  mb-7 pb-2  w-full ">
       <h1 className="text-xl font-bold mb-4">Feeds: Last published Books</h1>
-      <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
+      <div className=" grid grid-cols-2 md:grid-cols-3 
+                      lg:grid-cols-4 gap-2 xl:grid-cols-5 
+                      xl:gap-0 border-2 border-red-600">
 
 
         {
