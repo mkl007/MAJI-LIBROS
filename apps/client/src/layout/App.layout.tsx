@@ -9,9 +9,9 @@ export const AppLayout = () => {
   return (
     <div>
       <div className="flex ">
-        {/* <div className="hidden sm:block container mt-16 pt-2 w-60 h-full "> */}
         <div className="block">
-          <div className="hidden md:block container mt-16 pt-2 w-60 h-full">
+          <div className="hidden md:block container mt-16 pt-2 w-44 h-full
+          ">
             <SideBar />
 
           </div>
@@ -20,6 +20,14 @@ export const AppLayout = () => {
         </div>
         <div className=" flex-1 mt-28 my-10 md:flex-1 md:mt-16 md:pt-2 md:h-full">
           <Outlet />
+        </div>
+        <div>
+          <section className="hidden lg:block container mt-16 pt-2 w-44 h-full
+          ">
+
+            This is for the section 
+          </section>
+
         </div>
       </div>
       <Footer />
