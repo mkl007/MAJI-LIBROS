@@ -4,7 +4,7 @@ import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { ButtonComponent } from "./ui/ButtonComponent"
 import { useAuth } from "../hooks/useAuth"
 import { FeedItem } from "./FeedItem"
-import {FaDeleteLeft, FaShop } from "react-icons/fa6"
+import {FaDeleteLeft } from "react-icons/fa6"
 import { FaShoppingCart } from "react-icons/fa"
 
 export const MyCartComponent = () => {
