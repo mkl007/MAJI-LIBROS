@@ -182,7 +182,8 @@ export const AddNewBookForm: React.FC = () => {
                     <label className="block text-sm font-medium text-gray-700 md:mb-0">
                         Availability Status <span className="text-red-700">*</span>
                     </label>
-                    <div className="flex flex-col md:flex-row md:items-center gap-4 border-2 border-green-600 p-4 w-full">
+                    <div className="flex flex-col md:flex-row md:items-center 
+                                    gap-4 p-4 w-full">
 
                         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4">
                             {['exchange', 'not-available', 'sell'].map((status) => (
@@ -222,18 +223,22 @@ export const AddNewBookForm: React.FC = () => {
 
 
                 {/* Buttons */}
-                <div className="flex items-center border-t pt-4  ">
+                <div className="flex items-center border-t pt-4 mt-4 ">
                     <ButtonComponent
                         type="submit"
                         text="Publish"
-                        className="bg-green-500 text-white flex items-center gap-2 rounded-sm hover:bg-green-700 transition duration-200"
+                        className="bg-green-500 text-white flex items-center 
+                                    gap-2 rounded-sm hover:bg-green-700 transition 
+                                    duration-200 p-2"
                         icon={<FaShare />}
                         onClick={() => null}
                     />
                     <ButtonComponent
                         type="submit"
-                        text="Save as Draft"
-                        className="bg-green-500 text-white flex items-center gap-2 rounded-sm hover:bg-green-700 transition duration-200"
+                        text="Draft"
+                        className="bg-blue-500 text-white flex items-center
+                         gap-2 rounded-sm hover:bg-blue-700 transition duration-200
+                         ml-4 p-2"
                         icon={<FaDraft2Digital />}
                         onClick={() => null}
                     />
