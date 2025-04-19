@@ -204,7 +204,6 @@ export const handleAuthGoogleProvider = async (req, res) => {
         sameSite: 'none',
         secure: true
       })
-      console.log(newUser)
       return res.redirect(`${process.env.FRONTEND_URI}/profile`);
 
     }
@@ -233,7 +232,6 @@ export const handleAuthGithubProvider = async (req, res) => {
   try {
     // await User.deleteOne({ email: req.user })
     const profile = req.user
-    // return res.json({ msg: 'Greeting! If you see this Message is because something is wrong with the github provider' })
     const checkEmailUser = await User.findOne({ email: profile._json.email })
     if (!checkEmailUser) {
       const newUser = new User({
@@ -243,7 +241,7 @@ export const handleAuthGithubProvider = async (req, res) => {
         provider: profile.provider,
         userAvatar: profile._json.avatar_url,
         email: profile._json.email === null ? `${profile.username}_${profile.id}@majibooks.com` : profile._json.email,
-        verified: true // Assuming social logins are automatically verified
+        verified: true 
       })
       const token = jwt.sign({ id: newUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
       res.cookie('token', token, {

@@ -1,7 +1,7 @@
 import BookSchema from '../models/books.model.js';
 import { ShoopingCartSchema } from '../models/userCart.model.js';
 
-export const getIemsCart = async (req, res) => {
+export const getItemsCart = async (req, res) => {
     try {
         const { userId } = req.params;
         const userCart = await ShoopingCartSchema.find({ userId });

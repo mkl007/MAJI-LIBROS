@@ -10,7 +10,7 @@ export {ModalLogin} from './Modal.login.component';
 export {Modal} from './ModalForSignAndSigup';
 export {MyBooksComponent} from './MyBooks.component';
 export {Navbar} from './NavBar.component';
-export {SearchInput} from './SearchInput.component';
+export {SearchInput} from './ui/SearchInput';
 export {SideBar} from './SideBar';
 export {FormSigninComponent} from './SignUpForm';
 export {UpdateBookComponent} from './UpdateBook';

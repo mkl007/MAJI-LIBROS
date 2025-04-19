@@ -7,25 +7,32 @@ import { Footer } from "../components";
 
 export const AppLayout = () => {
   return (
-    <div>
-      <div className="flex ">
+    <div className=" ">
+
+      <div className="flex container">
         <div className="block">
+          <Navbar />
+
           <div className="hidden md:block container mt-16 pt-2 w-44 h-full
+          border-2 border-yellow-300
           ">
             <SideBar />
 
           </div>
-          <Navbar />
-          {/* <SideBarFake /> */}
+
         </div>
-        <div className=" flex-1 mt-28 my-10 md:flex-1 md:mt-16 md:pt-2 md:h-full">
+        <div className=" flex-1 mt-28 my-10 md:flex-1 md:mt-16 md:pt-2 md:h-full 
+                        border-2 border-red-600 lg
+        ">
           <Outlet />
         </div>
         <div>
           <section className="hidden lg:block container mt-16 pt-2 w-44 h-full
+          border-2 border-green-600
+
           ">
 
-            This is for the section 
+            This is for the section
           </section>
 
         </div>
@@ -34,26 +41,4 @@ export const AppLayout = () => {
     </div>
   );
 };
-
-export const SideBarFake = () => {
-
-  return (
-    // <div className="hidden sm:block">
-    <div>
-      {menuRoutes.map((routeTo) => (
-        <div key={routeTo.title}>
-
-          <Link
-            to={routeTo.to}
-            about={routeTo.description}
-          >
-            <i className="text-xs text-center">{routeTo.icon} </i>
-
-            <span>{routeTo.title}</span>
-          </Link>
-        </div>
-      ))}
-    </div>
-  )
-}
 
