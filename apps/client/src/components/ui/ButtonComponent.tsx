@@ -1,4 +1,3 @@
-import { FaBuysellads } from "react-icons/fa6";
 
 interface ButtonComponentProps {
     onClick: () => void
@@ -7,19 +6,7 @@ interface ButtonComponentProps {
     className?: string;
     icon: JSX.Element;
 }
-// export const ButtonComponent = ({ onClick, text, type, className }: ButtonComponentProps) => {
-//     return (
-//         <div>
-//             <button
-//                 onClick={() => onClick()}
-//                 className={`${className} text-white`}
-//                 type={type}
-//             >
-//                 {text}
-//             </button>
-//         </div>
-//     )
-// }
+
 
 export const ButtonComponent = ({ onClick, text, type, className, icon }: ButtonComponentProps) => {
     return (
