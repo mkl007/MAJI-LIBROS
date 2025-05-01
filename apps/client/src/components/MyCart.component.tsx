@@ -4,8 +4,9 @@ import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { ButtonComponent } from "./ui/ButtonComponent"
 import { useAuth } from "../hooks/useAuth"
 import { FeedItem } from "./FeedItem"
-import {FaDeleteLeft } from "react-icons/fa6"
+import { FaDeleteLeft } from "react-icons/fa6"
 import { FaShoppingCart } from "react-icons/fa"
+import { TrashIcon } from "@heroicons/react/16/solid"
 
 export const MyCartComponent = () => {
   const { user } = useAuth()
@@ -20,42 +21,38 @@ export const MyCartComponent = () => {
 
     <div>
       <h1 className="text-xl font-bold mb-4">Shopping Cart:</h1>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
+      {/* <div className=" 
+      grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
                       lg:grid-cols-4 gap-2 xl:grid-cols-5 
-                      xl:gap-0">
-        {/* <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0"> */}
+                      xl:gap-0 "> */}
+        <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
         {
           itemCarts.length > 0 ? itemCarts.map((item) => (
             <div key={item._id} >
 
-              <div className=" flex items-center 
-                                 justify-between rounded-md mb-2 text-xs sm:text-sm
-                                md:text-md  lg:text-base xl:text-lg">
-
+              <div
+                className="flex"
+              >
 
                 <ButtonComponent
                   onClick={() => removeItemFromCart(item._id!)}
                   text="Remove"
                   type="button"
-                  className="pr-2 pl-1 ml-4 bg-red-500 flex items-center 
-                            justify-center text-white  
-                            rounded-sm hover:bg-red-700 transition duration-200  "
-                  icon={<FaDeleteLeft className="icon" />}
+                  className="flex items-center justify-center w-1/3 bg-red-500
+                            text-white ml-2 mr-4 px-2 py-2 rounded-md hover:bg-red-900 
+                            transition duration-200 md:w-1/2 md:text-xs"
+                  icon={<TrashIcon className="h-6 w-6 text-white " />}
                 />
-
-
-
 
                 <ButtonComponent
                   onClick={() => console.log("Buy")}
                   text="Buy"
                   type="button"
-                  className="bg-gradient-to-r from-orange-500 to-green-500 hover:from-red-500 
-                               hover:to-orange-500 flex items-center
-                            justify-center text-white pl-2 pr-2 mr-4
-                            transition
-                            duration-2000 rounded-sm"
-                  icon={<FaShoppingCart className="icon" />}
+                  className="flex items-center justify-center w-1/3 bg-orange-500
+                            text-white ml-2 mr-2 lg:ml-0  px-2 py-2 md:px-1 md:py-1 
+                            md:ml-1 md:mr-1 rounded-md hover:bg-orange-900 
+                            transition duration-200 md:w-1/2 md:text-xs"
+                  icon={<FaShoppingCart className="h-4 w-4 text-white mr-2 " />}
                 />
 
               </div>

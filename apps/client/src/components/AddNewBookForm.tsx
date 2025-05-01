@@ -232,7 +232,7 @@ export const AddNewBookForm: React.FC = () => {
                         //             duration-200 p-2"
                         className='flex items-center bg-green-500
                                 text-white px-2 py-2 rounded-md hover:bg-green-900 transition
-                                 duration-200 md:w-2/4'
+                                 duration-200 md:w-1/5'
                         icon={<FaShare className="h-4 w-4 text-white mr-2" />}
                         onClick={() => null}
                     />
@@ -241,7 +241,7 @@ export const AddNewBookForm: React.FC = () => {
                         text="Draft"
                         className="flex items-center bg-blue-500 ml-4
                                 text-white px-2 py-2 rounded-md hover:bg-blue-900 transition
-                                 duration-200 md:w-2/4"
+                                 duration-200 md:w-1/5"
                         icon={<FaDraft2Digital className="h-4 w-4 text-white mr-2"/>}
                         onClick={() => null}
                     />
