@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
+import { InputUI } from "./InputUI";
 
 export const SearchInput = () => {
     const [showInput, setShowInput] = useState(false);
@@ -19,9 +20,11 @@ export const SearchInput = () => {
             </button>
 
             {showInput && (
-                <div className="fixed inset-0 z-50 bg-opacity-80 flex 
-                                    items-center justify-center px-4">
-                    <div className="relative w-full max-w-3xl">
+                <div className="fixed inset-0 z-50 
+                                bg-opacity-80 flex 
+                                items-center justify-center px-2 
+                                sm:w-full sm:h-1/3">
+                    <div className=" relative w-full sm:w-1/2 lg:w1/3">
                         <button
                             onClick={toggleInput}
                             className=" absolute left-1 text-white text-xl p-2"
@@ -40,6 +43,7 @@ export const SearchInput = () => {
                                          text-white placeholder-gray-400 
                                          text-lg focus:outline-none shadow-lg"
                         />
+                    
                     </div>
                 </div>
             )}
