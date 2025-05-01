@@ -227,19 +227,22 @@ export const AddNewBookForm: React.FC = () => {
                     <ButtonComponent
                         type="submit"
                         text="Publish"
-                        className="bg-green-500 text-white flex items-center 
-                                    gap-2 rounded-sm hover:bg-green-700 transition 
-                                    duration-200 p-2"
-                        icon={<FaShare />}
+                        // className="bg-green-500 text-white flex items-center 
+                        //             gap-2 rounded-sm hover:bg-green-700 transition 
+                        //             duration-200 p-2"
+                        className='flex items-center bg-green-500
+                                text-white px-2 py-2 rounded-md hover:bg-green-900 transition
+                                 duration-200 md:w-2/4'
+                        icon={<FaShare className="h-4 w-4 text-white mr-2" />}
                         onClick={() => null}
                     />
                     <ButtonComponent
                         type="submit"
                         text="Draft"
-                        className="bg-blue-500 text-white flex items-center
-                         gap-2 rounded-sm hover:bg-blue-700 transition duration-200
-                         ml-4 p-2"
-                        icon={<FaDraft2Digital />}
+                        className="flex items-center bg-blue-500 ml-4
+                                text-white px-2 py-2 rounded-md hover:bg-blue-900 transition
+                                 duration-200 md:w-2/4"
+                        icon={<FaDraft2Digital className="h-4 w-4 text-white mr-2"/>}
                         onClick={() => null}
                     />
                 </div>
