@@ -13,9 +13,9 @@ export const AppLayout = () => {
         <div className="block">
           <Navbar />
 
-          <div className="hidden md:block container mt-16 pt-2 w-44 h-full
-          border-2 border-yellow-300
-          ">
+          <div className="hidden md:block container mt-16 pt-2 w-44 h-full 
+                border-2 border-yellow-300
+            ">
             <SideBar />
 
           </div>

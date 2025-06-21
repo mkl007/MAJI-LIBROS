@@ -75,7 +75,7 @@ export const AddNewBookForm: React.FC = () => {
 
     return (
         <div className="containe">
-            <form className="bg-slate-300 shadow-md rounded p-6" onSubmit={handleSubmit}>
+            <form className="bg-stone-50 shadow-2xl rounded p-6" onSubmit={handleSubmit}>
                 {/* Book Title & Author */}
                 <div className="flex flex-col md:flex-row gap-4 mb-4">
                     {[
