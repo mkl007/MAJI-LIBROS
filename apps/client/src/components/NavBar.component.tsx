@@ -125,31 +125,31 @@ export const Navbar = () => {
 
                                                     </MenuItems>
                                                     <MenuItems>
-                                                            <Link
-                                                                to="#"
-                                                                // className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                                className='flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                                                        <Link
+                                                            to="#"
+                                                            // className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                            className='flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
 
-                                                            >
-                                                                <Cog6ToothIcon className="h-5 w-5" />
-                                                                Settings
-                                                            </Link>
-                                                      
+                                                        >
+                                                            <Cog6ToothIcon className="h-5 w-5" />
+                                                            Settings
+                                                        </Link>
+
                                                     </MenuItems>
                                                     <MenuItems>
-                                                            <Link
-                                                                to="#"
-                                                                onClick={() => {
-                                                                    window.location.href = `${import.meta.env.VITE_API_URL}/logout`
-                                                                }}
-                                                                // className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                                className='flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                                                        <Link
+                                                            to="#"
+                                                            onClick={() => {
+                                                                window.location.href = `${import.meta.env.VITE_API_URL}/logout`
+                                                            }}
+                                                            // className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                            className='flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
 
-                                                            >
-                                                                <ArrowLeftStartOnRectangleIcon className="h-5 w-5" />
-                                                                Sign out
-                                                            </Link>
-                                            
+                                                        >
+                                                            <ArrowLeftStartOnRectangleIcon className="h-5 w-5" />
+                                                            Sign out
+                                                        </Link>
+
                                                     </MenuItems>
                                                 </MenuItems>
                                             </Transition>
@@ -177,10 +177,10 @@ export const Navbar = () => {
                                     </Link>
                                 ))}
                             </div>
-                            <div className="w-full bg-slate-100 h-10">
-                                <SideBar />
-                            </div>
                         </DisclosurePanel>
+                        <div className="w-full bg-slate-100 h-10 md:hidden">
+                            <SideBar />
+                        </div>
                     </>
                 )}
             </Disclosure>
