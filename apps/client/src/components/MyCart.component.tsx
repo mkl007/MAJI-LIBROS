@@ -4,7 +4,6 @@ import { LoadingSpinner } from "../utils/LoadingSnipper"
 import { ButtonComponent } from "./ui/ButtonComponent"
 import { useAuth } from "../hooks/useAuth"
 import { FeedItem } from "./FeedItem"
-import { FaDeleteLeft } from "react-icons/fa6"
 import { FaShoppingCart } from "react-icons/fa"
 import { TrashIcon } from "@heroicons/react/16/solid"
 
@@ -21,10 +20,7 @@ export const MyCartComponent = () => {
 
     <div>
       <h1 className="text-xl font-bold mb-4">Shopping Cart:</h1>
-      {/* <div className=" 
-      grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-                      lg:grid-cols-4 gap-2 xl:grid-cols-5 
-                      xl:gap-0 "> */}
+
         <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 xl:grid-cols-5 xl:gap-0">
         {
           itemCarts.length > 0 ? itemCarts.map((item) => (
@@ -45,7 +41,7 @@ export const MyCartComponent = () => {
                 />
 
                 <ButtonComponent
-                  onClick={() => console.log("Buy")}
+                  onClick={() => alert("You are buying this item {}".replace("{}", item.bookTitle))}
                   text="Buy"
                   type="button"
                   className="flex items-center justify-center w-1/3 bg-orange-500
