@@ -21,7 +21,7 @@ const AppContent = () => {
           <Route element={<ProtectedRoutes />}>
             <Route path='/profile' element={<Profile />} />
             <Route path='/products' element={<HomePage />} />
-            <Route path='/settings' element={<Settings />} />
+            <Route path='/settings' element={<Profile />} />
             <Route path='/addNewBook' element={<AddNewBook />} />
             <Route path='/cart' element={<ShoppingCartPage />} />
             <Route path='/mybooks' element={<MyBooksPage />} />
