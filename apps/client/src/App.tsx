@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './contexts/AuthProvider.context';
 import { BookContextProvider } from './contexts/Book.context';
 import { AppLayout } from './layout/App.layout';
-import { AddNewBook, AdminDashboard, HomePage, LoginPage, MyBooksPage, NotAuthorized, Products, Profile, Settings, ShoppingCartPage, SignUpPage, UpdateBookPage, Userverificationsuccess } from './pages/index';
+import { AddNewBook, AdminDashboard, HomePage, LoginPage, MyBooksPage, NotAuthorized, Profile, Settings, ShoppingCartPage, SignUpPage, UpdateBookPage, Userverificationsuccess } from './pages/index';
 import { ProtectedRoutes, AdminProtectedRoutes } from './components/index'
 import { ShoppingCartProvider } from './contexts/ShoppingCartProvider';
 import { BookItem } from './pages/BookItem';
@@ -11,7 +11,6 @@ const AppContent = () => {
   
   return (
     <>
-      {/* {!noNavbarRoutes.includes(location.pathname) && <Navbar />} */}
 
       <Routes>
         <Route path='/signup' element={<SignUpPage />} />
@@ -21,7 +20,7 @@ const AppContent = () => {
           <Route path='/' element={<HomePage />} />
           <Route element={<ProtectedRoutes />}>
             <Route path='/profile' element={<Profile />} />
-            <Route path='/products' element={<Products />} />
+            <Route path='/products' element={<HomePage />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/addNewBook' element={<AddNewBook />} />
             <Route path='/cart' element={<ShoppingCartPage />} />
