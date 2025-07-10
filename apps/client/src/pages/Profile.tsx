@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 
 export const Profile = () => {
   return (
-    <div className="min-h-screen p-6 bg-gray-50 flex flex-col items-center border-2 border-green-600">
+    <div className=" h-screen bg-gray-50 flex flex-col items-center border-2 border-green-600">
       <h1 className="text-4xl font-bold mb-6 text-gray-800">My Profile</h1>
 
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-xl">
@@ -19,9 +19,18 @@ export const MyDescription = () => {
 
   return (
     // <div className="w-full md:w-2/3 bg-white shadow-md rounded-xl p-6 border-2 border-gray-200 ">
-    <div className="w-full md:w-2/3 bg-white shadow-md rounded-xl p-6 ">
+    <div className="w-full md:w-2/3 bg-white shadow-md rounded-xl p-6 border-2 border-yellow-500">
       <div className="flex items-center gap-6">
-        <ImageEditCircle imageUrl={user?.userInfo.userAvatar} />
+        {
+          user?.userInfo.userAvatar ? (
+            <ImageEditCircle imageUrl={user.userInfo.userAvatar} />
+
+          ) : (
+            <div className="w-28 h-28 rounded-full border-4 border-slate-300 bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-500">No Image</span>
+            </div>
+          )
+        }
 
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold text-gray-800">About Me</h2>
@@ -53,7 +62,7 @@ export const ImageEditCircle = ({
   }
 
   return (
-    <div className="relative w-44 h-44 border-4 border-slate-300 rounded-full overflow-hidden">
+    <div className="relative w-28 h-28 border-4 border-slate-300 rounded-full overflow-hidden">
       <img
         src={imageUrl}
         alt="Profile"
