@@ -71,6 +71,7 @@ export const showBooks = async (req, res) => {
         res.status(200).json({ reqBooks })
     } catch (error) {
         console.log(error)
+        // console.log('Ups! Some problems here, please refresh the page.')
         return res.status(400).json({ message: 'Ups! Some problems here, please refresh the page.' })
     }
 }

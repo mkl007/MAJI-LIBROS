@@ -3,10 +3,10 @@ import { useAuth } from "../hooks/useAuth";
 
 export const Profile = () => {
   return (
-    <div className=" h-screen bg-gray-50 flex flex-col items-center border-2 border-green-600">
+    <div className=" h-screen w-full bg-gray-50 flex flex-col items-center border-2 border-green-500">
       <h1 className="text-4xl font-bold mb-6 text-gray-800">My Profile</h1>
 
-      <div className="flex flex-col md:flex-row gap-8 w-full max-w-xl">
+      <div className="flex flex-col md:flex-row gap-8  border-2 border-red-500">
         <MyDescription />
         <TradedBooks />
       </div>
@@ -19,7 +19,7 @@ export const MyDescription = () => {
 
   return (
     // <div className="w-full md:w-2/3 bg-white shadow-md rounded-xl p-6 border-2 border-gray-200 ">
-    <div className="w-full md:w-2/3 bg-white shadow-md rounded-xl p-6 border-2 border-yellow-500">
+    <div className="bg-white shadow-md rounded-xl ">
       <div className="flex items-center gap-6">
         {
           user?.userInfo.userAvatar ? (
