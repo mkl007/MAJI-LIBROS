@@ -1,52 +1,92 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
 import { InputUI } from "./InputUI";
 
 export const SearchInput = () => {
     const [showInput, setShowInput] = useState(false);
     const [searchText, setSearchText] = useState("");
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const toggleInput = () => {
         setShowInput((prev) => !prev);
     };
 
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchText(e.target.value);
+        console.log("Search text changed:", e.target.value);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                wrapperRef.current &&
+                !wrapperRef.current.contains(event.target as Node)
+            ) {
+                setShowInput(false);
+            }
+        };
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setShowInput(false);
+            }
+        };
+
+        if (showInput) {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("keydown", handleEscape);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEscape);
+        };
+    }, [showInput]);
+
     return (
-        <div className="relative">
+        <div ref={wrapperRef} className="relative">
             <button
                 onClick={toggleInput}
-                className="text-gray-50 bg-gray-800 p-2 rounded-lg shadow-sm"
+                className="text-white bg-gray-800 p-2 rounded-lg shadow-sm"
+                aria-label="Toggle search"
             >
-                <FaSearch />
+                {showInput ? <FaTimes /> : <FaSearch />}
             </button>
 
             {showInput && (
-                <div className="fixed inset-0 z-50 
-                                bg-opacity-80 flex 
-                                items-center justify-center px-2 
-                                sm:w-full sm:h-1/3">
-                    <div className=" relative w-full sm:w-1/2 lg:w1/3">
+                <div
+                 className="fixed top-0 left-0 w-full h-16 sm:h-16  z-10 bg-white shadow-md
+                                 p4  border-2 border-green-500 lg:hidden"
+
+                >
+                    <div
+                        className="w-full max-w-2xl flex "
+                    >
                         <button
                             onClick={toggleInput}
-                            className=" absolute left-1 text-white text-xl p-2"
+                            className="text-gray-600 hover:text-red-600 p-2 rounded-lg mt-2  "
+                            title="Close search"
                         >
                             <FaTimes />
                         </button>
-                        <input
-                            type="text"
-                            autoFocus
+                        <InputUI
+                            id="search"
+                            autoComplete="on"
                             name="search"
-                            value={searchText}
-                            onChange={(e) => setSearchText(e.target.value)}
-                            placeholder="Quick Search..."
-                            className="w-full px-5 py-3 pl-12 
-                                        rounded-lg bg-gray-800
-                                         text-white placeholder-gray-400 
-                                         text-lg focus:outline-none shadow-lg"
+                            onChange={onChange}
+                            placeholder="Search"
+                            required
+                            type="text"
+                            disabled={false}
+                            className="w-9/12 px-4 py-2 rounded-lg focus:outline-none focus:ring-0
+                                        "
+                   
                         />
-                    
+
                     </div>
                 </div>
             )}
         </div>
     );
 };
+

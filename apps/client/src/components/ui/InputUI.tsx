@@ -10,7 +10,7 @@ interface InputsStyleInterface {
     className?: string
 }
 
-export const InputUI = ({ autoComplete, disabled, id, name, onChange, placeholder, required, type }: InputsStyleInterface) => {
+export const InputUI = ({ autoComplete, disabled, id, name, onChange, placeholder, required, type, className }: InputsStyleInterface) => {
     return (
         <div className="pt-2">
             <input
@@ -22,7 +22,7 @@ export const InputUI = ({ autoComplete, disabled, id, name, onChange, placeholde
                 required={required}
                 type={type}
                 disabled={disabled}
-                className={' w-full border border-gray-300 rounded-md px-2 pt-2 pb-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all'}
+                className={className || "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"}
             />
         </div>
     )
