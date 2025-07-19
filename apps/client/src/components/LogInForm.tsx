@@ -37,7 +37,8 @@ export const LogInFormComponent = () => {
     }, [data, navegate])
 
     return (
-        <div className="  mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md shadow-2xl">
+        <div className="  mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto
+                         sm:w-full sm:max-w-sm rounded-md shadow-2xl font-type ">
 
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="text-xl mt-10 text-center  md:text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -83,7 +84,10 @@ export const LogInFormComponent = () => {
                             onClick={() => console.log('')}
                             text='Log in'
                             type='submit'
-                            className=" w-full justify-center rounded-md bg-green-600 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:text-lg"
+                            className=" w-full justify-center rounded-md bg-green-600 text-sm 
+                                        font-semibold leading-6 text-white shadow-sm hover:bg-green-700 
+                                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
+                                        focus-visible:outline-indigo-600 lg:text-md p-2"
 
 
                         />

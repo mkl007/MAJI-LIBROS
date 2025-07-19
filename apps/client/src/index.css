@@ -23,3 +23,7 @@
 .Text-muted {
   @apply text-gray-600 dark:text-gray-400;
 }
+
+.font-type{
+  @apply font-sans;
+}

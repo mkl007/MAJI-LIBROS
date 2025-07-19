@@ -4,7 +4,7 @@ interface ButtonComponentProps {
     text: string;
     type: "button" | "submit" | "reset";
     className?: string;
-    icon: JSX.Element;
+    icon?: JSX.Element;
 }
 
 

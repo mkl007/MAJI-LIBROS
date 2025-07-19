@@ -3,8 +3,8 @@ import { Feeds } from '../components/Feeds.compoment'
 export const HomePage = () => {
 
   return (
-    <div >
-      <Feeds />
+    <div className='font-type'>
+      <Feeds/>
 
     </div>
   )

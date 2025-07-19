@@ -74,10 +74,10 @@ export const AddNewBookForm: React.FC = () => {
     }, [resStatus, setIsLoadingBook, navigate]);
 
     return (
-        <div className="containe">
+        <div className="container ">
             <form className="bg-stone-50 shadow-2xl rounded p-6" onSubmit={handleSubmit}>
                 {/* Book Title & Author */}
-                <div className="flex flex-col md:flex-row gap-4 mb-4">
+                <div className="flex flex-col md:flex-row gap-4 mb-4 ">
                     {[
                         { id: 'bookTitle', label: 'Book Title', required: true, placeholder: 'Title' },
                         { id: 'author', label: 'Author', required: true, placeholder: 'Name' },
