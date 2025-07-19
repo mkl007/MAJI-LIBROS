@@ -9,3 +9,17 @@
   .icon {
     @apply mr-2 size-3 lg:size-4;
   }
+.Text-base {
+  @apply text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-800;
+}
+
+.Text-title {
+  @apply text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-gray-900;
+}
+
+.Text-subtitle {
+  @apply text-xl sm:text-2xl md:text-3xl font-semibold leading-snug text-gray-800;
+}
+.Text-muted {
+  @apply text-gray-600 dark:text-gray-400;
+}

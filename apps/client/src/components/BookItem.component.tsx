@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useBook } from "../hooks/useBook";
@@ -15,8 +16,8 @@ export const BookItemComponent = () => {
     }, [params.bookId]);
 
     return (
-        <div className="flex flex-col items-center text-center w-full h-auto px-4 
-                        border-2 border-red-500 sm:border-yellow-500 md:border-green-500 md:w-4/6 lg:border-orange-700">
+        <div className="flex flex-col items-center text-center w-full h-auto px-4  font-roboto
+                        ">
 
             {/* Book Cover Section */}
             <div className="relative w-full sm:w-1/2 h-60 sm:h-72 flex justify-center items-center 
@@ -47,29 +48,35 @@ export const BookItemComponent = () => {
             {/* Book Details Section */}
             <div className="w-full text-right space-y-3 pt-3">
                 <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold text-left">{singleBook.bookTitle}</span>
+                    <span className="text-xl sm:text-2xl md:text-3xl font-bold text-left text-gray-800">
+                        {singleBook.bookTitle}
+                    </span>
                     <ButtonComponent
                         onClick={() => console.log(singleBook._id)}
                         text="Buy Now"
                         type="button"
                         className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 
                                    hover:to-orange-500 text-white px-4 py-2 rounded-lg shadow-lg"
+                        icon={<FaShop className="inline-block mr-2" />}
                     />
                 </div>
 
                 <div className="flex justify-between items-center">
-                    <p className="text-gray-500">By {singleBook.author}</p>
-                    <span className="text-gray-500 pt-2 pr-8">
-                        {singleBook.price && singleBook.price !== 0 ? `Price: $${singleBook.price}` : "Price: Exchange"}
+                    <p className="text-base sm:text-lg text-gray-500">By {singleBook.author}</p>
+                    <span className="text-sm sm:text-base text-gray-500 pt-2 pr-8">
+                        {singleBook.price && singleBook.price !== 0
+                            ? `Price: $${singleBook.price}`
+                            : "Price: Exchange"}
                     </span>
                 </div>
 
                 {/* Book Description */}
-                <p className="w-full text-left">
-                    <span className="text-black font-semibold">Description: </span>
+                <p className="w-full text-left text-base sm:text-lg Roboto">
+                    <span className="text-black font-semibold ">Description: </span>
                     <span className="text-gray-700">{singleBook.description}</span>
                 </p>
             </div>
         </div>
     );
 };
+
