@@ -25,8 +25,8 @@ export const FormSigninComponent = () => {
   async function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();
     setIsLoading(true)
-    // await signUpFunction(user);
-    // setIsLoading(false)
+    await signUpFunction(user);
+    setIsLoading(false)
   }
   return (
 
@@ -40,7 +40,6 @@ export const FormSigninComponent = () => {
 
       <div className="container">
         <form onSubmit={handleSubmit} className="space-y-6" >
-          {/* {isLoading ? <LoadingSpinner /> : ''} */}
           <div className="relative mt-2">
             <InputUI
               id="fullname"
@@ -94,7 +93,7 @@ export const FormSigninComponent = () => {
               disabled={isLoading}
               className={`${notDisabledButtonStyle}`}
             >
-          {isLoading ? <MiniLoadingSpinner /> : 'Sign in'}
+          {isLoading ? <MiniLoadingSpinner /> : 'Sign in'} 
               
             </button>
             <div className="flex items-center justify-between my-1">

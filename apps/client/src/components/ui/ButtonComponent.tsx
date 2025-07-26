@@ -1,7 +1,7 @@
 
 interface ButtonComponentProps {
     onClick: () => void
-    text: string;
+    text: string | JSX.Element;
     type: "button" | "submit" | "reset";
     className?: string;
     icon?: JSX.Element;

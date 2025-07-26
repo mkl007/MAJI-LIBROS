@@ -62,7 +62,7 @@ export const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email })
     if (!user) {
-      return res.status(404).json({ message: 'User no found with email provided, please review the email or register your email' })
+      return res.status(404).json({ message: 'Email not registered. Please sign up' })
     } else if (user && user.verified) {
 
       const paswrdDeshash = bcrypt.compareSync(password, user.password)

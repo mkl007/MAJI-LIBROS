@@ -7,6 +7,8 @@ import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { GoogleButton } from './GoogleButton.component';
 import { InputUI } from './ui/InputUI';
 import { ButtonComponent } from './ui/ButtonComponent';
+import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 
@@ -14,7 +16,7 @@ import { ButtonComponent } from './ui/ButtonComponent';
 
 
 export const LogInFormComponent = () => {
-    const { loginFunction, data, isLoggedIn, isLoading } = useAuth()
+    const { loginFunction, data, isLoggedIn, isLoading, setIsLoading, error } = useAuth()
     const [user, setUser] = useState<UserToLogin>({ email: '', password: '' });
 
     const navegate = useNavigate()
@@ -29,12 +31,19 @@ export const LogInFormComponent = () => {
             email: user.email,
             password: user.password
         }
+        setIsLoading(true)
         loginFunction(newUser)
     }
     useEffect(() => {
         if (data?.message === 'Logged in') navegate('/profile')
 
     }, [data, navegate])
+
+    useEffect(()=>{
+        toast.error(error)
+        // console.log('Here from toast test')
+    }, [isLoading, error])
+
 
     return (
         <div className="  mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto
@@ -46,10 +55,11 @@ export const LogInFormComponent = () => {
                 </h2>
             </div>
 
+            {error && <div><ToastContainer/></div>}
 
             <div className="container">
                 <form onSubmit={handleSubmit} className="space-y-6" >
-                    {isLoading ? <LoadingSpinner /> : ''}
+                    {/* {isLoading ? <LoadingSpinner /> : ''} */}
 
                     <div className="mt-2">
                         <InputUI
@@ -82,7 +92,7 @@ export const LogInFormComponent = () => {
                     <div>
                         <ButtonComponent
                             onClick={() => console.log('')}
-                            text='Log in'
+                            text={isLoading ? <MiniLoadingSpinner /> : 'Sign in'}
                             type='submit'
                             className=" w-full justify-center rounded-md bg-green-600 text-sm 
                                         font-semibold leading-6 text-white shadow-sm hover:bg-green-700 

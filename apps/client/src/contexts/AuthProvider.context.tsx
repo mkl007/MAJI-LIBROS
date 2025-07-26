@@ -18,8 +18,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const signUpFunction = async (user: UserToSignUp) => {
         try {
             setIsLoading(true)
-            // const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/register', user);
-            // setData(response.data);
+            const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/register', user);
+            setData(response.data);
             // console.log(response)
         } catch (error) {
             console.error('Error while creating user:', error);
@@ -40,15 +40,17 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         try {
             const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/login', user);
             setData(response.data);
-            setIsLoading(true)
+
+            // setIsLoading(true)
             if (response?.data?.message === 'Logged in') {
                 setIsLoggedIn(true)
                 setIsLoading(false)
             }
-        } catch (err) {
-            console.log('Error Logging into the account:', err);
+        } catch (err:any) {
+            console.log('Error Logging into the account:', err.response.data.message);
             setData(null);
-            // setError(err)
+            setError(err.response.data.message);
+            setIsLoading(false)
         }
     };
 
@@ -95,7 +97,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     }, [data])
 
     return (
-        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user, googleSignIn }}>
+        <AuthContext.Provider value={{ data, signUpFunction, isLoading, setIsLoading, loginFunction, isLoggedIn, setIsLoggedIn, user, googleSignIn, error }}>
             {children}
         </AuthContext.Provider>
     )

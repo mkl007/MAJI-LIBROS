@@ -17,6 +17,7 @@ export interface UserContextInterface {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   googleSignIn: () => Promise<void>;
+  error: string | null;
 }
 
 export interface UserToSignUp {
