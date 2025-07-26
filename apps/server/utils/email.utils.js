@@ -32,8 +32,10 @@ export async function sendConfirmationEmail(newUser, verificationLink) {
     };
 
     await transporter.sendMail(mailOptions);
+    console.log("Confirmation email sent successfully");
     return { success: true };
   } catch (error) {
+    console.log(error)
     return { success: false, error: "Email sending failed" };
   }
 }

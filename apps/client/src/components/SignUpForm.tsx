@@ -6,6 +6,7 @@ import { GithubButton } from '../components/GithubButton.component';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { GoogleButton } from './GoogleButton.component';
 import { InputUI } from './ui/InputUI';
+import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
 
 export const notDisabledInputStyle = "block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 export const disabledInputStyle = "block w-full rounded-md bg-gray-300 border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6 "
@@ -24,8 +25,8 @@ export const FormSigninComponent = () => {
   async function handleSubmit(event: { preventDefault: () => void; }) {
     event.preventDefault();
     setIsLoading(true)
-    await signUpFunction(user);
-    setIsLoading(false)
+    // await signUpFunction(user);
+    // setIsLoading(false)
   }
   return (
 
@@ -39,7 +40,7 @@ export const FormSigninComponent = () => {
 
       <div className="container">
         <form onSubmit={handleSubmit} className="space-y-6" >
-          {isLoading ? <LoadingSpinner /> : ''}
+          {/* {isLoading ? <LoadingSpinner /> : ''} */}
           <div className="relative mt-2">
             <InputUI
               id="fullname"
@@ -93,7 +94,8 @@ export const FormSigninComponent = () => {
               disabled={isLoading}
               className={`${notDisabledButtonStyle}`}
             >
-              Sign in
+          {isLoading ? <MiniLoadingSpinner /> : 'Sign in'}
+              
             </button>
             <div className="flex items-center justify-between my-1">
               <span className="border-b border-gray-300 w-full"></span>

@@ -29,7 +29,7 @@ export const ProfileDescription = () => {
           </p>
           <p>
             <strong className="text-gray-600">Provider:</strong>{" "}
-            {user?.userInfo.provider.toUpperCase()}
+            {user?.userInfo.provider}
           </p>
         </div>
       </div>

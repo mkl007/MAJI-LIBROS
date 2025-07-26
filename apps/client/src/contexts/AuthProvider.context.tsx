@@ -18,8 +18,9 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const signUpFunction = async (user: UserToSignUp) => {
         try {
             setIsLoading(true)
-            const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/register', user);
-            setData(response.data);
+            // const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/register', user);
+            // setData(response.data);
+            // console.log(response)
         } catch (error) {
             console.error('Error while creating user:', error);
             setData(null);
@@ -66,13 +67,13 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
                 else {
                     setError(response.data);
                     setIsLoading(false)
-                    console.log('Else Error: ', response.data)
+                    // console.log('Else Error: ', response.data)
 
 
                 }
             } catch (error) {
                 setError('Error: ' + error);
-                console.log('Error: ', error)
+                // console.log('Error: ', error)
                 setIsLoading(false)
                 setIsLoggedIn(false)
             }
@@ -88,7 +89,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
     useEffect(() => {
         if (error) {
-            console.log(error)
+            // console.log(error)
             setIsLoggedIn(false)
         }
     }, [data])

@@ -13,7 +13,10 @@ export const registerUser = async (req, res) => {
   try {
 
     const verifyEmail = await User.findOne({ email: req.body.email });
-    if (verifyEmail) return res.status(409).json({ message: "Email already exist. Do you mean to login?" });
+    if (verifyEmail) {
+      console.log({ message: "Email already exist. Do you mean to login?" })
+      return res.status(409).json({ message: "Email already exist. Do you mean to login?" });
+    }
     const newUser = new User({
       fullname: req.body.fullname,
       email: req.body.email,
@@ -38,7 +41,7 @@ export const registerUser = async (req, res) => {
       return res.status(404).json({ message: "Error sending confirmation email. Email no found, double check email address" });
     }
   } catch (error) {
-    // console.log(error)
+    console.log(error)
     res.status(500).json({ message: "Internal Error. Please refresh the page and try again" })
   }
 };
@@ -241,7 +244,7 @@ export const handleAuthGithubProvider = async (req, res) => {
         provider: profile.provider,
         userAvatar: profile._json.avatar_url,
         email: profile._json.email === null ? `${profile.username}_${profile.id}@majibooks.com` : profile._json.email,
-        verified: true 
+        verified: true
       })
       const token = jwt.sign({ id: newUser.id }, process.env.JWT_PASS, { expiresIn: '7d' });
       res.cookie('token', token, {
