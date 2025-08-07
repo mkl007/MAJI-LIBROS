@@ -7,6 +7,7 @@ import { GoogleButton } from './GoogleButton.component';
 import { InputUI } from './ui/InputUI';
 import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
 import { toast, ToastContainer } from 'react-toastify';
+import { VerifyEmailModalComponent } from './VerifyEmailModal.component';
 
 export const notDisabledInputStyle = "block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 export const disabledInputStyle = "block w-full rounded-md bg-gray-300 border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6 "
@@ -14,8 +15,14 @@ export const notDisabledButtonStyle = 'flex w-full justify-center rounded-md bg-
 
 export const FormSigninComponent = () => {
   const [user, setUser] = useState<UserToSignUp>({ fullname: '', email: '', password: '' });
-  const { signUpFunction, setIsLoading, isLoading, isLoggedIn, error } = useAuth()
+  const { signUpFunction, setIsLoading, isLoading, isLoggedIn, error, data } = useAuth()
   const navigate = useNavigate();
+
+ const [showModal, setShowModal] = useState(true);
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     if (isLoggedIn) navigate('/')
@@ -42,6 +49,10 @@ export const FormSigninComponent = () => {
       </div>
       {error && <div><ToastContainer /></div>}
 
+      {showModal && data?.message ? (
+        <VerifyEmailModalComponent message={`${data?.message}`} onClose={handleModalClose} />
+      ) : null}
+     
 
       <div className="container">
         <form onSubmit={handleSubmit} className="space-y-6" >

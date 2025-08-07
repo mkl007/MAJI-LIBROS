@@ -12,7 +12,6 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [user, setUser] = useState<UserData | undefined>(undefined)
-    // const [authToken, setAuthToken] = useState<string | null>(null)
 
 
     const signUpFunction = async (user: UserToSignUp) => {
@@ -41,7 +40,6 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/login', user);
             setData(response.data);
 
-            // setIsLoading(true)
             if (response?.data?.message === 'Logged in') {
                 setIsLoggedIn(true)
                 setIsLoading(false)
