@@ -95,10 +95,13 @@ export const BookContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const allBooks = useCallback(async () => {
 
         try {
+            setIsLoadingBook(true)
             const response: AxiosResponse<BookApiResponse> = await instanceAxiosBooks.get('/showbooks')
             setBooks(response.data.reqBooks)
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoadingBook(false)
         }
     }, [])
 

@@ -1,13 +1,15 @@
 import { useEffect, } from 'react';
 import { useBook } from '../hooks/useBook';
 import { FeedItem } from './FeedItem';
+import { LoadingSpinner } from '../utils/LoadingSnipper';
+import { H1 } from './ui/H1';
 
 export const Feeds = () => {
-  const { allBooks, books } = useBook()
+  const { allBooks, books, isLoadingBook } = useBook()
 
   useEffect(() => {
     allBooks()
-    console.log(books)
+    console.log(isLoadingBook)
   }, [])
 
   return (
@@ -16,7 +18,7 @@ export const Feeds = () => {
       <div className=" grid grid-cols-2 md:grid-cols-3 
                       lg:grid-cols-4 gap-2 xl:grid-cols-5 
                       xl:gap-0">
-
+        {isLoadingBook && <div > <LoadingSpinner /></div>}
 
         {
           !books ? <div><h2>No Books available</h2> </div> : (
