@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 const ModalPromptingToLogin2 = () => {
   const [isOpen, setIsOpen] = useState(true);
   const toggleModal = () => {
-    console.log('hi from toggleModal')
     setIsOpen(!isOpen);
   };
-
+ 
   return (
     <>
       {isOpen && (
@@ -43,7 +42,7 @@ const ModalPromptingToLogin2 = () => {
 
 export const Userverificationsuccess = () => {
   return (
-    <div>
+    <div className=" items-center justify-center h-screen bg-gray-100">
       <ModalPromptingToLogin2 />
     </div>
   )
