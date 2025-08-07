@@ -9,6 +9,7 @@ export const ProfileDescription = () => {
   return (
     <div className="bg-white shadow-md rounded-xl">
       <div className="flex items-center gap-6">
+        {console.log(user?.userInfo)}
         {user?.userInfo.userAvatar ? (
           <UserAvatarProfile imageUrl={user.userInfo.userAvatar} />
         ) : (
@@ -20,16 +21,17 @@ export const ProfileDescription = () => {
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold text-gray-800">About Me</h2>
           <p>
-            <strong className="text-gray-600">Name:</strong>{" "}
-            {user?.userInfo.fullname}
+            <strong className="text-gray-600">Name:</strong>
+            {`  ${user?.userInfo.fullname}`}
           </p>
           <p>
-            <strong className="text-gray-600">Email:</strong>{" "}
-            {user?.userInfo.email}
+            <strong className="text-gray-600">Email:</strong>
+            {`  ${user?.userInfo.email}`}
+
           </p>
           <p>
-            <strong className="text-gray-600">Provider:</strong>{" "}
-            {user?.userInfo.provider}
+            <strong className="text-gray-600">Provider:</strong>
+            {`  ${user?.userInfo.provider || user?.userInfo.email.split("@")[1].toLocaleUpperCase()}`}
           </p>
         </div>
       </div>
