@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserToSignUp } from '../interfaces/User.interface';
 import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from '../components/GithubButton.component';
-import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { GoogleButton } from './GoogleButton.component';
 import { InputUI } from './ui/InputUI';
 import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const notDisabledInputStyle = "block w-full rounded-md border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6"
 export const disabledInputStyle = "block w-full rounded-md bg-gray-300 border-2 border-gray-300 py-1.5 px-3 text-gray-900 shadow-sm placeholder-gray-500 focus:border-sky-900 sm:text-sm sm:leading-6 "
@@ -14,12 +14,16 @@ export const notDisabledButtonStyle = 'flex w-full justify-center rounded-md bg-
 
 export const FormSigninComponent = () => {
   const [user, setUser] = useState<UserToSignUp>({ fullname: '', email: '', password: '' });
-  const { signUpFunction, setIsLoading, isLoading, isLoggedIn } = useAuth()
+  const { signUpFunction, setIsLoading, isLoading, isLoggedIn, error } = useAuth()
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn) navigate('/')
   })
+
+  useEffect(() => {
+    toast.warning(error)
+  }, [isLoading, error])
 
 
   async function handleSubmit(event: { preventDefault: () => void; }) {
@@ -36,6 +40,7 @@ export const FormSigninComponent = () => {
           Sign in
         </h2>
       </div>
+      {error && <div><ToastContainer /></div>}
 
 
       <div className="container">
@@ -93,8 +98,8 @@ export const FormSigninComponent = () => {
               disabled={isLoading}
               className={`${notDisabledButtonStyle}`}
             >
-          {isLoading ? <MiniLoadingSpinner /> : 'Sign in'} 
-              
+              {isLoading ? <MiniLoadingSpinner /> : 'Sign in'}
+
             </button>
             <div className="flex items-center justify-between my-1">
               <span className="border-b border-gray-300 w-full"></span>

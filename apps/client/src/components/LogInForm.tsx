@@ -41,7 +41,6 @@ export const LogInFormComponent = () => {
 
     useEffect(()=>{
         toast.error(error)
-        // console.log('Here from toast test')
     }, [isLoading, error])
 
 

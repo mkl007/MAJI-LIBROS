@@ -20,9 +20,9 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
             setIsLoading(true)
             const response: AxiosResponse<ApiResponse> = await instanceAxios.post<ApiResponse>('/register', user);
             setData(response.data);
-            // console.log(response)
-        } catch (error) {
-            console.error('Error while creating user:', error);
+            console.log('Response from signup', response.data)
+        } catch (error: any) {
+            if(error) setError(error.response.data.message);
             setData(null);
         } finally {
             setIsLoading(false)

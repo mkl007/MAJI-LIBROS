@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaLitecoinSign } from "react-icons/fa6";
 import { LuLogIn } from "react-icons/lu";
 import { Link, redirect } from "react-router-dom";
 import { ButtonComponent } from "./ui/ButtonComponent";
