@@ -7,9 +7,8 @@ export const ProfileDescription = () => {
   const { user } = useAuth();
 
   return (
-    <div className="bg-white shadow-md rounded-xl">
+    <div className="bg-white shadow-md rounded-xl w-full p-6 border border-gray-200">
       <div className="flex items-center gap-6">
-        {console.log(user?.userInfo)}
         {user?.userInfo.userAvatar ? (
           <UserAvatarProfile imageUrl={user.userInfo.userAvatar} />
         ) : (
