@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserToLogin } from '../interfaces/User.interface';
 import { useAuth } from '../hooks/useAuth';
 import { GithubButton } from './GithubButton.component';
-import { LoadingSpinner } from '../utils/LoadingSnipper';
 import { GoogleButton } from './GoogleButton.component';
 import { InputUI } from './ui/InputUI';
 import { ButtonComponent } from './ui/ButtonComponent';

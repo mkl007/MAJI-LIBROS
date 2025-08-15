@@ -17,6 +17,7 @@ export const SearchInput = () => {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
+            console.log(searchText)
             if (
                 wrapperRef.current &&
                 !wrapperRef.current.contains(event.target as Node)
@@ -50,6 +51,7 @@ export const SearchInput = () => {
                 aria-label="Toggle search"
             >
                 {showInput ? <FaTimes /> : <FaSearch />}
+
             </button>
 
             {showInput && (

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LuLogIn } from "react-icons/lu";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ButtonComponent } from "./ui/ButtonComponent";
 
 interface LoginModalProps {

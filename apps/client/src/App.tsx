@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './contexts/AuthProvider.context';
 import { BookContextProvider } from './contexts/Book.context';
 import { AppLayout } from './layout/App.layout';
-import { AddNewBook, AdminDashboard, HomePage, LoginPage, MyBooksPage, NotAuthorized, Profile, Settings, ShoppingCartPage, SignUpPage, UpdateBookPage, Userverificationsuccess } from './pages/index';
+import { AddNewBook, AdminDashboard, HomePage, LoginPage, MyBooksPage, NotAuthorized, Profile, ShoppingCartPage, SignUpPage, UpdateBookPage, Userverificationsuccess } from './pages/index';
 import { ProtectedRoutes, AdminProtectedRoutes } from './components/index'
 import { ShoppingCartProvider } from './contexts/ShoppingCartProvider';
 import { BookItem } from './pages/BookItem';
