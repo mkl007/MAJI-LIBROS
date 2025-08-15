@@ -2,7 +2,6 @@ import { useEffect, } from 'react';
 import { useBook } from '../hooks/useBook';
 import { FeedItem } from './FeedItem';
 import { LoadingSpinner } from '../utils/LoadingSnipper';
-import { H1 } from './ui/H1';
 
 export const Feeds = () => {
   const { allBooks, books, isLoadingBook } = useBook()
