@@ -6,11 +6,12 @@ import User from "../models/user.model.js";
 import Token from "../models/token.model.js";
 import { sendConfirmationEmail } from "../utils/email.utils.js";
 
-
-
-
 export const registerUser = async (req, res) => {
   try {
+    // Validar que los campos requeridos existan
+    if (!req.body.fullname || !req.body.email || !req.body.password) {
+      return res.status(400).json({ message: "Missing required fields: fullname, email, password" });
+    }
 
     const verifyEmail = await User.findOne({ email: req.body.email });
     if (verifyEmail) {
@@ -182,7 +183,7 @@ export const verifyTokenRoute = async (req, res) => {
 
 export const handleAuthGoogleProvider = async (req, res) => {
   try {
-    await User.deleteOne({ email: req.profile })
+    // await User.deleteOne({ email: req.profile })
     const user = req.user._json
 
     const checkEmailUser = await User.findOne({ email: user.email })

@@ -10,10 +10,10 @@ import cookieParser from 'cookie-parser'
 import { cartRouter } from './routes/userCarts.route.js'
 import { authFunction } from './configs/authGoogle.js'
 
+dotenv.config()
 
 export const port = process.env.NODE_ENV === 'test' ? 3001 : process.env.PORT || 3000;
 
-dotenv.config()
 db();
 
 const app = express()
