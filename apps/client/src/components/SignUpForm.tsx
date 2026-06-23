@@ -54,7 +54,7 @@ export const FormSigninComponent = () => {
   return (
     <div className="mb-3.5 bg-stone-50 mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-md shadow-2xl pb-3">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="text-xl md:text-2xl font-bold text-center leading-9 tracking-tight text-gray-900 mt-10">
+        <h2 className="text-xl md:text-2xl font-bold font-type  text-center leading-9 tracking-tight text-gray-900 mt-10">
           Sign Up
         </h2>
       </div>
@@ -95,7 +95,7 @@ export const FormSigninComponent = () => {
           </div>
         </form>
 
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="mt-10 text-center text-sm text-gray-500 font-type">
           Already have an account?
           <Link to="/login" className="pl-2 font-semibold text-indigo-600 hover:text-indigo-500">
             Log in
