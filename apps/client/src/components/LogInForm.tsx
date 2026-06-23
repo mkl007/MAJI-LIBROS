@@ -8,9 +8,13 @@ import { InputUI } from './ui/InputUI';
 import { ButtonComponent } from './ui/ButtonComponent';
 import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
 import { toast, ToastContainer } from 'react-toastify';
+import { INPUT_STYLES } from './formStyles.constant';
+import { FormField } from './FormField';
 
-
-
+const FORM_FIELDS = [
+    { id: 'email', type: 'email', placeholder: 'Email' },
+    { id: 'password', type: 'password', placeholder: 'Password' },
+] as const;
 
 
 
@@ -38,28 +42,25 @@ export const LogInFormComponent = () => {
 
     }, [data, navegate])
 
-    useEffect(()=>{
+    useEffect(() => {
         toast.error(error)
     }, [isLoading, error])
 
 
     return (
-        <div className="  mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto
+        <div className=" mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto
                          sm:w-full sm:max-w-sm rounded-md shadow-2xl font-type ">
-
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="text-xl mt-10 text-center  md:text-2xl font-bold leading-9 tracking-tight text-gray-900">
                     Log in
                 </h2>
             </div>
 
-            {error && <div><ToastContainer/></div>}
+            {error && <div><ToastContainer /></div>}
 
             <div className="container">
-                <form onSubmit={handleSubmit} className="space-y-6" >
-                    {/* {isLoading ? <LoadingSpinner /> : ''} */}
-
-                    <div className="mt-2">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate >
+                    {/* <div className="mt-2">
                         <InputUI
                             id="email"
                             name="email"
@@ -71,8 +72,6 @@ export const LogInFormComponent = () => {
                             disabled={isLoading}
                         />
                     </div>
-
-
                     <div className="mt-2">
 
                         <InputUI
@@ -85,9 +84,22 @@ export const LogInFormComponent = () => {
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                             disabled={isLoading}
                         />
-                    </div>
+                    </div> */}
+
+                    {FORM_FIELDS.map(({ id, type, placeholder }) => (
+                        <FormField
+                            key={id}
+                            id={id}
+                            type={type}
+                            placeholder={placeholder}
+                            value={user[id as keyof typeof user]}
+                            onChange={(value) => setUser({ ...user, [id]: value })}
+                            disabled={isLoading}
+                        />
+                    ))}
 
                     <div>
+
                         <ButtonComponent
                             onClick={() => console.log('')}
                             text={isLoading ? <MiniLoadingSpinner /> : 'Sign in'}
@@ -96,8 +108,6 @@ export const LogInFormComponent = () => {
                                         font-semibold leading-6 text-white shadow-sm hover:bg-green-700 
                                         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
                                         focus-visible:outline-indigo-600 lg:text-md p-2"
-
-
                         />
 
                         <div className="flex items-center justify-between my-1">
