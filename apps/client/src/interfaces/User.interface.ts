@@ -27,8 +27,8 @@ export interface UserToSignUp {
 }
 
 export interface UserToLogin {
-  email: string | undefined;
-  password: string | undefined;
+  email: string;
+  password: string;
 }
 
 interface UserInfo {

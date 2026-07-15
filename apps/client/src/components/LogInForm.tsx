@@ -1,138 +1,145 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserToLogin } from '../interfaces/User.interface';
-import { useAuth } from '../hooks/useAuth';
-import { GithubButton } from './GithubButton.component';
-import { GoogleButton } from './GoogleButton.component';
-import { InputUI } from './ui/InputUI';
-import { ButtonComponent } from './ui/ButtonComponent';
-import { MiniLoadingSpinner } from '../utils/MiniLoadingSnipper';
-import { toast, ToastContainer } from 'react-toastify';
-import { INPUT_STYLES } from './formStyles.constant';
-import { FormField } from './FormField';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserToLogin } from "../interfaces/User.interface";
+import { useAuth } from "../hooks/useAuth";
+import { GithubButton } from "./GithubButton.component";
+import { GoogleButton } from "./GoogleButton.component";
+import { InputUI } from "./ui/InputUI";
+import { ButtonComponent } from "./ui/ButtonComponent";
+import { MiniLoadingSpinner } from "../utils/MiniLoadingSnipper";
+import { toast, ToastContainer } from "react-toastify";
+import { BUTTON_STYLES, INPUT_STYLES } from "./formStyles.constant";
+import { FormField } from "./FormField";
+import {useLoginForm} from '../hooks/useLoginForm';
 
 const FORM_FIELDS = [
-    { id: 'email', type: 'email', placeholder: 'Email' },
-    { id: 'password', type: 'password', placeholder: 'Password' },
+  { id: "email", type: "email", placeholder: "Email" },
+  { id: "password", type: "password", placeholder: "Password" },
 ] as const;
 
-
-
 export const LogInFormComponent = () => {
-    const { loginFunction, data, isLoggedIn, isLoading, setIsLoading, error } = useAuth()
-    const [user, setUser] = useState<UserToLogin>({ email: '', password: '' });
+  const { loginFunction, data, isLoggedIn, isLoading, setIsLoading, error } =
+    useAuth();
+  // const [user, setUser] = useState<UserToLogin>({ email: "", password: "" });
+  const { errors, updateField, validateForm, reset, user } = useLoginForm();
 
-    const navegate = useNavigate()
+  const navegate = useNavigate();
 
-    useEffect(() => {
-        if (isLoggedIn) navegate('/')
-    })
+  useEffect(() => {
+    if (isLoggedIn) navegate("/");
+  });
 
-    function handleSubmit(event: { preventDefault: () => void; }) {
-        event.preventDefault();
-        const newUser: UserToLogin = {
-            email: user.email,
-            password: user.password
-        }
-        setIsLoading(true)
-        loginFunction(newUser)
+  // function handleSubmit(event: { preventDefault: () => void }) {
+  //   event.preventDefault();
+
+  //    if (!validateForm()) {
+  //     toast.error('Please fill in all fields correctly');
+  //     return;
+  //   }
+
+  //   const newUser: UserToLogin = {
+  //     email: user.email,
+  //     password: user.password,
+  //   };
+  //   setIsLoading(true);
+  //   loginFunction(newUser);
+  // }
+    const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      toast.error('Please fill in all fields correctly');
+      return;
     }
-    useEffect(() => {
-        if (data?.message === 'Logged in') navegate('/profile')
 
-    }, [data, navegate])
+    setIsLoading(true);
+    try {
+      await loginFunction(user);
+      reset();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (data?.message === "Logged in") navegate("/profile");
+  }, [data, navegate]);
 
-    useEffect(() => {
-        toast.error(error)
-    }, [isLoading, error])
+  useEffect(() => {
+    toast.error(error);
+  }, [isLoading, error]);
 
+  return (
+    <div
+      className=" mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto
+                         sm:w-full sm:max-w-sm rounded-md shadow-2xl font-type "
+    >
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 className="text-xl mt-10 text-center  md:text-2xl font-bold font-type leading-9 tracking-tight text-gray-900">
+          Log in
+        </h2>
+      </div>
 
-    return (
-        <div className=" mb-3.5 bg-midnight pb-3 bg-stone-50 mt-10 sm:mx-auto
-                         sm:w-full sm:max-w-sm rounded-md shadow-2xl font-type ">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="text-xl mt-10 text-center  md:text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                    Log in
-                </h2>
-            </div>
+      {error && <div><ToastContainer /></div>}
 
-            {error && <div><ToastContainer /></div>}
+      <div className="container">
+        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+          {FORM_FIELDS.map(({ id, type, placeholder }) => (
+            <FormField
+              key={id}
+              id={id}
+              type={type}
+              placeholder={placeholder}
+              disabled={isLoading}
+              value={user[id as keyof typeof user]}
+              error={errors[id as keyof typeof errors]}
+              onChange={(value) => {
+                updateField(id as keyof typeof user, value);
+                console.log(value, isLoading);
+              }}
+            />
+          ))}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={BUTTON_STYLES.submit}
+          >
+            {isLoading ? <MiniLoadingSpinner /> : "Log in"}
+          </button>
 
-            <div className="container">
-                <form onSubmit={handleSubmit} className="space-y-6" noValidate >
-                    {/* <div className="mt-2">
-                        <InputUI
-                            id="email"
-                            name="email"
-                            type="email"
-                            autoComplete="email"
-                            required
-                            placeholder='JohnDoe@gmail.com'
-                            onChange={(e) => setUser({ ...user, email: e.target.value })}
-                            disabled={isLoading}
-                        />
-                    </div>
-                    <div className="mt-2">
-
-                        <InputUI
-                            id="password"
-                            name="password"
-                            type="password"
-                            autoComplete="current-password"
-                            required
-                            placeholder='Password'
-                            onChange={(e) => setUser({ ...user, password: e.target.value })}
-                            disabled={isLoading}
-                        />
-                    </div> */}
-
-                    {FORM_FIELDS.map(({ id, type, placeholder }) => (
-                        <FormField
-                            key={id}
-                            id={id}
-                            type={type}
-                            placeholder={placeholder}
-                            value={user[id as keyof typeof user]}
-                            onChange={(value) => setUser({ ...user, [id]: value })}
-                            disabled={isLoading}
-                        />
-                    ))}
-
-                    <div>
-
+          <div>
+            {/* 
                         <ButtonComponent
                             onClick={() => console.log('')}
-                            text={isLoading ? <MiniLoadingSpinner /> : 'Sign in'}
+                            text={isLoading ? <MiniLoadingSpinner /> : 'Log in'}
                             type='submit'
                             className=" w-full justify-center rounded-md bg-green-600 text-sm 
                                         font-semibold leading-6 text-white shadow-sm hover:bg-green-700 
                                         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
                                         focus-visible:outline-indigo-600 lg:text-md p-2"
-                        />
+                        /> */}
 
-                        <div className="flex items-center justify-between my-1">
-                            <span className="border-b border-gray-300 w-full"></span>
-                            <span className="px-4 text-gray-500">or</span>
-                            <span className="border-b border-gray-300 w-full"></span>
-                        </div>
-                        <div className="flex flex-col space-y-3 md:flex-row md:justify-between md:space-x-4 md:space-y-0">
-                            <GoogleButton />
-                            <GithubButton />
-                        </div>
-
-
-
-                    </div>
-                </form>
-
-                <p className="mt-10 text-center text-sm text-gray-500">
-                    You don't have account?
-                    <Link to="/signup" className=" pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                        Sign Up
-                    </Link>
-                </p>
+            <div className="flex items-center justify-between my-1">
+              <span className="border-b border-gray-300 w-full"></span>
+              <span className="px-4 text-gray-500">or</span>
+              <span className="border-b border-gray-300 w-full"></span>
             </div>
-        </div>
-    );
-};
+            <div className="flex flex-col space-y-3 md:flex-row md:justify-between md:space-x-4 md:space-y-0">
+              <GoogleButton />
+              <GithubButton />
+            </div>
+          </div>
+        </form>
 
+        <p className="mt-10 text-center text-sm text-gray-500">
+          You don't have account?
+          <Link
+            to="/signup"
+            className=" pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          >
+            Sign Up
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};

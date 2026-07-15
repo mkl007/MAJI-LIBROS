@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { VerifyEmailModalComponent } from './VerifyEmailModal.component';
 import { BUTTON_STYLES } from './formStyles.constant';
 
-const FORM_FIELDS = [
+export const FORM_FIELDS = [
   { id: 'fullname', type: 'text', placeholder: 'Full Name' },
   { id: 'email', type: 'email', placeholder: 'Email' },
   { id: 'password', type: 'password', placeholder: 'Password' },
@@ -64,7 +64,7 @@ export const FormSigninComponent = () => {
       )}
 
       <div className="container p-6">
-        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+        <form onSubmit={handleSubmit} className="space-y-6 font-type" noValidate>
           {FORM_FIELDS.map(({ id, type, placeholder }) => (
             <FormField
               key={id}
@@ -74,7 +74,9 @@ export const FormSigninComponent = () => {
               error={errors[id as keyof typeof errors]}
               disabled={isLoading}
               placeholder={placeholder}
-              onChange={(value) => updateField(id as keyof typeof user, value)}
+              onChange={(value) => {
+                updateField(id as keyof typeof user, value) /// remove this line
+              }}
             />
           ))}
 
